@@ -13,146 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
-
-    <!-- Styles -->
-    <style>
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .hero {
-            background: linear-gradient(to right, #0072ff, #00c6ff);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: bold;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-        }
-
-        .btn-custom {
-            background-color: #fff;
-            color: #0072ff;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-custom:hover {
-            background-color: #0072ff;
-            color: white;
-        }
-
-        .features {
-            padding: 60px 20px;
-        }
-
-        .feature-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        footer {
-            background: #0d6efd;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .hero img {
-            max-width: 150px;
-            transition: transform 0.3s ease;
-        }
-
-        .hero img:hover {
-            transform: scale(1.1);
-        }
-
-        /* Card hover animation */
-        .team-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 15px;
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Image hover glow */
-        .team-img {
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .team-card:hover .team-img {
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-            transform: scale(1.1);
-        }
-
-        .about img {
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            /* Base shadow for emphasis */
-        }
-
-        .about img:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-            /* Stronger, deeper shadow */
-        }
-
-        .contact .card {
-            border-radius: 15px;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .contact .card:hover {
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .contact button {
-            transition: transform 0.3s ease;
-        }
-
-        .contact button:hover {
-            transform: translateY(-2px);
-        }
-
-        .map-container {
-            border-radius: 15px;
-            overflow: hidden;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .map-container:hover {
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar .btn-light {
-            color: #000;
-            font-weight: bold;
-        }
-
-        .navbar .btn-outline-light {
-            border-width: 2px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
 
 <body>
@@ -304,70 +165,74 @@
             </p>
         </div>
 
-        <div class="row g-4 justify-content-center">
-            <!-- Member 1 -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card team-card text-center shadow p-3 h-100">
-                    <img
-                        src="images/member1.jpg"
-                        class="rounded-circle mx-auto team-img"
-                        style="width: 120px; height: 120px; object-fit: cover;"
-                        alt="Member 1" />
-                    <h5 class="mt-3 mb-1">Juan Dela Cruz</h5>
-                    <p class="text-muted mb-2">Project Leader</p>
-                    <p class="small">
-                        Managed the overall project development and deployment.
-                    </p>
+        <!-- Carousel Wrapper -->
+        <div id="teamCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+            <div class="carousel-inner text-center">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
+                            <img src="{{ asset('Team/member_1.jpg') }}" class="rounded-circle mx-auto"
+                                style="width: 120px; height: 120px; object-fit: cover;" alt="Member 1" />
+                            <h5 class="mt-3 mb-1">Angel Mae Quiban</h5>
+                            <p class="text-muted mb-2">Project Leader</p>
+                            <p class="small">Managed the overall project development and deployment.</p>
+                        </div>
+
+                        <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
+                            <img src="{{ asset('Team/member_2.jpg') }}" class="rounded-circle mx-auto"
+                                style="width: 120px; height: 120px; object-fit: cover;" alt="Member 2" />
+                            <h5 class="mt-3 mb-1">Jericho Dalit</h5>
+                            <p class="text-muted mb-2">Backend Developer</p>
+                            <p class="small">Developed secure APIs and database management for the system.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
+                            <img src="{{ asset('Team/member_3.jpg') }}" class="rounded-circle mx-auto"
+                                style="width: 120px; height: 120px; object-fit: cover;" alt="Member 3" />
+                            <h5 class="mt-3 mb-1">Jesel P. Batestil</h5>
+                            <p class="text-muted mb-2">Frontend Developer</p>
+                            <p class="small">Designed the UI for a modern, responsive user experience.</p>
+                        </div>
+
+                        <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
+                            <img src="{{ asset('Team/member_4.jpg') }}" class="rounded-circle mx-auto"
+                                style="width: 120px; height: 120px; object-fit: cover;" alt="Member 4" />
+                            <h5 class="mt-3 mb-1">Annabel L. Abadines</h5>
+                            <p class="text-muted mb-2">Quality Assurance</p>
+                            <p class="small">Tested the system to ensure a smooth and bug-free performance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
+                            <img src="{{ asset('Team/member_5.jpg') }}" class="rounded-circle mx-auto"
+                                style="width: 120px; height: 120px; object-fit: cover;" alt="Member 5" />
+                            <h5 class="mt-3 mb-1">Rosuel B. Acebo</h5>
+                            <p class="text-muted mb-2">Quality Assurance</p>
+                            <p class="small">Tested the system to ensure a smooth and bug-free performance.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Member 2 -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card team-card text-center shadow p-3 h-100">
-                    <img
-                        src="images/member2.jpg"
-                        class="rounded-circle mx-auto team-img"
-                        style="width: 120px; height: 120px; object-fit: cover;"
-                        alt="Member 2" />
-                    <h5 class="mt-3 mb-1">Maria Santos</h5>
-                    <p class="text-muted mb-2">Backend Developer</p>
-                    <p class="small">
-                        Developed secure APIs and database management for the system.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Member 3 -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card team-card text-center shadow p-3 h-100">
-                    <img
-                        src="images/member3.jpg"
-                        class="rounded-circle mx-auto team-img"
-                        style="width: 120px; height: 120px; object-fit: cover;"
-                        alt="Member 3" />
-                    <h5 class="mt-3 mb-1">Pedro Reyes</h5>
-                    <p class="text-muted mb-2">Frontend Developer</p>
-                    <p class="small">
-                        Designed the UI for a modern, responsive user experience.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Member 4 -->
-            <div class="col-md-3 col-sm-6">
-                <div class="card team-card text-center shadow p-3 h-100">
-                    <img
-                        src="images/member4.jpg"
-                        class="rounded-circle mx-auto team-img"
-                        style="width: 120px; height: 120px; object-fit: cover;"
-                        alt="Member 4" />
-                    <h5 class="mt-3 mb-1">Ana Lopez</h5>
-                    <p class="text-muted mb-2">Quality Assurance</p>
-                    <p class="small">
-                        Tested the system to ensure a smooth and bug-free performance.
-                    </p>
-                </div>
-            </div>
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+            </button>
         </div>
     </section>
 

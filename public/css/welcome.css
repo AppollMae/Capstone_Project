@@ -1,0 +1,169 @@
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero {
+    background: linear-gradient(to right, #0072ff, #00c6ff);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+.btn-custom {
+    background-color: #fff;
+    color: #0072ff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #0072ff;
+    color: white;
+}
+
+.features {
+    padding: 60px 20px;
+}
+
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background: #0d6efd;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.hero img {
+    max-width: 150px;
+    transition: transform 0.3s ease;
+}
+
+.hero img:hover {
+    transform: scale(1.1);
+}
+
+/* Card hover animation */
+.team-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}
+
+.team-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Image hover glow */
+.team-img {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.team-card:hover .team-img {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+    transform: scale(1.1);
+}
+
+.about img {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* Base shadow for emphasis */
+}
+
+.about img:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    /* Stronger, deeper shadow */
+}
+
+.contact .card {
+    border-radius: 15px;
+    transition: box-shadow 0.3s ease;
+}
+
+.contact .card:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.contact button {
+    transition: transform 0.3s ease;
+}
+
+.contact button:hover {
+    transform: translateY(-2px);
+}
+
+.map-container {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.map-container:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .btn-light {
+    color: #000;
+    font-weight: bold;
+}
+
+.navbar .btn-outline-light {
+    border-width: 2px;
+    font-weight: bold;
+}
+
+.team-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth fade-in and upward animation for each card */
+.animate-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-in-out;
+}
+
+.carousel-item.active .animate-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optional: Hover effect on cards */
+.team-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item.active .animate-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.carousel-item.active .animate-card:nth-child(2) {
+    transition-delay: 0.3s;
+}
