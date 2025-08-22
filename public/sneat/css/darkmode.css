@@ -1,0 +1,6 @@
+.bg-light {
+    background-color: #f8f9fa !important;
+  }
+  .dark-mode-toggle:checked {
+    accent-color: #0d6efd;
+  }

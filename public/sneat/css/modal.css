@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+    .modal-dialog {
+        max-width: 90%; /* Adjust modal width for mobile */
+    }
+    .modal-body {
+        word-wrap: break-word; /* Ensure text doesn't overflow */
+        white-space: normal;  /* Allow text to break into new lines */
+    }
+}
