@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\dashboard\AccountsController;
 use App\Http\Controllers\Admin\dashboard\AdminController;
 use App\Http\Controllers\MPDO\MpdoController;
 use App\Http\Controllers\Applicant\ApplicantController;
@@ -19,11 +20,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/welcome', function () {
-    return view('welcome');
+  return view('welcome');
 })->name('welcome');
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Auth::routes();
@@ -32,7 +33,29 @@ Auth::routes();
 
 // Admin Routes
 Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], function () {
+  // Admin Main Dashboard
   Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+  // User Management
+  Route::prefix('user_management')->name('admin.user_management.')->group(function () {
+    Route::get('/', [AdminController::class, 'userManagementIndex'])->name('user-list');
+    Route::get('/{id}', [AdminController::class, 'showUser'])->name('user-show');
+  });
+
+  // Admin Accounts
+  Route::prefix('accounts')->name('admin.accounts.')->group(function () {
+    // View all accounts
+    Route::get('/', [AccountsController::class, 'viewAccountsIndex'])
+      ->name('view-accounts');
+
+    // Show edit form
+    Route::get('/update-accounts/{id}/edit', [AccountsController::class, 'updateAccountsIndex'])
+      ->name('edit-account');
+
+    // Update account (PUT request)
+    Route::put('/update-accounts', [AccountsController::class, 'updateAccounts'])
+      ->name('update-account');
+  });
 });
 
 
@@ -49,6 +72,6 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
 
 
 // Applicant Routes
-Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], function (){
+Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], function () {
   Route::get('/dashboard', [ApplicantController::class, 'index'])->name('applicant.dashboard');
 });

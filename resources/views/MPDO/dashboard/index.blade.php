@@ -42,27 +42,22 @@
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Total permits issued</div>
+                <div data-i18n="Without menu">Active projects</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Pending applications</div>
+                <div data-i18n="Without menu">Completed projects</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Approved applications</div>
+                <div data-i18n="Without menu">Ongoing building permits</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Rejected applications</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without menu">Revenue from permit fees</div>
+                <div data-i18n="Without menu">Population and demographic updates</div>
               </a>
             </li>
           </ul>
@@ -71,42 +66,78 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-chart-simple"></i>
-            <div data-i18n="Layouts">Graph/Charts</div>
+            <div data-i18n="Layouts">Visualizations</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Monthly application trends</div>
+                <div data-i18n="Without menu"> Maps of ongoing development zones</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Approval rates</div>
+                <div data-i18n="Without navbar">Charts for project allocation and budgets</div>
               </a>
             </li>
           </ul>
         </li>
+
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-building"></i>
-            <div data-i18n="Layouts">Permit Applications</div>
+            <div data-i18n="Layouts">Development Projects</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">All Applications</div>
+                <div data-i18n="Without navbar">All Projects</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Pending Review</div>
+                <div data-i18n="Without navbar">Ongoing</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Approved & Rejected</div>
+                <div data-i18n="Without navbar">Completed</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Proposed</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-chart-simple"></i>
+            <div data-i18n="Layouts">Reports & Analytics</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Annual investment plans (AIP)</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Budget allocation and utilization</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Infrastructure development progress</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Population and demographic analysis</div>
               </a>
             </li>
           </ul>
@@ -205,7 +236,19 @@
                       </div>
                       <div class="flex-grow-1">
                         <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                        <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                        <small class="text-muted"> @php
+                          $role = strtolower(auth()->user()->role);
+                          if ($role === 'bfp') {
+                          $roleLabel = 'BFP';
+                          } elseif ($role === 'admin') {
+                          $roleLabel = 'Admin';
+                          } elseif ($role === 'mpdo') {
+                          $roleLabel = 'MPDO';
+                          } else {
+                          $roleLabel = 'User';
+                          }
+                          @endphp
+                          {{ $roleLabel }}</small>
                       </div>
                     </div>
                   </a>
@@ -292,7 +335,7 @@
                     <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
                       <strong style="font-size:8.5rem; text-align:center;">
-                        
+
                       </strong>
                     </div>
                   </div>
@@ -300,11 +343,11 @@
               </div>
 
               <!-- Kind of contest category have been joined -->
-              
+
               <!-- No comment yet -->
 
               <!-- List of categories and counts -->
-              
+
             </div>
           </div>
         </div>

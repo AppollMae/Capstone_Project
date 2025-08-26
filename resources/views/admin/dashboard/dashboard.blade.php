@@ -115,17 +115,22 @@
 
 
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Accounts</span>
+          <span class="menu-header-text">Accounts Settings / User Management</span>
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <i class="menu-icon fa-solid fa-user"></i>
             <div data-i18n="Account Settings">Account Settings</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('admin.accounts.view-accounts') }}" class="menu-link">
                 <div data-i18n="Account">Account</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('admin.accounts.update-account', Auth::user()->id) }}" class="menu-link">
+                <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
             <li class="menu-item">
@@ -133,9 +138,25 @@
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
+            
+          </ul>
+        </li>
+
+
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-list-check"></i>
+            <div data-i18n="Account Settings">User Management</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('admin.user_management.user-list') }}" class="menu-link">
+                <div data-i18n="Account">Staff/Inspector</div>
+              </a>
+            </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Notifications">Update Account</div>
+                <div data-i18n="Notifications">Applicant</div>
               </a>
             </li>
           </ul>
@@ -205,7 +226,19 @@
                       </div>
                       <div class="flex-grow-1">
                         <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                        <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                        <small class="text-muted"> @php
+                          $role = strtolower(auth()->user()->role);
+                          if ($role === 'bfp') {
+                          $roleLabel = 'BFP';
+                          } elseif ($role === 'admin') {
+                          $roleLabel = 'Admin';
+                          } elseif ($role === 'mpdo') {
+                          $roleLabel = 'MPDO';
+                          } else {
+                          $roleLabel = 'User';
+                          }
+                          @endphp
+                          {{ $roleLabel }}</small>
                       </div>
                     </div>
                   </a>
@@ -292,7 +325,7 @@
                     <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
                       <strong style="font-size:8.5rem; text-align:center;">
-                        
+
                       </strong>
                     </div>
                   </div>
@@ -300,11 +333,11 @@
               </div>
 
               <!-- Kind of contest category have been joined -->
-              
+
               <!-- No comment yet -->
 
               <!-- List of categories and counts -->
-              
+
             </div>
           </div>
         </div>
