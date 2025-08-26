@@ -7,6 +7,7 @@ use App\Http\Controllers\Applicant\ApplicantController;
 use App\Http\Controllers\BFP\BfpController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,30 +30,30 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 // Admin Routes
 Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], function () {
   // Admin Main Dashboard
   Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
-  // User Management
-  Route::prefix('user_management')->name('admin.user_management.')->group(function () {
+  // Admin User Management Routes
+  Route::prefix('user-management')->name('admin.user_management.')->group(function () {
     Route::get('/', [AdminController::class, 'userManagementIndex'])->name('user-list');
+    Route::get('/applicant-user-list', [AdminController::class, 'applicantUserList'])->name('applicant-user-list');
     Route::get('/{id}', [AdminController::class, 'showUser'])->name('user-show');
+    Route::put('/{id}/role', [AdminController::class, 'updateUserRole'])->name('user-update-role');
   });
+
+
 
   // Admin Accounts
   Route::prefix('accounts')->name('admin.accounts.')->group(function () {
-    // View all accounts
     Route::get('/', [AccountsController::class, 'viewAccountsIndex'])
       ->name('view-accounts');
-
-    // Show edit form
     Route::get('/update-accounts/{id}/edit', [AccountsController::class, 'updateAccountsIndex'])
       ->name('edit-account');
-
-    // Update account (PUT request)
     Route::put('/update-accounts', [AccountsController::class, 'updateAccounts'])
       ->name('update-account');
   });
@@ -62,6 +63,17 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
 // MPDO Routes
 Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function () {
   Route::get('/dashboard', [MpdoController::class, 'index'])->name('mpdo.dashboard');
+
+  Route::prefix('accounts')->name('mpdo.accounts.')->group(function () {
+    Route::get('/', [MpdoController::class, 'viewAccountsIndex'])
+      ->name('mpdo-view-accounts');
+
+    Route::get('/update-accounts/{id}/edit', [MpdoController::class, 'updateAccountsIndex'])
+      ->name('mpdo-edit-accounts');
+
+    Route::put('/update-accounts', [MpdoController::class, 'updateAccounts'])
+      ->name('mpdo-update-accounts');
+  });
 });
 
 

@@ -111,8 +111,34 @@
             </li>
           </ul>
         </li>
-
-
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-file-invoice-dollar"></i>
+            <div data-i18n="Account Settings">Payment Management</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Account">Application fees</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Notifications">Renewal fees</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Notifications">Pending Payments</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Notifications">Completed Payments</div>
+              </a>
+            </li>
+          </ul>
+        </li>
 
         <li class="menu-header small text-uppercase">
           <span class="menu-header-text">Accounts Settings / User Management</span>
@@ -138,7 +164,7 @@
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -155,7 +181,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('admin.user_management.applicant-user-list') }}" class="menu-link">
                 <div data-i18n="Notifications">Applicant</div>
               </a>
             </li>

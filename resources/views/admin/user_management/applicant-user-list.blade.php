@@ -148,12 +148,12 @@
                         <div data-i18n="Account Settings">User Management</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActive === 'Staff/Inspector' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
+                        <li class="menu-item ">
+                            <a href="{{ route('admin.user_management.user-list') }}" class="menu-link">
                                 <div data-i18n="Account">Staff/Inspector</div>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <li class="menu-item {{ $SubActive === 'Applicants' ? 'active' : '' }}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Notifications">Applicant</div>
                             </a>
@@ -323,7 +323,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($users as $user)
-                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo']))
+                                                @if(in_array(strtolower($user->role), ['user']))
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
@@ -404,78 +404,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <!-- Edit Button -->
-                                                        <!-- Edit Button -->
-                                                        <a href="#"
-                                                            class="btn btn-warning btn-sm shadow-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editRoleModal-{{ $user->id }}"
-                                                            title="Edit">
-                                                            <i class="bx bx-edit"></i>
-                                                        </a>
-
-                                                        <!-- Edit Role Modal -->
-                                                        <div class="modal fade" id="editRoleModal-{{ $user->id }}" tabindex="-1" aria-labelledby="editRoleModalLabel-{{ $user->id }}" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                <div class="modal-content border-0 shadow-lg rounded-4">
-
-                                                                    <!-- Modal Header -->
-                                                                    <div class="modal-header border-0 bg-gradient" style="background: linear-gradient(135deg, #ffc107, #fd7e14);">
-                                                                        <h5 class="modal-title text-white fw-semibold" id="editRoleModalLabel-{{ $user->id }}">
-                                                                            <i class="bx bx-user-check me-1"></i> Edit User Role
-                                                                        </h5>
-                                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-
-                                                                    <!-- Modal Body -->
-                                                                    <form action="{{ route('admin.user_management.user-update-role', $user->id) }}" method="POST">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="modal-body px-4 py-4">
-                                                                            <!-- User Info (Read-Only) -->
-                                                                            <div class="text-center mb-3">
-                                                                                <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
-                                                                                    alt="avatar"
-                                                                                    class="rounded-circle shadow-sm mb-2"
-                                                                                    width="90"
-                                                                                    height="90">
-                                                                                <h6 class="fw-bold mb-0">{{ $user->name }}</h6>
-                                                                                <p class="text-muted small mb-0">{{ $user->email }}</p>
-                                                                            </div>
-
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label fw-semibold">Current Role</label>
-                                                                                <input type="text" class="form-control" value="{{ ucfirst($user->role) }}" readonly>
-                                                                            </div>
-
-                                                                            <!-- Editable Role -->
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label fw-semibold">Change Role</label>
-                                                                                <select name="role" class="form-select" required>
-                                                                                    <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                                                                                    <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
-                                                                                    <option value="mpdo" {{ $user->role === 'mpdo' ? 'selected' : '' }}>MPDO</option>
-                                                                                    <option value="bfp" {{ $user->role === 'bfp' ? 'selected' : '' }}>BFP</option>
-                                                                                    <option value="treasurer" {{ $user->role === 'treasurer' ? 'selected' : '' }}>Treasurer</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- Modal Footer -->
-                                                                        <div class="modal-footer border-0">
-                                                                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
-                                                                                <i class="bx bx-x-circle me-1"></i> Cancel
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-warning rounded-pill px-4">
-                                                                                <i class="bx bx-save me-1"></i> Save Changes
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                     </td>
                                                 </tr>
                                                 @endif

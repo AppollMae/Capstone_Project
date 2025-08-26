@@ -59,8 +59,9 @@
     <!-- Add this in your layout's <head> section -->
     <!-- Font Awesome CDN (v6) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <script src="{{asset('sneat/js/participantsChoices.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -108,10 +109,7 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-
-
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

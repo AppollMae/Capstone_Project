@@ -8,7 +8,7 @@
 
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
-        <a href="" class="app-brand-link">
+        <a href="{{ route('mpdo.dashboard') }}" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
           <img src="{{asset('images/Logo.png')}}" alt="" style="width: 50px;">
@@ -25,7 +25,7 @@
       <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item active">
-          <a href="" class="menu-link">
+          <a href="{{ route('mpdo.dashboard') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
           </a>
@@ -150,13 +150,18 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <i class="menu-icon fa-solid fa-user"></i>
             <div data-i18n="Account Settings">Account Settings</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('mpdo.accounts.mpdo-view-accounts') }}" class="menu-link">
                 <div data-i18n="Account">Account</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('mpdo.accounts.mpdo-edit-accounts', Auth::user()->id) }}" class="menu-link">
+                <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
             <li class="menu-item">
@@ -164,11 +169,7 @@
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Notifications">Update Account</div>
-              </a>
-            </li>
+
           </ul>
         </li>
 

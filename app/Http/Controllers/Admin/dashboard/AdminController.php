@@ -30,27 +30,37 @@ class AdminController extends Controller
         return view('admin.user_management.user-management', compact('user'));
     }
 
-
-    public function updateUserManagement(Request $request, $id)
+    public function updateUserRole(Request $request, $id)
     {
         $request->validate([
-            'role' => 'required|in:user,admin,mpdo',
+            'role' => 'required|in:user,admin,mpdo,bfp,treasurer',
         ]);
 
         $user = User::findOrFail($id);
         $oldRole = $user->role;
 
+        // Update role
         $user->role = $request->role;
         $user->save();
 
-        // If the currently logged-in user's role was downgraded to user
+        // If the currently logged-in user's role was downgraded to 'user', log them out
         if (Auth::id() == $user->id && $user->role === 'user') {
             Auth::logout();
-            return redirect()->route('login')->with('status', 'Your role was changed. Please log in again.');
+            return redirect()->route('login')
+                ->with('status', 'Your role has been changed to "user". Please log in again.');
         }
 
-        return back()->with('status', 'Role updated successfully!');
+        return redirect()->back()->with('success', 'User role updated successfully!');
     }
 
-    
+
+
+    public function applicantUserList()
+    {
+        $users = User::where('role', 'user')->get();
+        return view('admin.user_management.applicant-user-list', compact('users'), [
+            'ActiveMenu' => 'user_management',
+            'SubActive' => 'Applicants'
+        ]);
+    }
 }
