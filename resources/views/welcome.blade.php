@@ -173,18 +173,18 @@
                 <div class="carousel-item active">
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
                         <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
-                            <img src="{{ asset('Team/member_1.jpg') }}" class="rounded-circle mx-auto"
+                            <img src="{{ asset('Team/Picture3.png') }}" class="rounded-circle mx-auto"
                                 style="width: 120px; height: 120px; object-fit: cover;" alt="Member 1" />
                             <h5 class="mt-3 mb-1">Angel Mae Quiban</h5>
-                            <p class="text-muted mb-2">Project Leader</p>
+                            <p class="text-muted mb-2"><span class="bg-warning px-2 py-1 rounded">Project Leader</span></p>
                             <p class="small">Managed the overall project development and deployment.</p>
                         </div>
 
                         <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
-                            <img src="{{ asset('Team/member_2.jpg') }}" class="rounded-circle mx-auto"
+                            <img src="{{ asset('Team/Picture1.png') }}" class="rounded-circle mx-auto"
                                 style="width: 120px; height: 120px; object-fit: cover;" alt="Member 2" />
                             <h5 class="mt-3 mb-1">Jericho Dalit</h5>
-                            <p class="text-muted mb-2">Backend Developer</p>
+                            <p class="text-muted mb-2">Programmer / <span class="bg-warning px-2 py-1 rounded">Back-End Developer</span></p>
                             <p class="small">Developed secure APIs and database management for the system.</p>
                         </div>
                     </div>
@@ -194,18 +194,18 @@
                 <div class="carousel-item">
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
                         <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
-                            <img src="{{ asset('Team/member_3.jpg') }}" class="rounded-circle mx-auto"
+                            <img src="{{ asset('Team/Picture2.png') }}" class="rounded-circle mx-auto"
                                 style="width: 120px; height: 120px; object-fit: cover;" alt="Member 3" />
                             <h5 class="mt-3 mb-1">Jesel P. Batestil</h5>
-                            <p class="text-muted mb-2">Frontend Developer</p>
+                            <p class="text-muted mb-2">System Analyst / <span class="bg-warning px-2 py-1 rounded">Front-End Developer</span></p>
                             <p class="small">Designed the UI for a modern, responsive user experience.</p>
                         </div>
 
                         <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
-                            <img src="{{ asset('Team/member_4.jpg') }}" class="rounded-circle mx-auto"
+                            <img src="{{ asset('Team/Picture5.png') }}" class="rounded-circle mx-auto"
                                 style="width: 120px; height: 120px; object-fit: cover;" alt="Member 4" />
                             <h5 class="mt-3 mb-1">Annabel L. Abadines</h5>
-                            <p class="text-muted mb-2">Quality Assurance</p>
+                            <p class="text-muted mb-2"><span class="bg-warning px-2 py-1 rounded">Quality Assurance</span></p>
                             <p class="small">Tested the system to ensure a smooth and bug-free performance.</p>
                         </div>
                     </div>
@@ -215,10 +215,10 @@
                 <div class="carousel-item">
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
                         <div class="card team-card shadow p-3 animate-card" style="min-width: 220px;">
-                            <img src="{{ asset('Team/member_5.jpg') }}" class="rounded-circle mx-auto"
+                            <img src="{{ asset('Team/Picture4.png') }}" class="rounded-circle mx-auto"
                                 style="width: 120px; height: 120px; object-fit: cover;" alt="Member 5" />
                             <h5 class="mt-3 mb-1">Rosuel B. Acebo</h5>
-                            <p class="text-muted mb-2">Quality Assurance</p>
+                            <p class="text-muted mb-2">Quality Assurance / <span class="bg-warning px-2 py-1 rounded">Documentary</span></p>
                             <p class="small">Tested the system to ensure a smooth and bug-free performance.</p>
                         </div>
                     </div>

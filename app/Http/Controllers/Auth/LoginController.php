@@ -44,6 +44,18 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
+        if ($user->role === 'mpdo') {
+            return redirect()->route('mpdo.dashboard');
+        }
+
+        if ($user->role === 'bfp') {
+            return redirect()->route('bfp.dashboard');
+        }
+
+        if ($user->role === 'user') {
+            return redirect()->route('applicant.dashboard');
+        }
+
         return redirect()->route('home');
     }
 }
