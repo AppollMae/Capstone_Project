@@ -135,13 +135,13 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item {{ $ActiveTab === 'applicants' ? 'active' : '' }}">
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-user"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'View-accounts' ? 'active' : '' }}">
+                        <li class="menu-item">
                             <a href="{{ route('applicants.accounts.applicants-view-accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
@@ -287,60 +287,91 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Applicants Account Settings /</span>Show Account
+                    <h4 class="fw-bold py-3 mb-4">
+                        <span class="text-muted fw-light">Building Permit /</span> Apply for Permit
                     </h4>
 
                     <div class="row">
                         <div class="col-md-12">
+                            <!-- Tabs Navigation -->
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                                    <a class="nav-link active" href="javascript:void(0);">
+                                        <i class="bx bx-file me-1"></i> New Application
+                                    </a>
                                 </li>
                             </ul>
 
+                            <!-- Permit Application Card -->
                             <div class="card mb-4">
-                                <h5 class="card-header">Profile Details</h5>
-                                <!-- Account -->
+                                <h5 class="card-header">Permit Application Form</h5>
                                 <hr class="my-0" />
 
                                 <div class="card-body">
-                                    <!-- User Data -->
-                                    <div class="row">
-                                        <!-- Name Field -->
-                                        <div class="mb-3 col-md-6">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input class="form-control" type="text" id="name" name="name" value="{{ $accounts->name }}"
-                                                readonly />
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        @csrf
+
+                                        <!-- Project Name -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="project_name" class="form-label">Project Name</label>
+                                            <input class="form-control" type="text" id="project_name" name="project_name" placeholder="Enter project name" required />
                                         </div>
 
-                                        <!-- Email Field -->
-                                        <div class="mb-3 col-md-6">
-                                            <label for="email" class="form-label">E-mail</label>
-                                            <input class="form-control" type="email" id="email" name="email" value="{{ $accounts->email }}"
-                                                readonly />
+                                        <!-- Project Location -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="location" class="form-label">Project Location</label>
+                                            <input class="form-control" type="text" id="location" name="location" placeholder="Enter project location" required />
                                         </div>
 
-                                        <div class="mb-3 col-md-6">
-                                            <label for="email" class="form-label">Role</label>
-                                            <input class="form-control" type="email" id="email" name="email" value="{{ $accounts->role }}"
-                                                readonly />
+                                        <!-- Location Search Input -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="address" class="form-label">Search Building Location</label>
+                                            <div class="input-group">
+                                                <input type="text" id="address" class="form-control" placeholder="Enter building location">
+                                                <button type="button" class="btn btn-primary" id="search-location">Search</button>
+                                            </div>
+                                            <small class="text-muted">Enter an address to pinpoint the location on the map.</small>
                                         </div>
-                                    </div>
 
-                                    <!-- Image Field -->
-                                    <div class="mb-3">
-                                        <label for="avatar" class="form-label">Profile Picture</label>
-                                        <img id="uploadedAvatar"
-                                            src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('assets/img/avatars/1.png') }}"
-                                            alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
-                                    </div>
+                                        <!-- Map for pinpointing location -->
+                                        <div class="mb-3 col-md-12">
+                                            <label class="form-label">Pinpoint Building Location</label>
+                                            <div id="map" style="height: 300px; border: 1px solid #ccc;"></div>
+                                            <input type="hidden" id="latitude" name="latitude">
+                                            <input type="hidden" id="longitude" name="longitude">
+                                            <small class="text-muted">Drag the marker to fine-tune the location.</small>
+                                        </div>
+
+
+                                        <!-- Project Description -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="description" class="form-label">Project Description</label>
+                                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Brief description of the project" required></textarea>
+                                        </div>
+
+                                        <!-- Upload Documents -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="documents" class="form-label">Upload Required Documents</label>
+                                            <input class="form-control" type="file" id="documents" name="documents[]" multiple accept=".pdf,.jpg,.png" required />
+                                            <small class="text-muted">Accepted formats: PDF, JPG, PNG (Multiple files allowed)</small>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bx bx-save me-1"></i> Submit Application
+                                            </button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+                                    </form>
+
                                 </div>
-                                <!-- /Account -->
+                                <!-- /Permit Application Card -->
                             </div>
-
                         </div>
                     </div>
                 </div>
+
 
 
 

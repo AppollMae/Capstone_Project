@@ -83,10 +83,10 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
   Route::get('/dashboard', [BfpController::class, 'index'])->name('bfp.dashboard');
 
   // BFP Accounts
-  Route::prefix('accounts')->name('bfp.accounts.')->group(function(){
-    Route::get('/' , [BfpController::class,'viewAccountsIndex'])->name('view-accounts');
-    Route::get('/update-accounts/{id?}/edit', [BfpController::class,'updateAccountsIndex'])->name('edit-accounts');
-    Route::put('/update-accounts', [BfpController::class,'updateAccounts'])->name('update-accounts');
+  Route::prefix('accounts')->name('bfp.accounts.')->group(function () {
+    Route::get('/', [BfpController::class, 'viewAccountsIndex'])->name('view-accounts');
+    Route::get('/update-accounts/{id?}/edit', [BfpController::class, 'updateAccountsIndex'])->name('edit-accounts');
+    Route::put('/update-accounts', [BfpController::class, 'updateAccounts'])->name('update-accounts');
   });
 });
 
@@ -96,20 +96,27 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
   Route::get('/dashboard', [ApplicantController::class, 'index'])->name('applicant.dashboard');
 
   // Applicants Routes
-  Route::prefix('applicants')->name('applicants.accounts.')->group(function(){
-    Route::get('/' , [ApplicantController::class, 'applicantsIndex'])->name('applicants-view-accounts');
+  Route::prefix('applicants')->name('applicants.accounts.')->group(function () {
+    Route::get('/', [ApplicantController::class, 'applicantsIndex'])->name('applicants-view-accounts');
     Route::get('/update-accounts/{id}/edit', [ApplicantController::class, 'updateAccountsIndex'])->name('applicants-edit-accounts');
     Route::put('/update-accounts', [ApplicantController::class, 'updateAccounts'])->name('applicants-update-accounts');
+  });
+
+// Permits Routes
+  Route::prefix('permits')->name('applicants.permits.')->group(function () {
+    Route::get('/', [ApplicantController::class, 'permitsIndex'])->name('view-permits');
+    Route::get('/apply', [ApplicantController::class, 'applyForPermit'])->name('apply-permit');
+    Route::post('/store', [ApplicantController::class, 'storePermitApplication'])->name('store-permit');
   });
 });
 
 
 // OBO (Office of the Building Official) Routes
-Route::group(['middleware' => ['auth' , 'ifOBO'], 'prefix'=> 'obo'], function(){
+Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function () {
   Route::get('/', [OboController::class, 'index'])->name('obo.dashboard');
 
   // Accounts OBO (Office of the Building Official) Routes
-  Route::prefix('accounts')->name('obo.accounts.')->group(function(){
+  Route::prefix('accounts')->name('obo.accounts.')->group(function () {
     Route::get('/', [OboController::class, 'viewAccountsIndex'])->name('view-accounts');
     Route::get('/update-accounts/{id}/edit', [OboController::class, 'updateAccountsIndex'])->name('edit-accounts');
     Route::put('/update-accounts', [OboController::class, 'updateAccounts'])->name('update-accounts');

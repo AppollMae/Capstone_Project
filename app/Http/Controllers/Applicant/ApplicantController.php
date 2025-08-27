@@ -9,27 +9,31 @@ use App\Models\User;
 
 class ApplicantController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('applicant.dashboard.index');
     }
 
-    public function applicantsIndex(){
+    public function applicantsIndex()
+    {
         $accounts = Auth::user();
-        return view('applicant.accounts.applicant-view-accounts', compact('accounts'),[
+        return view('applicant.accounts.applicant-view-accounts', compact('accounts'), [
             'ActiveTab' => 'applicants',
             'SubActiveTab' => 'View-accounts'
         ]);
     }
 
-    public function updateAccountsIndex(){
+    public function updateAccountsIndex()
+    {
         $account = Auth::user();
-        return view('applicant.accounts.applicant-update-accounts', compact('account'),[
+        return view('applicant.accounts.applicant-update-accounts', compact('account'), [
             'ActiveTab' => 'applicants',
             'SubActiveTab' => 'Update-accounts'
         ]);
     }
 
-    public function updateAccounts(Request $request){
+    public function updateAccounts(Request $request)
+    {
         $accounts = Auth::user();
 
         // Ensure $accounts is an instance of App\Models\User
@@ -58,5 +62,20 @@ class ApplicantController extends Controller
         $accounts->save();
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
+
+    public function permitsIndex()
+    {
+        return view('applicant.permit.applicant-view-permits', [
+            'ActiveTab' => 'applicants',
+            'SubActiveTab' => 'View-permits'
+        ]);
+    }
+
+    // ApplicantController.php
+    public function applyForPermit()
+    {
+        return view('applicant.permits.applicants-apply-permits');
     }
 }

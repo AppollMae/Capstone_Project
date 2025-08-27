@@ -31,37 +31,55 @@
                 </li>
 
                 <!-- Layouts -->
-
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-file"></i>
-                        <div data-i18n="Layouts">Quick Stat</div>
+                        <i class="menu-icon fa-solid fa-envelope"></i>
+                        <div data-i18n="Layouts">My Applications</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Total permits issued</div>
+                                <div data-i18n="Without menu">Draft</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Pending applications</div>
+                                <div data-i18n="Without navbar">Under Review</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Approved applications</div>
+                                <div data-i18n="Without navbar">Pending</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Rejected applications</div>
+                                <div data-i18n="Without navbar">Approve</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Revenue from permit fees</div>
+                                <div data-i18n="Without navbar">Rejected</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Receipts or permits</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fa-solid fa-ticket"></i>
+                        <div data-i18n="Layouts">Apply for Permit</div>
+                    </a>
+
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Apply Now</div>
                             </a>
                         </li>
                     </ul>
@@ -69,43 +87,44 @@
 
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-chart-simple"></i>
-                        <div data-i18n="Layouts">Graph/Charts</div>
+                        <i class="menu-icon fa-solid fa-receipt"></i>
+                        <div data-i18n="Layouts">Payments</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Monthly application trends</div>
+                                <div data-i18n="Without navbar">Pending Payments</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Approval rates</div>
+                                <div data-i18n="Without navbar">Paid</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Overdue</div>
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-building"></i>
-                        <div data-i18n="Layouts">Permit Applications</div>
+                        <i class="menu-icon fa-solid fa-comment"></i>
+                        <div data-i18n="Layouts">Notification / Messages</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">All Applications</div>
+                                <div data-i18n="Without navbar">Notifications</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Pending Review</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Approved & Rejected</div>
+                                <div data-i18n="Without navbar">History Notification</div>
                             </a>
                         </li>
                     </ul>
@@ -122,22 +141,16 @@
                         <div data-i18n="Account Settings">Account Settings</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item ">
+                        <li class="menu-item">
                             <a href="{{ route('applicants.accounts.applicants-view-accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
                         <li class="menu-item {{ $SubActiveTab === 'Update-accounts' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('applicants.accounts.applicants-edit-accounts', Auth::user()->id) }}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Notifications">Settings</div>
-                            </a>
-                        </li>
-
                     </ul>
                 </li>
 
