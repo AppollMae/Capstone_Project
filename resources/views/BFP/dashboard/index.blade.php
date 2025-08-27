@@ -8,7 +8,7 @@
 
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
-        <a href="" class="app-brand-link">
+        <a href="{{ route('bfp.dashboard') }}" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
           <img src="{{asset('images/Logo.png')}}" alt="" style="width: 50px;">
@@ -25,7 +25,7 @@
       <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item active">
-          <a href="" class="menu-link">
+          <a href="{{ route('bfp.dashboard') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
           </a>
@@ -119,13 +119,18 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <i class="menu-icon fa-solid fa-user"></i>
             <div data-i18n="Account Settings">Account Settings</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('bfp.accounts.view-accounts') }}" class="menu-link">
                 <div data-i18n="Account">Account</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('bfp.accounts.edit-accounts', Auth::user()->id) }}" class="menu-link">
+                <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
             <li class="menu-item">
@@ -133,11 +138,7 @@
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Notifications">Update Account</div>
-              </a>
-            </li>
+
           </ul>
         </li>
 
@@ -207,16 +208,16 @@
                         <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
                         <small class="text-muted">
                           @php
-                            $role = strtolower(auth()->user()->role);
-                            if ($role === 'bfp') {
-                              $roleLabel = 'BFP';
-                            } elseif ($role === 'admin') {
-                              $roleLabel = 'Admin';
-                            } elseif ($role === 'mpdo') {
-                              $roleLabel = 'MPDO';
-                            } else {
-                              $roleLabel = 'User';
-                            }
+                          $role = strtolower(auth()->user()->role);
+                          if ($role === 'bfp') {
+                          $roleLabel = 'BFP';
+                          } elseif ($role === 'admin') {
+                          $roleLabel = 'Admin';
+                          } elseif ($role === 'mpdo') {
+                          $roleLabel = 'MPDO';
+                          } else {
+                          $roleLabel = 'User';
+                          }
                           @endphp
                           {{ $roleLabel }}
                         </small>
@@ -306,7 +307,7 @@
                     <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
                       <strong style="font-size:8.5rem; text-align:center;">
-                        
+
                       </strong>
                     </div>
                   </div>
@@ -314,11 +315,11 @@
               </div>
 
               <!-- Kind of contest category have been joined -->
-              
+
               <!-- No comment yet -->
 
               <!-- List of categories and counts -->
-              
+
             </div>
           </div>
         </div>

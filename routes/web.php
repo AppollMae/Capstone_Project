@@ -80,6 +80,13 @@ Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function 
 // BFP Routes
 Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function () {
   Route::get('/dashboard', [BfpController::class, 'index'])->name('bfp.dashboard');
+
+  // BFP Accounts
+  Route::prefix('accounts')->name('bfp.accounts.')->group(function(){
+    Route::get('/' , [BfpController::class,'viewAccountsIndex'])->name('view-accounts');
+    Route::get('/update-accounts/{id?}/edit', [BfpController::class,'updateAccountsIndex'])->name('edit-accounts');
+    Route::put('/update-accounts', [BfpController::class,'updateAccounts'])->name('update-accounts');
+  });
 });
 
 

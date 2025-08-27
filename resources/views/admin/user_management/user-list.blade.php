@@ -154,7 +154,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('admin.user_management.applicant-user-list') }}" class="menu-link">
                                 <div data-i18n="Notifications">Applicant</div>
                             </a>
                         </li>
@@ -329,7 +329,7 @@
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ strtoupper($user->role) }}</td>
                                                     <td>
-                                                        <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
+                                                        <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                             alt="avatar"
                                                             width="50"
                                                             height="50"
@@ -361,7 +361,7 @@
                                                                     <!-- Modal Body -->
                                                                     <div class="modal-body px-4 py-4">
                                                                         <div class="text-center mb-4">
-                                                                            <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
+                                                                            <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                                                 alt="avatar"
                                                                                 class="rounded-circle shadow-sm mb-3"
                                                                                 width="100"
@@ -435,7 +435,7 @@
                                                                         <div class="modal-body px-4 py-4">
                                                                             <!-- User Info (Read-Only) -->
                                                                             <div class="text-center mb-3">
-                                                                                <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
+                                                                                <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                                                     alt="avatar"
                                                                                     class="rounded-circle shadow-sm mb-2"
                                                                                     width="90"
