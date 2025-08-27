@@ -76,6 +76,9 @@ class ApplicantController extends Controller
     // ApplicantController.php
     public function applyForPermit()
     {
-        return view('applicant.permits.applicants-apply-permits');
+        return view('applicant.permits.applicants-apply-permits',[
+            'ActiveTab' => 'permits',
+            'SubActiveTab' => 'application-form'
+        ]);
     }
 }

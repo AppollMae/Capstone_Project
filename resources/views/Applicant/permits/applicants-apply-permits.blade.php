@@ -24,7 +24,7 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item">
-                    <a href="" class="menu-link">
+                    <a href="{{ route('applicant.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -70,16 +70,21 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ $ActiveTab === 'permits' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-ticket"></i>
                         <div data-i18n="Layouts">Apply for Permit</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item">
+                        <li class="menu-item {{ $SubActiveTab === 'application-form' ? 'active' : '' }}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Apply Now</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Download the required documents</div>
                             </a>
                         </li>
                     </ul>

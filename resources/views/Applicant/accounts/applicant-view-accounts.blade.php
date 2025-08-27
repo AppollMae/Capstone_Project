@@ -78,8 +78,13 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('applicants.permits.apply-permit') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Apply Now</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Download the required documents</div>
                             </a>
                         </li>
                     </ul>
