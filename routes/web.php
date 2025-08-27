@@ -8,6 +8,7 @@ use App\Http\Controllers\BFP\BfpController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\OBO\dashboard\OboController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,7 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
 });
 
 
-// MPDO Routes
+// MPDO (Municipal Planning and Development Office) Routes
 Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function () {
   Route::get('/dashboard', [MpdoController::class, 'index'])->name('mpdo.dashboard');
 
@@ -77,7 +78,7 @@ Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function 
 });
 
 
-// BFP Routes
+// BFP (Bureau of Fire Protection) Routes
 Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function () {
   Route::get('/dashboard', [BfpController::class, 'index'])->name('bfp.dashboard');
 
@@ -99,5 +100,18 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::get('/' , [ApplicantController::class, 'applicantsIndex'])->name('applicants-view-accounts');
     Route::get('/update-accounts/{id}/edit', [ApplicantController::class, 'updateAccountsIndex'])->name('applicants-edit-accounts');
     Route::put('/update-accounts', [ApplicantController::class, 'updateAccounts'])->name('applicants-update-accounts');
+  });
+});
+
+
+// OBO (Office of the Building Official) Routes
+Route::group(['middleware' => ['auth' , 'ifOBO'], 'prefix'=> 'obo'], function(){
+  Route::get('/', [OboController::class, 'index'])->name('obo.dashboard');
+
+  // Accounts OBO (Office of the Building Official) Routes
+  Route::prefix('accounts')->name('obo.accounts.')->group(function(){
+    Route::get('/', [OboController::class, 'viewAccountsIndex'])->name('view-accounts');
+    Route::get('/update-accounts/{id}/edit', [OboController::class, 'updateAccountsIndex'])->name('edit-accounts');
+    Route::put('/update-accounts', [OboController::class, 'updateAccounts'])->name('update-accounts');
   });
 });

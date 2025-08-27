@@ -29,7 +29,7 @@ class SetOfflineUsers extends Command
         $threshold = now()->subMinutes(5);
 
         User::where('status', 'active')
-            ->whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'user']) // Only these roles
+            ->whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'user', 'obo']) // Only these roles
             ->where('last_seen', '<', $threshold)
             ->update(['status' => 'inactive']);
 

@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'ifMPDO' => \App\Http\Middleware\IfMPDO::class,
         'ifUsers' => \App\Http\Middleware\IfUsers::class,
         'ifBFP' => \App\Http\Middleware\ifBFP::class,
+        'ifOBO' => \App\Http\Middleware\ifOBO::class
     ];
 }

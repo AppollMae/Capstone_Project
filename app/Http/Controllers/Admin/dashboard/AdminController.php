@@ -33,7 +33,7 @@ class AdminController extends Controller
     public function updateUserRole(Request $request, $id)
     {
         $request->validate([
-            'role' => 'required|in:user,admin,mpdo,bfp,treasurer',
+            'role' => 'required|in:user,admin,mpdo,bfp,treasurer,obo',
         ]);
 
         $user = User::findOrFail($id);

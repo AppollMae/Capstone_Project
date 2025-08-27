@@ -323,7 +323,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($users as $user)
-                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo']))
+                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo']))
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
@@ -455,8 +455,9 @@
                                                                                 <select name="role" class="form-select" required>
                                                                                     <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                                                                                     <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
-                                                                                    <option value="mpdo" {{ $user->role === 'mpdo' ? 'selected' : '' }}>MPDO</option>
-                                                                                    <option value="bfp" {{ $user->role === 'bfp' ? 'selected' : '' }}>BFP</option>
+                                                                                    <option value="mpdo" {{ $user->role === 'mpdo' ? 'selected' : '' }}>MPDO - Municipal Planning and Development Office</option>
+                                                                                    <option value="bfp" {{ $user->role === 'bfp' ? 'selected' : '' }}>BFP - Bureau of Fire Protection</option>
+                                                                                    <option value="obo" {{ $user->role === 'obo' ? 'selected' : '' }}>OBO - Office of the Building Official</option>
                                                                                     <option value="treasurer" {{ $user->role === 'treasurer' ? 'selected' : '' }}>Treasurer</option>
                                                                                 </select>
                                                                             </div>
