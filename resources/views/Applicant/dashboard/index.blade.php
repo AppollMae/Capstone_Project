@@ -119,13 +119,18 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <i class="menu-icon fa-solid fa-user"></i>
             <div data-i18n="Account Settings">Account Settings</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('applicants.accounts.applicants-view-accounts') }}" class="menu-link">
                 <div data-i18n="Account">Account</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('applicants.accounts.applicants-edit-accounts', Auth::user()->id) }}" class="menu-link">
+                <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
             <li class="menu-item">
@@ -133,11 +138,7 @@
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Notifications">Update Account</div>
-              </a>
-            </li>
+
           </ul>
         </li>
 
@@ -292,7 +293,7 @@
                     <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
                       <strong style="font-size:8.5rem; text-align:center;">
-                        
+
                       </strong>
                     </div>
                   </div>
@@ -300,11 +301,11 @@
               </div>
 
               <!-- Kind of contest category have been joined -->
-              
+
               <!-- No comment yet -->
 
               <!-- List of categories and counts -->
-              
+
             </div>
           </div>
         </div>

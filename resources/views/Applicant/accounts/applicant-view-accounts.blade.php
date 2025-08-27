@@ -7,7 +7,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="" class="app-brand-link">
+                <a href="{{ route('applicant.dashboard') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('images/Logo.png')}}" alt="" style="width: 50px;">
@@ -24,7 +24,7 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item">
-                    <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                    <a href="{{ route('applicant.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -116,19 +116,19 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ $ActiveTab === 'applicants' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-user"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('admin.accounts.view-accounts') }}" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTab === 'View-accounts' ? 'active' : '' }}">
+                            <a href="{{ route('applicants.accounts.applicants-view-accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('admin.accounts.edit-account', Auth::user()->id) }}" class="menu-link">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
@@ -138,26 +138,6 @@
                             </a>
                         </li>
 
-                    </ul>
-                </li>
-
-
-                <li class="menu-item {{ $ActiveMenu === 'user_management' ? 'active' : '' }}">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-list-check"></i>
-                        <div data-i18n="Account Settings">User Management</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item ">
-                            <a href="{{ route('admin.user_management.user-list') }}" class="menu-link">
-                                <div data-i18n="Account">Staff/Inspector</div>
-                            </a>
-                        </li>
-                        <li class="menu-item {{ $SubActive === 'Applicants' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Notifications">Applicant</div>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -294,128 +274,57 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Admin User Management /</span>Show All Accounts
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Applicants Account Settings /</span>Show Account
                     </h4>
 
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> All Accounts</a>
+                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
                                 </li>
                             </ul>
 
                             <div class="card mb-4">
-                                <h5 class="card-header">User Management</h5>
+                                <h5 class="card-header">Profile Details</h5>
+                                <!-- Account -->
                                 <hr class="my-0" />
 
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped text-center">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Avatar</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($users as $user)
-                                                @if(in_array(strtolower($user->role), ['user']))
-                                                <tr>
-                                                    <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ strtoupper($user->role) }}</td>
-                                                    <td>
-                                                        <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
-                                                            alt="avatar"
-                                                            width="50"
-                                                            height="50"
-                                                            class="rounded">
-                                                    </td>
-                                                    <td>
-                                                        <!-- View Button -->
-                                                        <a href="#"
-                                                            class="btn btn-info btn-sm shadow-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#viewModal-{{ $user->id }}"
-                                                            title="View">
-                                                            <i class="bx bx-show"></i>
-                                                        </a>
+                                    <!-- User Data -->
+                                    <div class="row">
+                                        <!-- Name Field -->
+                                        <div class="mb-3 col-md-6">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input class="form-control" type="text" id="name" name="name" value="{{ $accounts->name }}"
+                                                readonly />
+                                        </div>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="viewModal-{{ $user->id }}" tabindex="-1" aria-labelledby="viewModalLabel-{{ $user->id }}" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                                                <div class="modal-content border-0 shadow-lg rounded-4">
+                                        <!-- Email Field -->
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">E-mail</label>
+                                            <input class="form-control" type="email" id="email" name="email" value="{{ $accounts->email }}"
+                                                readonly />
+                                        </div>
 
-                                                                    <!-- Modal Header -->
-                                                                    <div class="modal-header border-0 bg-gradient" style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
-                                                                        <h5 class="modal-title text-white fw-semibold" id="viewModalLabel-{{ $user->id }}">
-                                                                            <i class="bx bx-user-circle me-1"></i> User Information
-                                                                        </h5>
-                                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">Role</label>
+                                            <input class="form-control" type="email" id="email" name="email" value="{{ $accounts->role }}"
+                                                readonly />
+                                        </div>
+                                    </div>
 
-                                                                    <!-- Modal Body -->
-                                                                    <div class="modal-body px-4 py-4">
-                                                                        <div class="text-center mb-4">
-                                                                            <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
-                                                                                alt="avatar"
-                                                                                class="rounded-circle shadow-sm mb-3"
-                                                                                width="100"
-                                                                                height="100">
-                                                                            <h5 class="fw-bold mb-0">{{ $user->name }}</h5>
-                                                                            <p class="text-muted small mb-0">{{ $user->email }}</p>
-                                                                        </div>
-
-                                                                        <div class="border-top pt-3 mt-3">
-                                                                            <div class="row mb-2">
-                                                                                <div class="col-4 fw-semibold text-muted">Role:</div>
-                                                                                <div class="col-8">{{ ucfirst($user->role) }}</div>
-                                                                            </div>
-
-                                                                            <div class="row mb-2">
-                                                                                <div class="col-4 fw-semibold text-muted">Joined:</div>
-                                                                                <div class="col-8">{{ $user->created_at->format('F d, Y') }}</div>
-                                                                            </div>
-
-                                                                            <div class="row">
-                                                                                <div class="col-4 fw-semibold text-muted">Status:</div>
-                                                                                <div class="col-8">
-                                                                                    @if($user->status === 'active')
-                                                                                    <span class="bg-success px-3 py-2 rounded-pill shadow-sm">Active</span>
-                                                                                    @else
-                                                                                    <span class="bg-danger px-3 py-2 rounded-pill shadow-sm">Inactive</span>
-                                                                                    @endif
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Modal Footer -->
-                                                                    <div class="modal-footer border-0">
-                                                                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">
-                                                                            <i class="bx bx-x-circle me-1"></i> Close
-                                                                        </button>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @endif
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-
-
+                                    <!-- Image Field -->
+                                    <div class="mb-3">
+                                        <label for="avatar" class="form-label">Profile Picture</label>
+                                        <img id="uploadedAvatar"
+                                            src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('assets/img/avatars/1.png') }}"
+                                            alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
                                     </div>
                                 </div>
+                                <!-- /Account -->
                             </div>
+
                         </div>
                     </div>
                 </div>

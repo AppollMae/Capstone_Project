@@ -86,4 +86,11 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
 // Applicant Routes
 Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], function () {
   Route::get('/dashboard', [ApplicantController::class, 'index'])->name('applicant.dashboard');
+
+  // Applicants Routes
+  Route::prefix('applicants')->name('applicants.accounts.')->group(function(){
+    Route::get('/' , [ApplicantController::class, 'applicantsIndex'])->name('applicants-view-accounts');
+    Route::get('/update-accounts/{id}/edit', [ApplicantController::class, 'updateAccountsIndex'])->name('applicants-edit-accounts');
+    Route::put('/update-accounts', [ApplicantController::class, 'updateAccounts'])->name('applicants-update-accounts');
+  });
 });
