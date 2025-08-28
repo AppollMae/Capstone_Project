@@ -303,79 +303,125 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="container">
-            <div class="row">
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PARTICIPANTS</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
+            <!-- Dashboard Title -->
+            <div class="text-center mb-4">
+              <h3 class="fw-bold text-success mb-1">
+                <i class="fa-solid fa-building-columns me-2"></i>
+                Municipal Planning and Development Dashboard
+              </h3>
+              <p class="text-muted">Monitoring and Analytics for Local Development</p>
+            </div>
 
-                  </div>
-                </div>
-              </div>
-              <!-- Inputted -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF JUDGES INPUTTED</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
+            <!-- Stat Cards -->
+            <div class="row g-4">
+              <!-- Total Participants -->
+              <div class="col-md-4 col-sm-6 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <div class="text-success mb-2">
+                      <i class="fa-solid fa-users fa-3x"></i>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Joined -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBER OF CONTEST CATEGORIES JOINED</h5>
-                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
-                      <strong style="font-size:8.5rem; text-align:center;">
-
-                      </strong>
-                    </div>
+                    <h6 class="fw-bold text-uppercase text-muted">Total Applicants</h6>
+                    <h1 class="fw-bold text-success" style="font-size: 3.5rem;">120</h1>
+                    <p class="text-muted small mb-0">Registered for building permits</p>
                   </div>
                 </div>
               </div>
 
-              <!-- Kind of contest category have been joined -->
+              <!-- Total Approved -->
+              <div class="col-md-4 col-sm-6 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <div class="text-primary mb-2">
+                      <i class="fa-solid fa-file-circle-check fa-3x"></i>
+                    </div>
+                    <h6 class="fw-bold text-uppercase text-muted">Approved Permits</h6>
+                    <h1 class="fw-bold text-primary" style="font-size: 3.5rem;">85</h1>
+                    <p class="text-muted small mb-0">Successfully processed permits</p>
+                  </div>
+                </div>
+              </div>
 
-              <!-- No comment yet -->
+              <!-- Ongoing Projects -->
+              <div class="col-md-4 col-sm-6 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <div class="text-warning mb-2">
+                      <i class="fa-solid fa-city fa-3x"></i>
+                    </div>
+                    <h6 class="fw-bold text-uppercase text-muted">Ongoing Projects</h6>
+                    <h1 class="fw-bold text-warning" style="font-size: 3.5rem;">12</h1>
+                    <p class="text-muted small mb-0">Currently under construction</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-              <!-- List of categories and counts -->
+            <!-- Analytics Row -->
+            <div class="row g-4 mt-4">
+              <!-- Chart Section -->
+              <div class="col-lg-8 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-header bg-success text-white fw-bold">
+                    Monthly Permit Applications Overview
+                  </div>
+                  <div class="card-body">
+                    <canvas id="applicationsChart" height="150"></canvas>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Quick Insights -->
+              <div class="col-lg-4 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-header bg-primary text-white fw-bold">
+                    Quick Insights
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                      <li class="mb-2">
+                        <i class="fa-solid fa-circle text-success me-2"></i> 70% Permits Approved
+                      </li>
+                      <li class="mb-2">
+                        <i class="fa-solid fa-circle text-warning me-2"></i> 20% Pending Review
+                      </li>
+                      <li>
+                        <i class="fa-solid fa-circle text-danger me-2"></i> 10% Declined or Returned
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notice Section -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="alert alert-info border-0 shadow-sm">
+                  <i class="fa-solid fa-circle-info me-2"></i>
+                  Reminder: Submit quarterly reports to comply with <strong>Local Development Council</strong> guidelines.
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
         <!-- / Content -->
 
         <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <footer class="content-footer footer bg-footer-theme mt-4">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column small">
             <div class="mb-2 mb-md-0">
-              ©
-              <script>
+              © <script>
                 document.write(new Date().getFullYear());
               </script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+              MPDO Dashboard | Developed by
+              <span class="fw-bold text-success">JasCoder</span>
             </div>
             <div>
-              <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-              <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank" class="footer-link me-4">Documentation</a>
-
-              <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                class="footer-link me-4">Support</a>
+              <a href="#" class="footer-link me-4">License</a>
+              <a href="#" class="footer-link me-4">Contact</a>
+              <a href="#" class="footer-link me-4">Documentation</a>
+              <a href="#" class="footer-link me-4">Support</a>
             </div>
           </div>
         </footer>
@@ -383,6 +429,7 @@
 
         <div class="content-backdrop fade"></div>
       </div>
+
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->

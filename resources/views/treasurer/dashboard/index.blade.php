@@ -31,92 +31,109 @@
           </a>
         </li>
 
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-chart-line"></i>
+            <div data-i18n="Layouts">Quick Stat</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without menu">Total payments collected</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Pending payments</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Overdue fees</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Number of permits issued</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">History payments</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
         <!-- Layouts -->
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon fa-solid fa-envelope"></i>
-            <div data-i18n="Layouts">My Applications</div>
+            <i class="menu-icon fa-solid fa-cash-register"></i>
+            <div data-i18n="Layouts">Payment Management</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Draft</div>
+                <div data-i18n="Without menu">Pending Payments</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Under Review</div>
+                <div data-i18n="Without navbar">Confirmed Payments</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Pending</div>
+                <div data-i18n="Without navbar">Overdue Fees / Payments</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Approve</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Rejected</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Receipts or permits</div>
-              </a>
-            </li>
+
           </ul>
         </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon fa-solid fa-ticket"></i>
-            <div data-i18n="Layouts">Apply for Permit</div>
-          </a>
-
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="{{ route('applicants.permits.apply-permit') }}" class="menu-link">
-                <div data-i18n="Without navbar">Apply Now</div>
-              </a>
-            </li>
-            <!-- <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Download the required documents</div>
-              </a>
-            </li> -->
-          </ul>
-        </li>
-
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-receipt"></i>
-            <div data-i18n="Layouts">Payments</div>
+            <div data-i18n="Layouts">Transactions / Receipts</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Pending Payments</div>
+                <div data-i18n="Without navbar">View full transaction history.</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Paid</div>
+                <div data-i18n="Without navbar">Generate receipts for applicants.</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Overdue</div>
+                <div data-i18n="Without navbar">Generate receipts for applicants.</div>
               </a>
             </li>
           </ul>
         </li>
 
         <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-wallet"></i>
+            <div data-i18n="Layouts">Applicant Billing</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">View applicant balances and dues.</div>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <!-- <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-comment"></i>
             <div data-i18n="Layouts">Notification / Messages</div>
@@ -134,7 +151,7 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
 
 
@@ -148,12 +165,12 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{ route('applicants.accounts.applicants-view-accounts') }}" class="menu-link">
+              <a href="{{ route('accounts.treasurer.view-accounts') }}" class="menu-link">
                 <div data-i18n="Account">Account</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{ route('applicants.accounts.applicants-edit-accounts', Auth::user()->id) }}" class="menu-link">
+              <a href="{{ route('accounts.treasurer.edit-accounts' , Auth::user()->id) }}" class="menu-link">
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
@@ -208,7 +225,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                  <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                     class="w-px-120 h-px-120 rounded-circle" />
                 </div>
               </a>
@@ -218,13 +235,28 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                          <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                             class="w-px-120 h-px-120 rounded-circle" />
                         </div>
                       </div>
                       <div class="flex-grow-1">
                         <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                        <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                        <small class="text-muted"> @php
+                          $role = strtolower(auth()->user()->role);
+                          if ($role === 'bfp') {
+                          $roleLabel = 'BFP';
+                          } elseif ($role === 'admin') {
+                          $roleLabel = 'Admin';
+                          } elseif ($role === 'mpdo') {
+                          $roleLabel = 'MPDO';
+                          } elseif($role === 'treasurer'){
+                          $roleLabel = 'Treasurer';
+                          }
+                          else {
+                          $roleLabel = 'User';
+                          }
+                          @endphp
+                          {{ $roleLabel }}</small>
                       </div>
                     </div>
                   </a>
@@ -278,79 +310,109 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="container">
+            <h4 class="fw-bold mb-4">
+              <i class="fa-solid fa-coins text-warning me-2"></i>
+              Treasurer Dashboard
+            </h4>
+
             <div class="row">
+              <!-- Total Collections -->
               <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF NOTIFICATION</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- Inputted -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF DRAFT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Joined -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">UNDER REVIEW</h5>
-                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:12rem;">
-                      <strong style="font-size:8.5rem; text-align:center;">
-
-                      </strong>
-                    </div>
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-sack-dollar fa-3x text-success mb-3"></i>
+                    <h5 class="card-title fw-bold">TOTAL COLLECTIONS</h5>
+                    <p class="text-muted mb-2">Overall revenue collected</p>
+                    <strong style="font-size:2.5rem; color:#28a745;">₱120,000</strong>
                   </div>
                 </div>
               </div>
 
-              <!-- Kind of contest category have been joined -->
+              <!-- Pending Payments -->
+              <div class="col-md-4 pt-3">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-hourglass-half fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title fw-bold">PENDING PAYMENTS</h5>
+                    <p class="text-muted mb-2">Awaiting settlement</p>
+                    <strong style="font-size:2.5rem; color:#ffc107;">₱35,000</strong>
+                  </div>
+                </div>
+              </div>
 
-              <!-- No comment yet -->
-
-              <!-- List of categories and counts -->
-
+              <!-- Processed Permits -->
+              <div class="col-md-4 pt-3">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-file-invoice-dollar fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title fw-bold">PROCESSED PERMITS</h5>
+                    <p class="text-muted mb-2">Total permits issued</p>
+                    <strong style="font-size:2.5rem; color:#007bff;">48</strong>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- Second Row for Insights -->
+            <div class="row mt-4">
+              <!-- Monthly Revenue -->
+              <div class="col-md-6 pt-3">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold">
+                      <i class="fa-solid fa-chart-line text-success me-2"></i>
+                      Monthly Revenue Trends
+                    </h5>
+                    <p class="text-muted">Overview of collections for this month</p>
+                    <div id="monthlyChart" style="height: 250px;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Transactions -->
+              <div class="col-md-6 pt-3">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold">
+                      <i class="fa-solid fa-receipt text-primary me-2"></i>
+                      Recent Transactions
+                    </h5>
+                    <ul class="list-group list-group-flush mt-3">
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Permit #2025-001</span>
+                        <strong class="text-success">₱5,000</strong>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Permit #2025-002</span>
+                        <strong class="text-success">₱2,500</strong>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Permit #2025-003</span>
+                        <strong class="text-success">₱8,000</strong>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-
-
         <!-- / Content -->
 
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme">
           <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
             <div class="mb-2 mb-md-0">
-              ©
-              <script>
+              © <script>
                 document.write(new Date().getFullYear());
               </script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+              , Building Permit Management System — Treasurer Module
             </div>
             <div>
-              <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-              <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank" class="footer-link me-4">Documentation</a>
-
-              <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                class="footer-link me-4">Support</a>
+              <a href="#" class="footer-link me-4">Support</a>
+              <a href="#" class="footer-link me-4">Documentation</a>
+              <a href="#" class="footer-link me-4">Contact Us</a>
             </div>
           </div>
         </footer>
@@ -358,6 +420,7 @@
 
         <div class="content-backdrop fade"></div>
       </div>
+
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->

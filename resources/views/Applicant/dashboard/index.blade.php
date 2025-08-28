@@ -278,79 +278,93 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="container">
-            <div class="row">
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF NOTIFICATION</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
+            <!-- Welcome Section -->
+            <h3 class="mb-4 fw-bold text-primary text-center text-md-start">
+              Welcome, {{ auth()->user()->name ?? 'Applicant' }}!
+            </h3>
+            <p class="text-muted text-center text-md-start">
+              Here’s an overview of your application activity.
+            </p>
 
-                  </div>
-                </div>
-              </div>
-              <!-- Inputted -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF DRAFT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Joined -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">UNDER REVIEW</h5>
-                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:12rem;">
-                      <strong style="font-size:8.5rem; text-align:center;">
-
-                      </strong>
-                    </div>
+            <!-- Stats Section -->
+            <div class="row g-3">
+              <!-- Notifications -->
+              <div class="col-12 col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-bell text-warning mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title">Total Notifications</h5>
+                    <p class="card-text text-muted">All important updates about your applications</p>
+                    <strong style="font-size: 2.5rem;">0</strong>
                   </div>
                 </div>
               </div>
 
-              <!-- Kind of contest category have been joined -->
+              <!-- Draft Applications -->
+              <div class="col-12 col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-file-pen text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title">Draft Applications</h5>
+                    <p class="card-text text-muted">Applications saved but not yet submitted</p>
+                    <strong style="font-size: 2.5rem;">0</strong>
+                  </div>
+                </div>
+              </div>
 
-              <!-- No comment yet -->
-
-              <!-- List of categories and counts -->
-
+              <!-- Under Review -->
+              <div class="col-12 col-md-4">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-hourglass-half text-info mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title">Under Review</h5>
+                    <p class="card-text text-muted">Applications currently being reviewed</p>
+                    <strong style="font-size: 2.5rem;">0</strong>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- Quick Actions -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card shadow-sm">
+                  <div class="card-body text-center text-md-start">
+                    <h5 class="fw-bold mb-3">
+                      <i class="fa-solid fa-bolt text-success me-2"></i> Quick Actions
+                    </h5>
+                    <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center justify-content-md-start">
+                      <a href="" class="btn btn-primary">
+                        <i class="fa-solid fa-plus-circle me-1"></i> Apply for Permit
+                      </a>
+                      <a href="" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-folder-open me-1"></i> View My Applications
+                      </a>
+                      <a href="" class="btn btn-outline-warning">
+                        <i class="fa-solid fa-bell me-1"></i> View Notifications
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-
-        <!-- / Content -->
-
         <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-            <div class="mb-2 mb-md-0">
-              ©
-              <script>
+        <footer class="content-footer footer bg-footer-theme mt-4">
+          <div class="container-xxl d-flex flex-column flex-md-row justify-content-between align-items-center py-2">
+            <div class="mb-2 mb-md-0 text-center text-md-start">
+              © <script>
                 document.write(new Date().getFullYear());
-              </script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+              </script>,
+              developed by <span class="fw-bold text-primary">JasCoder</span>
             </div>
-            <div>
-              <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-              <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank" class="footer-link me-4">Documentation</a>
-
-              <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                class="footer-link me-4">Support</a>
+            <div class="text-center text-md-end">
+              <a href="#" class="footer-link me-3">Help</a>
+              <a href="#" class="footer-link me-3">Privacy Policy</a>
+              <a href="#" class="footer-link">Support</a>
             </div>
           </div>
         </footer>
@@ -358,6 +372,8 @@
 
         <div class="content-backdrop fade"></div>
       </div>
+
+
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->

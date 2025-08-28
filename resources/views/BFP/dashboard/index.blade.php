@@ -274,93 +274,126 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="container">
+            <!-- Header -->
+            <h4 class="fw-bold mb-4 text-danger">
+              <i class="fa-solid fa-fire-extinguisher me-2"></i>
+              Bureau of Fire Protection - Building Permit Dashboard
+            </h4>
+
             <div class="row">
+              <!-- Total Participants -->
               <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PARTICIPANTS</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- Inputted -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF JUDGES INPUTTED</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Joined -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBER OF CONTEST CATEGORIES JOINED</h5>
-                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
-                      <strong style="font-size:8.5rem; text-align:center;">
-
-                      </strong>
-                    </div>
+                <div class="card shadow border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-users fa-2x text-danger mb-2"></i>
+                    <h6 class="card-title fw-bold">TOTAL APPLICANTS</h6>
+                    <p class="text-muted">Registered applicants</p>
+                    <strong style="font-size: 3rem; color: #d62828;">120</strong>
                   </div>
                 </div>
               </div>
 
-              <!-- Kind of contest category have been joined -->
+              <!-- Fire Safety Inspectors -->
+              <div class="col-md-4 pt-3">
+                <div class="card shadow border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-user-shield fa-2x text-primary mb-2"></i>
+                    <h6 class="card-title fw-bold">INSPECTORS ASSIGNED</h6>
+                    <p class="text-muted">Active fire safety officers</p>
+                    <strong style="font-size: 3rem; color: #0077b6;">15</strong>
+                  </div>
+                </div>
+              </div>
 
-              <!-- No comment yet -->
+              <!-- Facilities Inspected -->
+              <div class="col-md-4 pt-3">
+                <div class="card shadow border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-city fa-2x text-success mb-2"></i>
+                    <h6 class="card-title fw-bold">FACILITIES INSPECTED</h6>
+                    <p class="text-muted">Buildings under fire safety inspection</p>
+                    <strong style="font-size: 3rem; color: #28a745;">25</strong>
+                  </div>
+                </div>
+              </div>
 
-              <!-- List of categories and counts -->
-
+              <!-- Establishments Monitored -->
+              <div class="col-md-4 pt-3">
+                <div class="card shadow border-0">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-city fa-2x text-dark mb-2"></i>
+                    <h6 class="card-title fw-bold">ESTABLISHMENTS MONITORED</h6>
+                    <p class="text-muted">Under BFP fire safety supervision</p>
+                    <strong style="font-size: 3rem; color: #343a40;">320</strong>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- Secondary Section -->
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <div class="card shadow border-0">
+                  <div class="card-header bg-danger text-white fw-bold">
+                    <i class="fa-solid fa-chart-line me-2"></i> Activity Overview
+                  </div>
+                  <div class="card-body">
+                    <p class="text-muted mb-3">Real-time insights on permit processing and inspections.</p>
+                    <div class="d-flex justify-content-around text-center">
+                      <div>
+                        <i class="fa-solid fa-file-circle-check fa-2x text-success mb-2"></i>
+                        <p class="fw-bold mb-0">45</p>
+                        <small class="text-muted">Approved Permits</small>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-clock fa-2x text-warning mb-2"></i>
+                        <p class="fw-bold mb-0">10</p>
+                        <small class="text-muted">Pending Applications</small>
+                      </div>
+                      <div>
+                        <i class="fa-solid fa-triangle-exclamation fa-2x text-danger mb-2"></i>
+                        <p class="fw-bold mb-0">5</p>
+                        <small class="text-muted">Flagged Issues</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
+
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme mt-4">
+            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+              <div class="mb-2 mb-md-0">
+                © <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                | Bureau of Fire Protection - Building Permit Management System
+              </div>
+              <div>
+                <a href="#" class="footer-link me-4 text-danger">
+                  <i class="fa-solid fa-book"></i> Documentation
+                </a>
+                <a href="#" class="footer-link me-4 text-danger">
+                  <i class="fa-solid fa-envelope"></i> Contact
+                </a>
+                <a href="#" class="footer-link me-4 text-danger">
+                  <i class="fa-solid fa-circle-info"></i> Support
+                </a>
+              </div>
+            </div>
+          </footer>
         </div>
-
-
-        <!-- / Content -->
-
-        <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-            <div class="mb-2 mb-md-0">
-              ©
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
-            </div>
-            <div>
-              <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-              <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank" class="footer-link me-4">Documentation</a>
-
-              <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                class="footer-link me-4">Support</a>
-            </div>
-          </div>
-        </footer>
-        <!-- / Footer -->
-
-        <div class="content-backdrop fade"></div>
+        <!-- Content wrapper -->
       </div>
-      <!-- Content wrapper -->
-    </div>
-    <!-- / Layout page -->
-  </div>
 
-  <!-- Overlay -->
-  <div class="layout-overlay layout-menu-toggle"></div>
-</div>
-<!-- / Layout wrapper -->
-@endsection
+      <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
+  <!-- / Layout wrapper -->
+  @endsection

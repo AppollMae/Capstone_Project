@@ -318,86 +318,181 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="container">
-            <div class="row">
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PARTICIPANTS</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
+            <!-- Page Title -->
+            <div class="mb-4 text-center text-md-start">
+              <h4 class="fw-bold text-dark">
+                <i class="fa-solid fa-tachometer-alt me-2 text-primary"></i>
+                Super Admin Dashboard
+              </h4>
+              <p class="text-muted mb-0">Overview of system performance and key building permit stats.</p>
+            </div>
 
-                  </div>
-                </div>
-              </div>
-              <!-- Inputted -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF JUDGES INPUTTED</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Joined -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBER OF CONTEST CATEGORIES JOINED</h5>
-                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
-                      <strong style="font-size:8.5rem; text-align:center;">
-
-                      </strong>
-                    </div>
+            <!-- Summary Cards -->
+            <div class="row g-4">
+              <!-- Total Applications -->
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-file-circle-plus fa-2x text-primary mb-2"></i>
+                    <h6 class="fw-bold text-uppercase small">Total Applications</h6>
+                    <h3 class="fw-bolder text-primary mb-1" id="totalApplications">128</h3>
+                    <p class="text-muted small mb-0">All applications submitted</p>
                   </div>
                 </div>
               </div>
 
-              <!-- Kind of contest category have been joined -->
+              <!-- Pending Approvals -->
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-hourglass-half fa-2x text-warning mb-2"></i>
+                    <h6 class="fw-bold text-uppercase small">Pending Approvals</h6>
+                    <h3 class="fw-bolder text-warning mb-1" id="pendingApprovals">15</h3>
+                    <p class="text-muted small mb-0">Awaiting review</p>
+                  </div>
+                </div>
+              </div>
 
-              <!-- No comment yet -->
+              <!-- Approved Permits -->
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-circle-check fa-2x text-success mb-2"></i>
+                    <h6 class="fw-bold text-uppercase small">Approved Permits</h6>
+                    <h3 class="fw-bolder text-success mb-1" id="approvedPermits">96</h3>
+                    <p class="text-muted small mb-0">Successfully issued permits</p>
+                  </div>
+                </div>
+              </div>
 
-              <!-- List of categories and counts -->
+              <!-- Revenue Collected -->
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-peso-sign fa-2x text-info mb-2"></i>
+                    <h6 class="fw-bold text-uppercase small">Revenue Collected</h6>
+                    <h3 class="fw-bolder text-info mb-1" id="totalRevenue">₱120,500</h3>
+                    <p class="text-muted small mb-0">Total fees collected</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <!-- Quick Stats Section -->
+            <div class="row mt-4 g-4">
+              <!-- System Activity -->
+              <div class="col-12 col-lg-8">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                      <i class="fa-solid fa-chart-line me-2 text-info"></i> System Activity
+                    </h5>
+                    <p class="text-muted small mb-3">Overview of weekly permit activities.</p>
+                    <div id="activityChart" style="height: 300px;" class="d-flex align-items-center justify-content-center">
+                      <p class="text-center text-muted">[Activity chart coming soon]</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Activities -->
+              <div class="col-12 col-lg-4">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                      <i class="fa-solid fa-clock-rotate-left me-2 text-secondary"></i> Recent Activities
+                    </h5>
+                    <ul class="list-group list-group-flush small">
+                      <li class="list-group-item">
+                        <i class="fa-solid fa-user-plus text-primary me-2"></i>
+                        New applicant registered
+                        <span class="text-muted float-end">2 mins ago</span>
+                      </li>
+                      <li class="list-group-item">
+                        <i class="fa-solid fa-file-signature text-success me-2"></i>
+                        Permit approved for Building #123
+                        <span class="text-muted float-end">15 mins ago</span>
+                      </li>
+                      <li class="list-group-item">
+                        <i class="fa-solid fa-file-pen text-warning me-2"></i>
+                        Application pending for review
+                        <span class="text-muted float-end">1 hour ago</span>
+                      </li>
+                      <li class="list-group-item text-center">
+                        <a href="#" class="text-primary small fw-bold">View All</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Management Table -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                      <i class="fa-solid fa-users-gear me-2 text-primary"></i> User Management
+                    </h5>
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover mb-0">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Last Seen</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>Applicant</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>5 mins ago</td>
+                          </tr>
+                          <tr>
+                            <td>Maria Santos</td>
+                            <td>Treasurer</td>
+                            <td><span class="badge bg-warning">Idle</span></td>
+                            <td>30 mins ago</td>
+                          </tr>
+                          <tr>
+                            <td>Pedro Reyes</td>
+                            <td>Engineer</td>
+                            <td><span class="badge bg-danger">Offline</span></td>
+                            <td>2 hours ago</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-
-        <!-- / Content -->
-
         <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <footer class="content-footer footer bg-footer-theme mt-4">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column text-center text-md-start">
             <div class="mb-2 mb-md-0">
-              ©
-              <script>
+              © <script>
                 document.write(new Date().getFullYear());
-              </script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+              </script>,
+              <span class="fw-bold text-primary">Building Permit Management System</span>
             </div>
             <div>
-              <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-              <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank" class="footer-link me-4">Documentation</a>
-
-              <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                class="footer-link me-4">Support</a>
+              <a href="#" class="footer-link me-3">Documentation</a>
+              <a href="#" class="footer-link me-3">Support</a>
+              <a href="#" class="footer-link">Contact</a>
             </div>
           </div>
         </footer>
-        <!-- / Footer -->
-
-        <div class="content-backdrop fade"></div>
       </div>
+
+
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->

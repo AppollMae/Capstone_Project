@@ -128,4 +128,11 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
 // Treasurer Routes
 Route::group(['middleware' => ['auth', 'iftreasurer'], 'prefix' => 'treasurer'], function(){
   Route::get('/', [TreasurerController::class, 'index'])->name('treasurer.dashboard');
+
+  // Accounts Routes
+  Route::prefix('accounts')->name('accounts.treasurer.')->group(function () {
+    Route::get('/', [TreasurerController::class, 'viewAccountsIndex'])->name('view-accounts');
+    Route::get('/update-accounts/{id}/edit', [TreasurerController::class, 'updateAccountsIndex'])->name('edit-accounts');
+    Route::put('/update-accounts', [TreasurerController::class, 'updateAccounts'])->name('update-accounts');
+  });
 });

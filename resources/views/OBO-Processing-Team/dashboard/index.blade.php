@@ -340,86 +340,125 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <div class="container">
-            <div class="row">
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PARTICIPANTS</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- Inputted -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF JUDGES INPUTTED</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Joined -->
-              <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBER OF CONTEST CATEGORIES JOINED</h5>
-                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
-                      <strong style="font-size:8.5rem; text-align:center;">
-
+            <!-- Dashboard Title -->
+            <div class="text-center mb-4">
+              <h3 class="fw-bold text-success mb-1">
+                <i class="fa-solid fa-building-columns me-2"></i>
+                Office of the Building Official (OBO)
+              </h3>
+              <p class="text-muted">Monitoring and Analytics for Local Development</p>
+            </div>
+            <div class="row g-4">
+              <!-- Total Applications -->
+              <div class="col-md-4">
+                <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-file-contract fa-2x mb-3" style="color:#007bff;"></i>
+                    <h5 class="fw-bold text-dark">TOTAL APPLICATIONS RECEIVED</h5>
+                    <p class="text-muted mb-3">
+                      Number of all <span class="fw-bold text-danger">building permit applications</span> filed
+                    </p>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
+                      <strong style="font-size:6rem; background: linear-gradient(45deg, #007bff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        120
                       </strong>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <!-- Kind of contest category have been joined -->
+              <!-- Approved Permits -->
+              <div class="col-md-4">
+                <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-circle-check fa-2x mb-3" style="color:#28a745;"></i>
+                    <h5 class="fw-bold text-dark">APPROVED PERMITS</h5>
+                    <p class="text-muted mb-3">
+                      Total <span class="fw-bold text-danger">approved</span> building permits
+                    </p>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
+                      <strong style="font-size:6rem; background: linear-gradient(45deg, #28a745, #6ddf5f); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        85
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-              <!-- No comment yet -->
+              <!-- Pending Applications -->
+              <div class="col-md-4">
+                <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-hourglass-half fa-2x mb-3" style="color:#ffc107;"></i>
+                    <h5 class="fw-bold text-dark">PENDING APPLICATIONS</h5>
+                    <p class="text-muted mb-3">
+                      Applications currently <span class="fw-bold text-danger">under review</span>
+                    </p>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
+                      <strong style="font-size:6rem; background: linear-gradient(45deg, #ffc107, #ffdd57); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        35
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-              <!-- List of categories and counts -->
+            <!-- Additional row for insights -->
+            <div class="row g-4 mt-2">
+              <!-- Site Inspections -->
+              <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-helmet-safety fa-2x mb-3" style="color:#17a2b8;"></i>
+                    <h5 class="fw-bold text-dark">SITE INSPECTIONS COMPLETED</h5>
+                    <p class="text-muted">Number of inspection visits completed this month</p>
+                    <strong style="font-size:4.5rem; background: linear-gradient(45deg, #17a2b8, #72e6f8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                      15
+                    </strong>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Revenue Collected -->
+              <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-coins fa-2x mb-3" style="color:#6c757d;"></i>
+                    <h5 class="fw-bold text-dark">TOTAL REVENUE COLLECTED</h5>
+                    <p class="text-muted">Total fees collected for approved permits</p>
+                    <strong style="font-size:4.5rem; background: linear-gradient(45deg, #6c757d, #adb5bd); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                      ₱250,000
+                    </strong>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
-        <!-- / Content -->
+        <!-- /Content -->
 
         <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-            <div class="mb-2 mb-md-0">
-              ©
-              <script>
+        <footer class="content-footer footer bg-footer-theme mt-4">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column border-top pt-3">
+            <div class="mb-2 mb-md-0 text-muted">
+              © <script>
                 document.write(new Date().getFullYear());
-              </script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+              </script>, powered by
+              <span class="fw-bold text-danger">OBO Management System</span>
             </div>
             <div>
-              <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-              <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank" class="footer-link me-4">Documentation</a>
-
-              <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                class="footer-link me-4">Support</a>
+              <a href="#" class="footer-link me-4 text-muted">Help</a>
+              <a href="#" class="footer-link me-4 text-muted">Support</a>
+              <a href="#" class="footer-link text-muted">Documentation</a>
             </div>
           </div>
         </footer>
-        <!-- / Footer -->
+        <!-- /Footer -->
 
         <div class="content-backdrop fade"></div>
       </div>
+
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->

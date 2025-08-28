@@ -67,6 +67,7 @@
 
     <!-- Geocoding API for address search -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="{{ asset('css/obo.css') }}">
 
 
 </head>
@@ -119,6 +120,9 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="{{ asset('js/longtitude.js') }}"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('js/analytics-chart.js') }}"></script>
 </body>
 
 </html>
