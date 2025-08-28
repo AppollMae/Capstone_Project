@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OBO\dashboard\OboController;
+use App\Http\Controllers\Treasurer\TreasurerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,4 +122,10 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
     Route::get('/update-accounts/{id}/edit', [OboController::class, 'updateAccountsIndex'])->name('edit-accounts');
     Route::put('/update-accounts', [OboController::class, 'updateAccounts'])->name('update-accounts');
   });
+});
+
+
+// Treasurer Routes
+Route::group(['middleware' => ['auth', 'iftreasurer'], 'prefix' => 'treasurer'], function(){
+  Route::get('/', [TreasurerController::class, 'index'])->name('treasurer.dashboard');
 });

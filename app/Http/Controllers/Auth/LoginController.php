@@ -62,6 +62,10 @@ class LoginController extends Controller
             return redirect()->route('obo.dashboard');
         }
 
+        if($user->role === 'treasurer'){
+            return redirect()->route('treasurer.dashboard');
+        }
+
         return redirect()->route('home');
     }
 

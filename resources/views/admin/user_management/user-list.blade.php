@@ -323,7 +323,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($users as $user)
-                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo']))
+                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo', 'treasurer']))
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>

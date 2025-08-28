@@ -82,11 +82,11 @@
                                 <div data-i18n="Without navbar">Apply Now</div>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <!-- <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Download the required documents</div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
@@ -312,6 +312,28 @@
                                 <h5 class="card-header">Permit Application Form</h5>
                                 <hr class="my-0" />
 
+                                <!-- Download Required Forms -->
+                                <div class="mb-2 p-3">
+                                    <h6 class="fw-bold">Download Required Forms</h6>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="{{ asset('downloads/Building-Application-Form-Permit.pdf') }}" class="btn btn-outline-primary btn-sm" download>
+                                                <i class="bx bx-download me-1"></i> Building Application Form
+                                            </a>
+                                        </li>
+                                        <!-- <li class="mt-2">
+                                            <a href="{{ asset('downloads/other_required_document.pdf') }}" class="btn btn-outline-primary btn-sm" download>
+                                                <i class="bx bx-download me-1"></i> Other Required Document
+                                            </a>
+                                        </li> -->
+                                    </ul>
+                                    <small class="text-muted">
+                                        Download and fill out these forms, then upload them along with your application.
+                                    </small>
+                                </div>
+
+                                <hr class="my-0" />
+                                <!-- Permit Application Form -->
                                 <div class="card-body">
                                     <form action="" method="POST" enctype="multipart/form-data">
                                         @csrf
@@ -319,23 +341,43 @@
                                         <!-- Project Name -->
                                         <div class="mb-3 col-md-12">
                                             <label for="project_name" class="form-label">Project Name</label>
-                                            <input class="form-control" type="text" id="project_name" name="project_name" placeholder="Enter project name" required />
+                                            <input
+                                                class="form-control"
+                                                type="text"
+                                                id="project_name"
+                                                name="project_name"
+                                                placeholder="Enter project name"
+                                                required />
                                         </div>
 
                                         <!-- Project Location -->
                                         <div class="mb-3 col-md-12">
                                             <label for="location" class="form-label">Project Location</label>
-                                            <input class="form-control" type="text" id="location" name="location" placeholder="Enter project location" required />
+                                            <input
+                                                class="form-control"
+                                                type="text"
+                                                id="location"
+                                                name="location"
+                                                placeholder="Enter project location"
+                                                required />
                                         </div>
 
                                         <!-- Location Search Input -->
                                         <div class="mb-3 col-md-12">
                                             <label for="address" class="form-label">Search Building Location</label>
                                             <div class="input-group">
-                                                <input type="text" id="address" class="form-control" placeholder="Enter building location">
-                                                <button type="button" class="btn btn-primary" id="search-location">Search</button>
+                                                <input
+                                                    type="text"
+                                                    id="address"
+                                                    class="form-control"
+                                                    placeholder="Enter building location" />
+                                                <button type="button" class="btn btn-primary" id="search-location">
+                                                    Search
+                                                </button>
                                             </div>
-                                            <small class="text-muted">Enter an address to pinpoint the location on the map.</small>
+                                            <small class="text-muted">
+                                                Enter an address to pinpoint the location on the map.
+                                            </small>
                                         </div>
 
                                         <!-- Map for pinpointing location -->
@@ -344,35 +386,54 @@
                                             <div id="map" style="height: 300px; border: 1px solid #ccc;"></div>
                                             <input type="hidden" id="latitude" name="latitude">
                                             <input type="hidden" id="longitude" name="longitude">
-                                            <small class="text-muted">Drag the marker to fine-tune the location.</small>
+                                            <small class="text-muted">
+                                                Drag the marker to fine-tune the location.
+                                            </small>
                                         </div>
-
 
                                         <!-- Project Description -->
                                         <div class="mb-3 col-md-12">
                                             <label for="description" class="form-label">Project Description</label>
-                                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Brief description of the project" required></textarea>
+                                            <textarea
+                                                class="form-control"
+                                                id="description"
+                                                name="description"
+                                                rows="3"
+                                                placeholder="Brief description of the project"
+                                                required></textarea>
                                         </div>
 
                                         <!-- Upload Documents -->
                                         <div class="mb-3 col-md-12">
                                             <label for="documents" class="form-label">Upload Required Documents</label>
-                                            <input class="form-control" type="file" id="documents" name="documents[]" multiple accept=".pdf,.jpg,.png" required />
-                                            <small class="text-muted">Accepted formats: PDF, JPG, PNG (Multiple files allowed)</small>
+                                            <input
+                                                class="form-control"
+                                                type="file"
+                                                id="documents"
+                                                name="documents[]"
+                                                multiple
+                                                accept=".pdf,.jpg,.png"
+                                                required />
+                                            <small class="text-muted">
+                                                Accepted formats: PDF, JPG, PNG (multiple files allowed)
+                                            </small>
                                         </div>
 
-                                        <!-- Submit Button -->
+                                        <!-- Buttons -->
                                         <div class="mt-3">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="bx bx-save me-1"></i> Submit Application
                                             </button>
-                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                            <button type="reset" class="btn btn-secondary">
+                                                Reset
+                                            </button>
                                         </div>
                                     </form>
-
                                 </div>
-                                <!-- /Permit Application Card -->
+                                <!-- /Permit Application Form -->
                             </div>
+                            <!-- /Permit Application Card -->
+
                         </div>
                     </div>
                 </div>
