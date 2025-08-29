@@ -4,6 +4,8 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,8 +21,14 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any authentication / authorization services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+            if (Auth::check()) {
+                $user = User::find(Auth::id());
+                if ($user) {
+                    $user->last_seen = now();
+                    $user->save();
+                }
+            }
     }
 }

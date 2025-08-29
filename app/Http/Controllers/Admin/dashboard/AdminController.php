@@ -11,8 +11,15 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = Auth::user();
-        return view('admin.dashboard.dashboard', compact('users'));
+        $currentUser = Auth::user();
+
+        // Fetch all users except admin
+        $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO', 'user'])->get();
+
+        return view('admin.dashboard.dashboard', [
+            'currentUser' => $currentUser,
+            'users' => $users,
+        ]);
     }
 
     public function userManagementIndex()

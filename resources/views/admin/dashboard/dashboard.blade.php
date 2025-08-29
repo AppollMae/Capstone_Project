@@ -159,11 +159,11 @@
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="" class="menu-link">
                 <div data-i18n="Notifications">Settings</div>
               </a>
-            </li>
+            </li> -->
 
           </ul>
         </li>
@@ -278,12 +278,12 @@
                     <span class="align-middle">My Profile</span>
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a class="dropdown-item" href="">
                     <i class="bx bx-cog me-2"></i>
                     <span class="align-middle">Settings</span>
                   </a>
-                </li>
+                </li> -->
                 <li>
                   <a class="dropdown-item" href="">
                     <i class="menu-icon tf-icons bx bx-file"></i>
@@ -446,26 +446,52 @@
                           </tr>
                         </thead>
                         <tbody>
+                          @forelse ($users as $user)
+                          @php
+                          $status = 'Offline';
+                          $badgeClass = 'bg-danger';
+
+                          if ($user->last_seen) {
+                          $lastActivity = \Carbon\Carbon::parse($user->last_seen);
+
+                          if ($lastActivity->gt(now()->subMinutes(5))) {
+                          $status = 'Active';
+                          $badgeClass = 'bg-success';
+                          } elseif ($lastActivity->gt(now()->subMinutes(10))) {
+                          $status = 'Idle';
+                          $badgeClass = 'bg-warning';
+                          }
+                          }
+                          @endphp
                           <tr>
-                            <td>Juan Dela Cruz</td>
-                            <td>Applicant</td>
-                            <td><span class="badge bg-success">Active</span></td>
-                            <td>5 mins ago</td>
+                            <!-- Name -->
+                            <td>{{ $user->name }}</td>
+
+                            <!-- Role -->
+                            <td>{{ ucfirst($user->role) }}</td>
+
+                            <!-- Status -->
+                            <td>
+                              <span class="text-white px-3 py-2 rounded-pill shadow-sm fw-semibold {{ $badgeClass }}"
+                                style="font-size: 0.9rem; letter-spacing: 0.5px;">
+                                {{ $status }}
+                              </span>
+                            </td>
+
+
+                            <!-- Last Seen -->
+                            <td>
+                              {{ $user->last_seen ? \Carbon\Carbon::parse($user->last_seen)->diffForHumans() : 'N/A' }}
+                            </td>
                           </tr>
+                          @empty
                           <tr>
-                            <td>Maria Santos</td>
-                            <td>Treasurer</td>
-                            <td><span class="badge bg-warning">Idle</span></td>
-                            <td>30 mins ago</td>
+                            <td colspan="4" class="text-center text-muted">No users found</td>
                           </tr>
-                          <tr>
-                            <td>Pedro Reyes</td>
-                            <td>Engineer</td>
-                            <td><span class="badge bg-danger">Offline</span></td>
-                            <td>2 hours ago</td>
-                          </tr>
+                          @endforelse
                         </tbody>
                       </table>
+
                     </div>
                   </div>
                 </div>

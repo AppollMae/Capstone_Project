@@ -133,11 +133,11 @@
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="" class="menu-link">
                 <div data-i18n="Notifications">Settings</div>
               </a>
-            </li>
+            </li> -->
 
           </ul>
         </li>
@@ -234,12 +234,12 @@
                     <span class="align-middle">My Profile</span>
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a class="dropdown-item" href="">
                     <i class="bx bx-cog me-2"></i>
                     <span class="align-middle">Settings</span>
                   </a>
-                </li>
+                </li> -->
                 <li>
                   <a class="dropdown-item" href="">
                     <i class="menu-icon tf-icons bx bx-file"></i>
