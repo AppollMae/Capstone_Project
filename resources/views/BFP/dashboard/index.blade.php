@@ -215,6 +215,8 @@
                           $roleLabel = 'Admin';
                           } elseif ($role === 'mpdo') {
                           $roleLabel = 'MPDO';
+                          } elseif ($role === 'treasurer'){
+                          $roleLabel = 'Treasurer';
                           } else {
                           $roleLabel = 'User';
                           }

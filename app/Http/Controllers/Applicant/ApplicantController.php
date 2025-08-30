@@ -76,7 +76,8 @@ class ApplicantController extends Controller
     // ApplicantController.php
     public function applyForPermit()
     {
-        return view('applicant.permits.applicants-apply-permits',[
+        $user = Auth::user();
+        return view('applicant.permits.applicants-apply-permits',compact('user'),[
             'ActiveTab' => 'permits',
             'SubActiveTab' => 'application-form'
         ]);

@@ -155,7 +155,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{ route('admin.accounts.update-account', Auth::user()->id) }}" class="menu-link">
+              <a href="{{ route('admin.accounts.edit-account', Auth::user()->id) }}" class="menu-link">
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>

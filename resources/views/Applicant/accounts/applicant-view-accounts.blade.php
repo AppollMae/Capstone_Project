@@ -208,7 +208,7 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                    <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
@@ -219,7 +219,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                                    <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
@@ -336,7 +336,7 @@
                                     <div class="mb-3">
                                         <label for="avatar" class="form-label">Profile Picture</label>
                                         <img id="uploadedAvatar"
-                                            src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('assets/img/avatars/1.png') }}"
+                                            src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}"
                                             alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
                                     </div>
                                 </div>

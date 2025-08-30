@@ -211,7 +211,7 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                    <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
@@ -222,14 +222,29 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                                    <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                                <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                                                <small class="text-muted"> @php
+                                                    $role = strtolower(auth()->user()->role);
+                                                    if ($role === 'bfp') {
+                                                    $roleLabel = 'BFP';
+                                                    } elseif ($role === 'admin') {
+                                                    $roleLabel = 'Admin';
+                                                    } elseif ($role === 'mpdo') {
+                                                    $roleLabel = 'MPDO';
+                                                    } elseif($role === 'treasurer'){
+                                                    $roleLabel = 'Treasurer';
+                                                    }
+                                                    else {
+                                                    $roleLabel = 'User';
+                                                    }
+                                                    @endphp
+                                                    {{ $roleLabel }}</small>
                                             </div>
 
                                         </div>
@@ -361,7 +376,7 @@
                                                 id="uploadedAvatar"
                                                 src="{{ Auth::user()->avatar 
                     ? asset('storage/' . Auth::user()->avatar) 
-                    : asset('assets/img/avatars/1.png') }}"
+                    : asset('sneat/img/avatars/1.png') }}"
                                                 alt="avatar"
                                                 class="d-block rounded mt-2"
                                                 width="100"
