@@ -68,8 +68,8 @@
     <!-- Geocoding API for address search -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" href="{{ asset('css/obo.css') }}">
-
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
 <body>
@@ -109,7 +109,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="{{asset('sneat/js/year.js')}}"></script>
     <script src="{{ asset('js/arrow_toggle.js') }}"></script>
-    <script src="{{ asset('sneat/js/print.js')}}"></script>
     <script src="{{ asset('sneat/js/dashboards-analytics.js') }}"></script>
 
 
@@ -123,6 +122,13 @@
     <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/analytics-chart.js') }}"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{{ asset('js/pinpoint.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        var draftPermits = {!! json_encode($draftPermits) !!};
+    </script>
 </body>
 
 </html>

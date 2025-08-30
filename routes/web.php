@@ -108,6 +108,12 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::get('/', [ApplicantController::class, 'permitsIndex'])->name('view-permits');
     Route::get('/apply', [ApplicantController::class, 'applyForPermit'])->name('apply-permit');
     Route::post('/store', [ApplicantController::class, 'storePermitApplication'])->name('store-permit');
+    Route::post('/draft', [ApplicantController::class, 'draftPermitApplication'])->name('draft-permit');
+  });
+
+  Route::prefix('draft')->name('applicants.drafts.')->group(function () {
+    Route::get('/', [ApplicantController::class, 'draftIndex'])->name('view-drafts');
+    Route::get('/showmap', [ApplicantController::class, 'showMap'])->name('show-map');
   });
 });
 

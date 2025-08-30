@@ -236,7 +236,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                  <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                     class="w-px-120 h-px-120 rounded-circle" />
                 </div>
               </a>
@@ -246,7 +246,7 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                          <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                             class="w-px-120 h-px-120 rounded-circle" />
                         </div>
                       </div>
@@ -335,7 +335,7 @@
                   <div class="card-body text-center">
                     <i class="fa-solid fa-file-circle-plus fa-2x text-primary mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Total Applications</h6>
-                    <h3 class="fw-bolder text-primary mb-1" id="totalApplications">128</h3>
+                    <h3 class="fw-bolder text-primary mb-1" id="totalApplications">{{ $TotalUsers }}</h3>
                     <p class="text-muted small mb-0">All applications submitted</p>
                   </div>
                 </div>

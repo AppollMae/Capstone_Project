@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PermitApplication extends Model
+class DraftPermit extends Model
 {
     protected $fillable = [
         'user_id',
@@ -16,15 +16,15 @@ class PermitApplication extends Model
         'longitude',     // NEW
         'description',
         'documents',
-        'status'
+        'status',
     ];
-    protected $casts = [
-        'documents' => 'array', // Automatically cast JSON to array
-    ];
+
+    protected $table = 'draft_permits';
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
+
     use HasFactory;
 }

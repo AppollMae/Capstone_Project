@@ -23,7 +23,7 @@
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{ route('applicant.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
@@ -70,23 +70,23 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item {{ $ActiveTab === 'permits' ? 'active' : '' }}">
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-ticket"></i>
                         <div data-i18n="Layouts">Apply for Permit</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'application-form' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
+                        <li class="menu-item">
+                            <a href="{{ route('applicants.permits.apply-permit') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Apply Now</div>
                             </a>
                         </li>
                         <!-- <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Download the required documents</div>
-                            </a>
-                        </li> -->
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Download the required documents</div>
+              </a>
+            </li> -->
                     </ul>
                 </li>
 
@@ -208,7 +208,7 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}" alt
+                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
@@ -219,7 +219,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
@@ -234,7 +234,10 @@
                                                     $roleLabel = 'Admin';
                                                     } elseif ($role === 'mpdo') {
                                                     $roleLabel = 'MPDO';
-                                                    } else {
+                                                    } elseif($role === 'treasurer'){
+                                                    $roleLabel = 'Treasurer';
+                                                    }
+                                                    else {
                                                     $roleLabel = 'User';
                                                     }
                                                     @endphp
@@ -292,182 +295,120 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4">
-                        <span class="text-muted fw-light">Building Permit /</span> Apply for Permit
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Admin User Management /</span>Show All Accounts
                     </h4>
 
                     <div class="row">
                         <div class="col-md-12">
-                            <!-- Tabs Navigation -->
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);">
-                                        <i class="bx bx-file me-1"></i> New Application
-                                    </a>
+                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> All Accounts</a>
                                 </li>
                             </ul>
 
-                            <!-- Permit Application Card -->
                             <div class="card mb-4">
-                                <h5 class="card-header">Permit Application Form</h5>
+                                <h5 class="card-header">User Management</h5>
                                 <hr class="my-0" />
 
-                                <!-- Download Required Forms -->
-                                <div class="mb-2 p-3">
-                                    <h6 class="fw-bold">Download Required Forms</h6>
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <a href="{{ asset('downloads/Building-Application-Form-Permit.pdf') }}" class="btn btn-outline-primary btn-sm" download>
-                                                <i class="bx bx-download me-1"></i> Building Application Form
-                                            </a>
-                                        </li>
-                                        <!-- <li class="mt-2">
-                                            <a href="{{ asset('downloads/other_required_document.pdf') }}" class="btn btn-outline-primary btn-sm" download>
-                                                <i class="bx bx-download me-1"></i> Other Required Document
-                                            </a>
-                                        </li> -->
-                                    </ul>
-                                    <small class="text-muted">
-                                        Download and fill out these forms, then upload them along with your application.
-                                    </small>
-                                </div>
-
-                                <hr class="my-0" />
-
-                                <!-- Permit Application Form -->
                                 <div class="card-body">
-                                    @if(session('success'))
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>Success!</strong> {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <div class="table-responsive">
+                                        <!-- Map Container -->
+                                        <div id="map" style="height: 400px; width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 20px;"></div>
+
+                                        <!-- Hidden inputs to store the first location's coordinates (optional) -->
+                                        <input type="hidden" id="latitude" name="latitude">
+                                        <input type="hidden" id="longitude" name="longitude">
+                                        <!-- Draft Permits Table -->
+                                        <table class="table table-bordered table-striped text-center align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Project Name</th>
+                                                    <th>Location</th>
+                                                    <th>Latitude</th>
+                                                    <th>Longitude</th>
+                                                    <th>Created At</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($draftPermits as $draft)
+                                                <tr>
+                                                    <!-- Created By (User Name) -->
+                                                    <td>{{ $draft->user->name ?? 'N/A' }}</td>
+
+                                                    <!-- Project Name -->
+                                                    <td>{{ $draft->project_name ?? 'N/A' }}</td>
+
+                                                    <!-- Location -->
+                                                    <td>{{ $draft->location ?? 'N/A' }}</td>
+
+                                                    <!-- Latitude -->
+                                                    <td>{{ $draft->latitude ?? 'N/A' }}</td>
+
+                                                    <!-- Longitude -->
+                                                    <td>{{ $draft->longitude ?? 'N/A' }}</td>
+
+                                                    <!-- Created At -->
+                                                    <td>{{ $draft->created_at ? $draft->created_at->format('M d, Y h:i A') : 'N/A' }}</td>
+
+                                                    <!-- Status -->
+                                                    <td>
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm"
+                                                            style="background: linear-gradient(90deg, #dbff59, #ffa751); color:#4a3f00; font-weight:600; font-size:0.85rem;">
+                                                            {{ ucfirst($draft->status ?? 'Draft') }}
+                                                        </span>
+                                                    </td>
+
+                                                    <!-- Action -->
+                                                    <td>
+                                                        <a href=""
+                                                            class="btn btn-sm btn-primary shadow-sm">
+                                                            <i class="bx bx-edit"></i> Edit
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                                <tr>
+                                                    <td colspan="8" class="text-muted">No draft permits found.</td>
+                                                </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    @endif
-                                    <form action="{{ route('applicants.permits.store-permit') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-
-                                        <!-- Project Name -->
-                                        <div class="mb-3 col-md-12">
-                                            <label for="project_name" class="form-label">Project Name</label>
-                                            <input
-                                                class="form-control"
-                                                type="text"
-                                                id="project_name"
-                                                name="project_name"
-                                                placeholder="Enter project name"
-                                                required />
-                                        </div>
-
-                                        <!-- Project Location -->
-                                        <div class="mb-3 col-md-12">
-                                            <label for="location" class="form-label">Project Location</label>
-                                            <input
-                                                class="form-control"
-                                                type="text"
-                                                id="location"
-                                                name="location"
-                                                placeholder="Enter project location"
-                                                required />
-                                        </div>
-
-                                        <!-- Location Search Input -->
-                                        <div class="mb-3 col-md-12">
-                                            <label for="address" class="form-label">Search Building Location</label>
-                                            <div class="input-group">
-                                                <input
-                                                    type="text"
-                                                    id="address"
-                                                    class="form-control"
-                                                    placeholder="Enter building location" />
-                                                <button type="button" class="btn btn-primary" id="search-location">
-                                                    Search
-                                                </button>
-                                            </div>
-                                            <small class="text-muted">
-                                                Enter an address to pinpoint the location on the map.
-                                            </small>
-                                        </div>
-
-                                        <!-- Map for pinpointing location -->
-                                        <div class="mb-3 col-md-12">
-                                            <label class="form-label">Pinpoint Building Location</label>
-                                            <div id="map" style="height: 300px; border: 1px solid #ccc;"></div>
-                                            <input type="hidden" id="latitude" name="latitude">
-                                            <input type="hidden" id="longitude" name="longitude">
-                                            <small class="text-muted">
-                                                Drag the marker to fine-tune the location.
-                                            </small>
-                                        </div>
-
-                                        <!-- Project Description -->
-                                        <div class="mb-3 col-md-12">
-                                            <label for="description" class="form-label">Project Description</label>
-                                            <textarea
-                                                class="form-control"
-                                                id="description"
-                                                name="description"
-                                                rows="3"
-                                                placeholder="Brief description of the project"
-                                                required></textarea>
-                                        </div>
-
-                                        <!-- Upload Documents -->
-                                        <div class="mb-3 col-md-12">
-                                            <label for="documents" class="form-label">Upload Required Documents</label>
-                                            <input
-                                                class="form-control"
-                                                type="file"
-                                                id="documents"
-                                                name="documents[]"
-                                                multiple
-                                                accept=".pdf,.jpg,.png"
-                                                required />
-                                            <small class="text-muted">
-                                                Accepted formats: PDF, JPG, PNG (multiple files allowed)
-                                            </small>
-                                        </div>
-
-                                        <!-- Buttons -->
-                                        <div class="mt-3">
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="bx bx-save me-1"></i> Submit Application
-                                            </button>
-
-                                            <!-- Save as Draft Button -->
-                                            <button type="submit" formaction="{{ route('applicants.permits.draft-permit') }}" class="btn btn-warning">
-                                                <i class="bx bx-edit-alt me-1"></i> Save as Draft
-                                            </button>
-                                            <button type="reset" class="btn btn-secondary">
-                                                Reset
-                                            </button>
-                                        </div>
-                                    </form>
                                 </div>
-                                <!-- /Permit Application Form -->
-                            </div>
-                            <!-- /Permit Application Card -->
 
+                            </div>
                         </div>
                     </div>
                 </div>
 
 
 
-
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme mt-4">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column text-center text-md-start">
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                         <div class="mb-2 mb-md-0">
-                            © <script>
+                            ©
+                            <script>
                                 document.write(new Date().getFullYear());
-                            </script>,
-                            <span class="fw-bold text-primary">Building Permit Management System</span>
+                            </script>
+                            , made with ❤️ by
+                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span
+                                    class="fw-bold" style="color: #ff6347;">Coder</span></a>
                         </div>
                         <div>
-                            <a href="#" class="footer-link me-3">Documentation</a>
-                            <a href="#" class="footer-link me-3">Support</a>
-                            <a href="#" class="footer-link">Contact</a>
+                            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
+
+                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                                target="_blank" class="footer-link me-4">Documentation</a>
+
+                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
+                                class="footer-link me-4">Support</a>
                         </div>
                     </div>
                 </footer>
@@ -485,3 +426,4 @@
 </div>
 <!-- / Layout wrapper -->
 @endsection
+

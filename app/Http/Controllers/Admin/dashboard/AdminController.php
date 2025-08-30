@@ -15,24 +15,29 @@ class AdminController extends Controller
 
         // Fetch all users except admin
         $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO'])->get();
+        $TotalUsers = User::whereIn('role', ['user'])->count();
 
         return view('admin.dashboard.dashboard', [
             'currentUser' => $currentUser,
             'users' => $users,
+            'TotalUsers' => $TotalUsers
         ]);
     }
 
     public function userManagementIndex()
     {
+        $currentUser = Auth::user();
         $users = User::all();
         return view('admin.user_management.user-list', compact('users'), [
             'ActiveMenu' => 'user_management',
-            'SubActive' => 'Staff/Inspector'
+            'SubActive' => 'Staff/Inspector',
+            'currentUser' => $currentUser
         ]);
     }
 
     public function showUser($id)
     {
+
         $user = User::findOrFail($id);
         return view('admin.user_management.user-management', compact('user'));
     }
@@ -64,8 +69,9 @@ class AdminController extends Controller
 
     public function applicantUserList()
     {
+        $CurrentUsers = Auth::user();
         $users = User::where('role', 'user')->get();
-        return view('admin.user_management.applicant-user-list', compact('users'), [
+        return view('admin.user_management.applicant-user-list', compact('users', 'CurrentUsers'), [
             'ActiveMenu' => 'user_management',
             'SubActive' => 'Applicants'
         ]);

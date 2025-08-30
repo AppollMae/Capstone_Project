@@ -40,7 +40,7 @@
 
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                 <div data-i18n="Without menu">Draft</div>
               </a>
             </li>
