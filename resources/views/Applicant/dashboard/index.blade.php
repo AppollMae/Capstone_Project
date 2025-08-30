@@ -354,17 +354,17 @@
 
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme mt-4">
-          <div class="container-xxl d-flex flex-column flex-md-row justify-content-between align-items-center py-2">
-            <div class="mb-2 mb-md-0 text-center text-md-start">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column text-center text-md-start">
+            <div class="mb-2 mb-md-0">
               © <script>
                 document.write(new Date().getFullYear());
               </script>,
-              developed by <span class="fw-bold text-primary">JasCoder</span>
+              <span class="fw-bold text-primary">Building Permit Management System</span>
             </div>
-            <div class="text-center text-md-end">
-              <a href="#" class="footer-link me-3">Help</a>
-              <a href="#" class="footer-link me-3">Privacy Policy</a>
-              <a href="#" class="footer-link">Support</a>
+            <div>
+              <a href="#" class="footer-link me-3">Documentation</a>
+              <a href="#" class="footer-link me-3">Support</a>
+              <a href="#" class="footer-link">Contact</a>
             </div>
           </div>
         </footer>

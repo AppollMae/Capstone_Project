@@ -407,7 +407,8 @@
               © <script>
                 document.write(new Date().getFullYear());
               </script>
-              , Building Permit Management System — Treasurer Module
+              , Building Permit Management System — Treasurer Module | Develop by
+              <span class="fw-bold text-success">Group 5</span>
             </div>
             <div>
               <a href="#" class="footer-link me-4">Support</a>

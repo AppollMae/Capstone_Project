@@ -14,7 +14,7 @@ class AdminController extends Controller
         $currentUser = Auth::user();
 
         // Fetch all users except admin
-        $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO', 'user'])->get();
+        $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO'])->get();
 
         return view('admin.dashboard.dashboard', [
             'currentUser' => $currentUser,

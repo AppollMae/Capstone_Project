@@ -286,9 +286,11 @@
                                                     } elseif ($role === 'mpdo') {
                                                     $roleLabel = 'MPDO';
                                                     } elseif ($role === 'obo') {
-                                                        $roleLabel = 'Building Official';
-                                                    } else {
-                                                        $roleLabel = 'User';
+                                                    $roleLabel = 'Building Official';
+                                                    } elseif($role === 'treasurer'){
+                                                    $role = 'Treasurer';
+                                                    }else {
+                                                    $roleLabel = 'User';
                                                     }
                                                     @endphp
                                                     {{ $roleLabel }}</small>
@@ -440,25 +442,22 @@
                 </div>
                 <!-- Content wrapper -->
             </div>
-            <footer class="content-footer footer bg-footer-theme">
-                <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+
+            <!-- Footer Section -->
+            <footer class="content-footer footer bg-footer-theme mt-4">
+                <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column small">
                     <div class="mb-2 mb-md-0">
-                        ©
-                        <script>
+                        © <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        , made with ❤️ by
-                        <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+                        Office of the Building Official Team Dashboard | Developed by
+                        <span class="fw-bold text-success">Group 5</span>
                     </div>
                     <div>
-                        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                        <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                            target="_blank" class="footer-link me-4">Documentation</a>
-
-                        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                            class="footer-link me-4">Support</a>
+                        <a href="#" class="footer-link me-4">License</a>
+                        <a href="#" class="footer-link me-4">Contact</a>
+                        <a href="#" class="footer-link me-4">Documentation</a>
+                        <a href="#" class="footer-link me-4">Support</a>
                     </div>
                 </div>
             </footer>

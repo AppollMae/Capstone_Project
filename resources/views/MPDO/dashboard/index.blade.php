@@ -414,8 +414,8 @@
               © <script>
                 document.write(new Date().getFullYear());
               </script>
-              MPDO Dashboard | Developed by
-              <span class="fw-bold text-success">JasCoder</span>
+              Municipal Planning and Development Office Dashboard | Developed by
+              <span class="fw-bold text-success">Group 5</span>
             </div>
             <div>
               <a href="#" class="footer-link me-4">License</a>

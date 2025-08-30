@@ -211,7 +211,24 @@
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                                <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                                                <small class="text-muted">
+                                                    @php
+                                                    $role = strtolower(auth()->user()->role);
+                                                    if ($role === 'bfp') {
+                                                    $roleLabel = 'BFP';
+                                                    } elseif ($role === 'admin') {
+                                                    $roleLabel = 'Admin';
+                                                    } elseif ($role === 'mpdo') {
+                                                    $roleLabel = 'MPDO';
+                                                    } elseif($role === 'treasurer'){
+                                                    $roleLabel = 'Treasurer';
+                                                    }
+                                                    else {
+                                                    $roleLabel = 'User';
+                                                    }
+                                                    @endphp
+                                                    {{ $roleLabel }}
+                                                </small>
                                             </div>
 
                                         </div>
