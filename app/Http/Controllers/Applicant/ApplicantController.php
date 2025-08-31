@@ -13,7 +13,8 @@ class ApplicantController extends Controller
 {
     public function index()
     {
-        return view('applicant.dashboard.index');
+        $draftpermitcount = DraftPermit::where('status', 'draft')->count();
+        return view('applicant.dashboard.index', compact('draftpermitcount'));
     }
 
     public function applicantsIndex()
@@ -45,13 +46,13 @@ class ApplicantController extends Controller
 
         // Validate request data
         $request->validate([
-            'name'   => 'required|string|max:255',
-            'email'  => 'required|email|max:255|unique:users,email,' . $accounts->id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $accounts->id,
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Update basic fields
-        $accounts->name  = $request->name;
+        $accounts->name = $request->name;
         $accounts->email = $request->email;
 
         // Handle avatar if uploaded
@@ -175,6 +176,60 @@ class ApplicantController extends Controller
             ];
         });
 
-        return view('applicant.drafts.index-draft', compact('draftPermits', 'currentUser', 'locations'));
+        return view('applicant.drafts.index-draft', compact('draftPermits', 'currentUser', 'locations'), [
+            'ActiveTab' => 'draft',
+            'SubActivetab' => 'view'
+        ]);
     }
+
+    // public function updateDraft(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'id' => 'required|exists:draft_permits,id',
+    //         'project_name' => 'required|string|max:255',
+    //         'location' => 'required|string|max:255',
+    //         'latitude' => 'nullable|numeric',
+    //         'longitude' => 'nullable|numeric',
+    //         'description' => 'required|string',
+    //         'documents.*' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+    //         'status' => 'required|string|in:draft,pending'
+    //     ]);
+
+    //     $draft = DraftPermit::find($validated['id']);
+    //     if (!$draft) {
+    //         return redirect()->back()->withErrors(['error' => 'Draft not found']);
+    //     }
+
+    //     // Update fields
+    //     $draft->project_name = $validated['project_name'];
+    //     $draft->location = $validated['location'];
+    //     $draft->latitude = $validated['latitude'];
+    //     $draft->longitude = $validated['longitude'];
+    //     $draft->description = $validated['description'];
+    //     $draft->status = $validated['status']; // allow status change to pending
+
+    //     // Handle documents if uploaded
+    //     if ($request->hasFile('documents')) {
+    //         $documentPaths = [];
+    //         foreach ($request->file('documents') as $file) {
+    //             $path = $file->store('documents', 'public');
+    //             $documentPaths[] = $path;
+    //         }
+    //         $draft->documents = json_encode($documentPaths);
+    //     }
+
+    //     // Save draft
+    //     $draft->save();
+
+    //     return redirect()->back()->with('success', 'Draft updated successfully!');
+    // }
+
+    public function deleteDraft($id)
+    {
+        $draft = DraftPermit::findOrFail($id);
+        $draft->delete();
+
+        return redirect()->back()->with('success', 'Draft deleted successfully!');
+    }
+
 }

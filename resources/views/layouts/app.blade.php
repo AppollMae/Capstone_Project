@@ -70,6 +70,7 @@
     <link rel="stylesheet" href="{{ asset('css/obo.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ asset('css/map-container.css') }}">
 </head>
 
 <body>
@@ -125,10 +126,7 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="{{ asset('js/pinpoint.js') }}"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <script>
-        var draftPermits = {!! json_encode($draftPermits) !!};
-    </script>
+    <script src="{{ asset('js/delete-modal.js') }}"></script>
 </body>
 
 </html>

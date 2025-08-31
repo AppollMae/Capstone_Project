@@ -114,6 +114,8 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {
     Route::get('/', [ApplicantController::class, 'draftIndex'])->name('view-drafts');
     Route::get('/showmap', [ApplicantController::class, 'showMap'])->name('show-map');
+    Route::put('/update', [ApplicantController::class, 'updateDraft'])->name('update-draft');
+    Route::delete('/delete/{id}', [ApplicantController::class, 'deleteDraft'])->name('delete-draft');
   });
 });
 

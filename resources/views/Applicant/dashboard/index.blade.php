@@ -322,7 +322,7 @@
                     <i class="fa-solid fa-file-pen text-primary mb-3" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title">Draft Applications</h5>
                     <p class="card-text text-muted">Applications saved but not yet submitted</p>
-                    <strong style="font-size: 2.5rem;">0</strong>
+                    <strong style="font-size: 2.5rem;">{{ number_format($draftpermitcount) }}</strong>
                   </div>
                 </div>
               </div>
