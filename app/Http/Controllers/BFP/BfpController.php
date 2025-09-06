@@ -11,7 +11,8 @@ class BfpController extends Controller
 {
     public function index()
     {
-        return view('bfp.dashboard.index');
+        $currentUser = Auth::user();
+        return view('bfp.dashboard.index', compact('currentUser'));
     }
 
     public function viewAccountsIndex()

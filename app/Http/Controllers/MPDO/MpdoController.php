@@ -11,7 +11,8 @@ class MpdoController extends Controller
 {
     public function index()
     {
-        return view('MPDO.dashboard.index');
+        $currentUser = Auth::user();  
+        return view('MPDO.dashboard.index', compact('currentUser'));
     }
 
 

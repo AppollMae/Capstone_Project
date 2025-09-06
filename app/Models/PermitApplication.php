@@ -16,7 +16,8 @@ class PermitApplication extends Model
         'longitude',     // NEW
         'description',
         'documents',
-        'status'
+        'status',
+        'avatar'
     ];
     protected $casts = [
         'documents' => 'array', // Automatically cast JSON to array

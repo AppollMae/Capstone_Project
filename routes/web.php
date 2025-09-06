@@ -103,7 +103,7 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::put('/update-accounts', [ApplicantController::class, 'updateAccounts'])->name('applicants-update-accounts');
   });
 
-// Permits Routes
+  // Permits Routes
   Route::prefix('permits')->name('applicants.permits.')->group(function () {
     Route::get('/', [ApplicantController::class, 'permitsIndex'])->name('view-permits');
     Route::get('/apply', [ApplicantController::class, 'applyForPermit'])->name('apply-permit');
@@ -114,8 +114,8 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {
     Route::get('/', [ApplicantController::class, 'draftIndex'])->name('view-drafts');
     Route::get('/showmap', [ApplicantController::class, 'showMap'])->name('show-map');
-    Route::put('/update', [ApplicantController::class, 'updateDraft'])->name('update-draft');
     Route::delete('/delete/{id}', [ApplicantController::class, 'deleteDraft'])->name('delete-draft');
+    Route::get('/pending', [ApplicantController::class, 'pendingDraft'])->name('pending-draft');
   });
 });
 
@@ -130,11 +130,15 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
     Route::get('/update-accounts/{id}/edit', [OboController::class, 'updateAccountsIndex'])->name('edit-accounts');
     Route::put('/update-accounts', [OboController::class, 'updateAccounts'])->name('update-accounts');
   });
+
+  Route::prefix('total-permits')->name('obo.total-permits.')->group(function () {
+    Route::get('/', [OboController::class, 'totalPermitsIndex'])->name('view');
+  });
 });
 
 
 // Treasurer Routes
-Route::group(['middleware' => ['auth', 'iftreasurer'], 'prefix' => 'treasurer'], function(){
+Route::group(['middleware' => ['auth', 'iftreasurer'], 'prefix' => 'treasurer'], function () {
   Route::get('/', [TreasurerController::class, 'index'])->name('treasurer.dashboard');
 
   // Accounts Routes

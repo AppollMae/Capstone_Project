@@ -189,8 +189,8 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
-                                        class="w-px-120 h-px-120 rounded-circle" />
+                                    <img src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                                            alt class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
                             </a>
@@ -200,7 +200,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                                    <img src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
@@ -317,7 +317,7 @@
                                     <div class="mb-3">
                                         <label for="avatar" class="form-label">Profile Picture</label>
                                         <img id="uploadedAvatar"
-                                            src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('assets/img/avatars/1.png') }}"
+                                            src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}"
                                             alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
                                     </div>
                                 </div>
@@ -333,29 +333,28 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span
-                                    class="fw-bold" style="color: #ff6347;">Coder</span></a>
-                        </div>
-                        <div>
-                            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
-
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                                class="footer-link me-4">Support</a>
-                        </div>
-                    </div>
-                </footer>
+                <footer class="content-footer footer bg-footer-theme mt-4">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  | Bureau of Fire Protection - Building Permit Management System
+                </div>
+                <div>
+                  <a href="#" class="footer-link me-4 text-danger">
+                    <i class="fa-solid fa-book"></i> Documentation
+                  </a>
+                  <a href="#" class="footer-link me-4 text-danger">
+                    <i class="fa-solid fa-envelope"></i> Contact
+                  </a>
+                  <a href="#" class="footer-link me-4 text-danger">
+                    <i class="fa-solid fa-circle-info"></i> Support
+                  </a>
+                </div>
+              </div>
+            </footer>
                 <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>

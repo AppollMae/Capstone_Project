@@ -32,16 +32,21 @@
                     </li>
 
                     <!-- Layouts -->
-                    <li class="menu-item {{ $ActiveTab === 'draft' ? 'active' : '' }}">
+                    <li class="menu-item {{ $ActiveTab === 'pending' ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon fa-solid fa-envelope"></i>
                             <div data-i18n="Layouts">My Applications</div>
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item {{ $SubActivetab === 'view' ? 'active' : '' }}">
+                            <li class="menu-item ">
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without menu">Draft</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $SubActiveTab === 'permit' ? 'active' : '' }}">
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Without navbar">Pending</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -49,11 +54,7 @@
                                     <div data-i18n="Without navbar">Under Review</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="" class="menu-link">
-                                    <div data-i18n="Without navbar">Pending</div>
-                                </a>
-                            </li>
+
                             <li class="menu-item">
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without navbar">Approve</div>
@@ -84,10 +85,10 @@
                                 </a>
                             </li>
                             <!-- <li class="menu-item">
-                                                                                  <a href="" class="menu-link">
-                                                                                    <div data-i18n="Without navbar">Download the required documents</div>
-                                                                                  </a>
-                                                                                </li> -->
+                                                                                          <a href="" class="menu-link">
+                                                                                            <div data-i18n="Without navbar">Download the required documents</div>
+                                                                                          </a>
+                                                                                        </li> -->
                         </ul>
                     </li>
 
@@ -210,8 +211,10 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
-                                            alt class="w-px-120 h-px-120 rounded-circle" />
+                                        @foreach($pendingDrafts as $draft)
+                                            <img src="{{ $draft->avatar ? asset('storage/' . $draft->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                                alt class="w-px-120 h-px-120 rounded-circle" />
+                                        @endforeach
                                     </div>
 
                                 </a>
@@ -221,8 +224,10 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
-                                                            alt class="w-px-120 h-px-120 rounded-circle" />
+                                                        @foreach($pendingDrafts as $draft)
+                                                            <img src="{{ $draft->avatar ? asset('storage/' . $draft->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                                                alt class="w-px-120 h-px-120 rounded-circle" />
+                                                        @endforeach
                                                     </div>
 
                                                 </div>
@@ -258,11 +263,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                                                                                        <a class="dropdown-item" href="">
-                                                                                                            <i class="bx bx-cog me-2"></i>
-                                                                                                            <span class="align-middle">Settings</span>
-                                                                                                        </a>
-                                                                                                    </li> -->
+                                                                                                                <a class="dropdown-item" href="">
+                                                                                                                    <i class="bx bx-cog me-2"></i>
+                                                                                                                    <span class="align-middle">Settings</span>
+                                                                                                                </a>
+                                                                                                            </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -296,8 +301,8 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Draft View /</span>Show
-                            All Drafts
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Pending View /</span>Show
+                            All Pending
                         </h4>
 
                         <div class="row">
@@ -305,23 +310,18 @@
                                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="javascript:void(0);"><i
-                                                class="bx bx-user me-1"></i> All Draft Viewed</a>
+                                                class="bx bx-user me-1"></i> All Pending Viewed</a>
                                     </li>
                                 </ul>
 
                                 <div class="card mb-4">
-                                    <h5 class="card-header">Drafts</h5>
+                                    <h5 class="card-header">Pending</h5>
                                     <hr class="my-0" />
 
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <!-- Map Container -->
-                                            <div id="map-container" class="w-100"
-                                                style="position: relative; height: 250px;">
-                                                <div id="map" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%;
-                        border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-                                                </div>
-                                            </div>
+
 
                                             <!-- Hidden inputs to store the first location's coordinates (optional) -->
                                             <input type="hidden" id="latitude" name="latitude">
@@ -341,7 +341,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @forelse($draftPermits as $draft)
+                                                    @forelse($pendingDrafts as $draft)
                                                         <tr>
                                                             <!-- Created By (User Name) -->
                                                             <td>{{ $draft->user->name ?? 'N/A' }}</td>
@@ -475,13 +475,3 @@
     </div>
     <!-- / Layout wrapper -->
 @endsection
-
-<!-- REMINDER PLEASE READ BELOW THE COMMENTS -->
-<!-- Don't mind the error line its totaly fine and it's working -->
-<!-- If you decided to remove that line of code below the generated map it won't work -->
-<!-- But it will display the map, the main point of this code is to pinpoint already the location -->
-<!-- That already save to the draft permits database table. -->
-<script>
-    window.draftPermits = @json($draftPermits);
-</script>
-<script src="{{ asset('js/pinpoint.js') }}"></script>

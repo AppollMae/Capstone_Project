@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\PermitApplication;
 
 class OboController extends Controller
 {
     public function index()
     {
-        return view("OBO-Processing-Team.dashboard.index");
+        $currentUser = Auth::user();
+        return view("OBO-Processing-Team.dashboard.index", compact('currentUser'));
     }
 
     public function viewAccountsIndex()
@@ -44,13 +46,13 @@ class OboController extends Controller
 
         // Validate request data
         $request->validate([
-            'name'   => 'required|string|max:255',
-            'email'  => 'required|email|max:255|unique:users,email,' . $user->id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Update basic fields
-        $user->name  = $request->name;
+        $user->name = $request->name;
         $user->email = $request->email;
 
         // Handle avatar if uploaded
@@ -65,5 +67,20 @@ class OboController extends Controller
         return redirect()
             ->route('obo.accounts.edit-accounts', Auth::user()->id)
             ->with('success', 'Profile updated successfully!');
+    }
+
+    public function totalPermitsIndex()
+    {
+        $pendingPermits = PermitApplication::where('status', 'pending')->get();
+        $pendingCount = $pendingPermits->count();
+        $currentUser = Auth::user();
+
+        return view("OBO-Processing-Team.total-permits.index", [
+            'pendingPermits' => $pendingPermits,
+            'pendingCount' => $pendingCount,
+            'currentUser' => $currentUser,
+            'ActiveTab' => 'total-permits',
+            'SubActiveTab' => 'obo-total-permits',
+        ]);
     }
 }

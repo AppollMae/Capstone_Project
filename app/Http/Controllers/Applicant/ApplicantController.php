@@ -14,7 +14,11 @@ class ApplicantController extends Controller
     public function index()
     {
         $draftpermitcount = DraftPermit::where('status', 'draft')->count();
-        return view('applicant.dashboard.index', compact('draftpermitcount'));
+        $pendingCounts = PermitApplication::where('user_id', Auth::user()->id)
+            ->where('status', 'pending')
+            ->count();
+
+        return view('applicant.dashboard.index', compact('draftpermitcount', 'pendingCounts'));
     }
 
     public function applicantsIndex()
@@ -230,6 +234,19 @@ class ApplicantController extends Controller
         $draft->delete();
 
         return redirect()->back()->with('success', 'Draft deleted successfully!');
+    }
+
+    public function pendingDraft(){
+        $currentUser = Auth::user();
+        $pendingDrafts = PermitApplication::where('user_id', $currentUser->id)
+            ->where('status', 'pending')
+            ->get();
+
+        
+        return view('applicant.drafts.pending-permit', compact('pendingDrafts'),[
+            'ActiveTab' => 'pending',
+            'SubActiveTab' => 'permit'
+        ]);
     }
 
 }
