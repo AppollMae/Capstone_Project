@@ -24,7 +24,7 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item active">
+                    <li class="menu-item">
                         <a href="{{ route('obo.dashboard') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
@@ -33,14 +33,14 @@
 
                     <!-- Layouts -->
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ $ActiveTab === 'total-permits' ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon fa-solid fa-file"></i>
                             <div data-i18n="Layouts">Quick Stat</div>
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item">
+                            <li class="menu-item {{ $SubActiveTab === 'obo-total-permits' ? 'active' : '' }}">
                                 <a href="{{ route('obo.total-permits.view') }}" class="menu-link">
                                     <div data-i18n="Without menu">Total permits applied</div>
                                 </a>
@@ -201,10 +201,10 @@
                                 </a>
                             </li>
                             <!-- <li class="menu-item">
-                                      <a href="" class="menu-link">
-                                        <div data-i18n="Notifications">Settings</div>
-                                      </a>
-                                    </li> -->
+                                                                              <a href="" class="menu-link">
+                                                                                <div data-i18n="Notifications">Settings</div>
+                                                                              </a>
+                                                                            </li> -->
 
                         </ul>
                     </li>
@@ -306,11 +306,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                                                                                                                        <a class="dropdown-item" href="">
-                                                                                                                                            <i class="bx bx-cog me-2"></i>
-                                                                                                                                            <span class="align-middle">Settings</span>
-                                                                                                                                        </a>
-                                                                                                                                    </li> -->
+                                                                                                                                                                                <a class="dropdown-item" href="">
+                                                                                                                                                                                    <i class="bx bx-cog me-2"></i>
+                                                                                                                                                                                    <span class="align-middle">Settings</span>
+                                                                                                                                                                                </a>
+                                                                                                                                                                            </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -376,138 +376,116 @@
                                                         <th>Name</th>
                                                         <th>Project Name</th>
                                                         <th>Location</th>
-                                                        <th>Latitude</th>
-                                                        <th>Longitude</th>
                                                         <th>Created At</th>
+                                                        <th>Documents</th>
                                                         <th>Status</th>
-                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @forelse($pendingPermits as $permit)
-                                                                        <tr>
-                                                                            <!-- Created By (User Name) -->
-                                                                            <td>{{ $permit->user->name ?? 'N/A' }}</td>
+                                                        <tr>
+                                                            <!-- Created By (User Name) -->
+                                                            <td>{{ $permit->user->name ?? 'N/A' }}</td>
 
-                                                                            <!-- Project Name -->
-                                                                            <td>{{ $permit->project_name ?? 'N/A' }}</td>
+                                                            <!-- Project Name -->
+                                                            <td>{{ $permit->project_name ?? 'N/A' }}</td>
 
-                                                                            <!-- Location -->
-                                                                            <td>{{ $permit->location ?? 'N/A' }}</td>
+                                                            <!-- Location -->
+                                                            <td>{{ $permit->location ?? 'N/A' }}</td>
 
-                                                                            <!-- Latitude -->
-                                                                            <td>{{ $permit->latitude ?? 'N/A' }}</td>
+                                                            <!-- Created At -->
+                                                            <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                                            </td>
 
-                                                                            <!-- Longitude -->
-                                                                            <td>{{ $permit->longitude ?? 'N/A' }}</td>
+                                                            <td>
+    @if($permit->document_url)
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+            data-bs-target="#viewDocumentModal-{{ $permit->id }}">
+            View Document
+        </button>
 
-                                                                            <!-- Created At -->
-                                                                            <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
-                                                                            </td>
+        <!-- Modal -->
+        <div class="modal fade" id="viewDocumentModal-{{ $permit->id }}" tabindex="-1"
+            aria-labelledby="viewDocumentLabel-{{ $permit->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered"> <!-- modal-xl for wide screens -->
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="viewDocumentLabel-{{ $permit->id }}">
+                            <i class="bx bx-file"></i> Document Preview
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="ratio ratio-16x9"> 
+                            <!-- Responsive iframe -->
+                            <iframe src="{{ $permit->document_url }}" style="border:0;" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ $permit->document_url }}" target="_blank" class="btn btn-success">
+                            <i class="bx bx-download"></i> Open in New Tab
+                        </a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
+        N/A
+    @endif
+</td>
 
-                                                                            <!-- Status -->
-                                                                            <td>
-                                                                                <span class="px-3 py-1 rounded-pill shadow-sm" style="background: linear-gradient(90deg, #dbff59, #ffa751); 
-                                                         color:#4a3f00; font-weight:600; font-size:0.85rem;">
-                                                                                    {{ ucfirst($permit->status ?? 'Draft') }}
-                                                                                </span>
-                                                                            </td>
 
-                                                                            <!-- Actions -->
-                                                                            <td>
-                                                                                {{-- Success Message --}}
-                                                                                @if(session('success'))
-                                                                                    <div class="alert alert-success alert-dismissible fade show shadow-sm"
-                                                                                        role="alert">
-                                                                                        <i class="bx bx-check-circle"></i> {{ session('success') }}
-                                                                                        <button type="button" class="btn-close"
-                                                                                            data-bs-dismiss="alert" aria-label="Close"></button>
-                                                                                    </div>
-                                                                                @endif
+                                                            <!-- Status -->
+                                                           <td>
+    @switch($permit->status)
+        @case('pending')
+            <span class="px-3 py-1 rounded-pill shadow-sm"
+                style="background: linear-gradient(90deg, #dbff59, #ffa751); 
+                       color:#4a3f00; font-weight:600; font-size:0.85rem;">
+                Pending
+            </span>
+            @break
 
-                                                                                {{-- Approve Action --}}
-                                                                                <button type="button" class="btn btn-sm btn-success shadow-sm"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#approvePermitModal-{{ $permit->id }}">
-                                                                                    <i class="bx bx-check"></i> Approve
-                                                                                </button>
+        @case('under review')
+            <span class="px-3 py-1 rounded-pill shadow-sm"
+                style="background: linear-gradient(90deg, #36d1dc, #5b86e5); 
+                       color:#fff; font-weight:600; font-size:0.85rem;">
+                Under Review
+            </span>
+            @break
 
-                                                                                {{-- Delete Action --}}
-                                                                                <button type="button" class="btn btn-sm btn-danger shadow-sm"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#deletePermitModal-{{ $permit->id }}">
-                                                                                    <i class="bx bx-trash"></i> Delete
-                                                                                </button>
-                                                                            </td>
-                                                                        </tr>
+        @case('approved')
+            <span class="px-3 py-1 rounded-pill shadow-sm"
+                style="background: linear-gradient(90deg, #56ab2f, #a8e063); 
+                       color:#fff; font-weight:600; font-size:0.85rem;">
+                Approved
+            </span>
+            @break
 
-                                                                        <!-- Approve Confirmation Modal -->
-                                                                        <div class="modal fade" id="approvePermitModal-{{ $permit->id }}"
-                                                                            tabindex="-1" aria-labelledby="approvePermitLabel-{{ $permit->id }}"
-                                                                            aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                                <div class="modal-content shadow-lg">
-                                                                                    <div class="modal-header bg-success text-white">
-                                                                                        <h5 class="modal-title"
-                                                                                            id="approvePermitLabel-{{ $permit->id }}">
-                                                                                            <i class="bx bx-check"></i> Confirm Approval
-                                                                                        </h5>
-                                                                                        <button type="button" class="btn-close btn-close-white"
-                                                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        Are you sure you want to <strong>approve this
-                                                                                            permit?</strong>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary"
-                                                                                            data-bs-dismiss="modal">Cancel</button>
-                                                                                        <form
-                                                                                            action=""
-                                                                                            method="POST" class="d-inline">
-                                                                                            @csrf
-                                                                                            @method('PATCH')
-                                                                                            <button type="submit" class="btn btn-success">Yes,
-                                                                                                Approve</button>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+             @case('rejected')
+            <span class="px-3 py-1 rounded-pill shadow-sm"
+                style="background: linear-gradient(90deg, #ff6b6b, #ff3d3d); 
+                       color:#fff; font-weight:600; font-size:0.85rem;">
+                Rejected
+            </span>
+            @break
 
-                                                                        <!-- Delete Confirmation Modal -->
-                                                                        <div class="modal fade" id="deletePermitModal-{{ $permit->id }}"
-                                                                            tabindex="-1" aria-labelledby="deletePermitLabel-{{ $permit->id }}"
-                                                                            aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                                <div class="modal-content shadow-lg">
-                                                                                    <div class="modal-header bg-danger text-white">
-                                                                                        <h5 class="modal-title"
-                                                                                            id="deletePermitLabel-{{ $permit->id }}">
-                                                                                            <i class="bx bx-trash"></i> Confirm Deletion
-                                                                                        </h5>
-                                                                                        <button type="button" class="btn-close btn-close-white"
-                                                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        Are you sure you want to <strong>delete this
-                                                                                            permit?</strong> This action cannot be undone.
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary"
-                                                                                            data-bs-dismiss="modal">Cancel</button>
-                                                                                        <form
-                                                                                            action="{{ route('applicants.drafts.delete-draft', $permit->id) }}"
-                                                                                            method="POST" class="d-inline">
-                                                                                            @csrf
-                                                                                            @method('DELETE')
-                                                                                            <button type="submit" class="btn btn-danger">Yes,
-                                                                                                Delete</button>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+        @default
+            <span class="px-3 py-1 rounded-pill shadow-sm bg-secondary text-white">
+                {{ ucfirst($permit->status ?? 'N/A') }}
+            </span>
+    @endswitch
+</td>
+
+
+
+
+                                                            <!-- Actions -->
+                                                            
+                                                        </tr>
                                                     @empty
                                                         <tr>
                                                             <td colspan="8" class="text-muted text-center">No pending permits

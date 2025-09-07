@@ -47,7 +47,7 @@
               </li>
               <li class="menu-item">
                 <a href="" class="menu-link">
-                  <div data-i18n="Without menu">approved / pending / rejected</div>
+                  <div data-i18n="Without menu">approved / pending / under review / rejected</div>
                 </a>
               </li>
               <li class="menu-item">

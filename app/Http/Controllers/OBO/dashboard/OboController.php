@@ -71,7 +71,34 @@ class OboController extends Controller
 
     public function totalPermitsIndex()
     {
-        $pendingPermits = PermitApplication::where('status', 'pending')->get();
+        $pendingPermits = PermitApplication::where('status', 'pending')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at')
+            ->get();
+
+        // Map permits and add full document URL
+        $pendingPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
         $pendingCount = $pendingPermits->count();
         $currentUser = Auth::user();
 
@@ -83,4 +110,6 @@ class OboController extends Controller
             'SubActiveTab' => 'obo-total-permits',
         ]);
     }
+
+
 }
