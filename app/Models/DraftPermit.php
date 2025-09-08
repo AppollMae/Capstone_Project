@@ -26,5 +26,9 @@ class DraftPermit extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function draftpermit(){
+        return $this->hasOne(DraftPermit::class, 'user_id' , 'id');
+    }
+
     use HasFactory;
 }

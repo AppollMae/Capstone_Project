@@ -164,27 +164,55 @@ class ApplicantController extends Controller
 
         // Get the draft permits for the current user
         $draftPermits = DraftPermit::with('user')
-            ->select('id', 'project_name', 'location', 'user_id', 'created_at', 'latitude', 'longitude')
+            ->select('id', 'project_name', 'location', 'user_id', 'created_at', 'latitude', 'longitude', 'documents')
             ->where('user_id', $currentUser->id)
             ->where('status', 'draft')
             ->get();
 
-        // Transform data for map use (only location and name)
+        // Map permits and add full document URL
+        $draftPermits->transform(function ($draft) {
+            if ($draft->documents) {
+                // Decode JSON safely
+                $docs = json_decode($draft->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first document
+                } else {
+                    $fileName = $draft->documents;
+                }
+
+                // Clean file name
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $draft->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $draft->document_url = null;
+            }
+
+            return $draft;
+        });
+
+        // Transform data for map use
         $locations = $draftPermits->map(function ($draft) {
             return [
                 'id' => $draft->id,
                 'name' => $draft->project_name, // for popup
                 'location' => $draft->location ?? null,
                 'latitude' => $draft->latitude ?? null,
-                'longitude' => $draft->longitude ?? null
+                'longitude' => $draft->longitude ?? null,
             ];
         });
 
-        return view('applicant.drafts.index-draft', compact('draftPermits', 'currentUser', 'locations'), [
+        return view('applicant.drafts.index-draft', [
+            'draftPermits' => $draftPermits,
+            'currentUser' => $currentUser,
+            'locations' => $locations,
             'ActiveTab' => 'draft',
-            'SubActivetab' => 'view'
+            'SubActivetab' => 'view',
         ]);
     }
+
 
     // public function updateDraft(Request $request)
     // {
@@ -236,14 +264,15 @@ class ApplicantController extends Controller
         return redirect()->back()->with('success', 'Draft deleted successfully!');
     }
 
-    public function pendingDraft(){
+    public function pendingDraft()
+    {
         $currentUser = Auth::user();
         $pendingDrafts = PermitApplication::where('user_id', $currentUser->id)
             ->where('status', 'pending')
             ->get();
 
-        
-        return view('applicant.drafts.pending-permit', compact('pendingDrafts'),[
+
+        return view('applicant.drafts.pending-permit', compact('pendingDrafts'), [
             'ActiveTab' => 'pending',
             'SubActiveTab' => 'permit'
         ]);

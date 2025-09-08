@@ -84,10 +84,10 @@
                                 </a>
                             </li>
                             <!-- <li class="menu-item">
-                                                                                  <a href="" class="menu-link">
-                                                                                    <div data-i18n="Without navbar">Download the required documents</div>
-                                                                                  </a>
-                                                                                </li> -->
+                                                                                                      <a href="" class="menu-link">
+                                                                                                        <div data-i18n="Without navbar">Download the required documents</div>
+                                                                                                      </a>
+                                                                                                    </li> -->
                         </ul>
                     </li>
 
@@ -258,11 +258,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                                                                                        <a class="dropdown-item" href="">
-                                                                                                            <i class="bx bx-cog me-2"></i>
-                                                                                                            <span class="align-middle">Settings</span>
-                                                                                                        </a>
-                                                                                                    </li> -->
+                                                                                                                            <a class="dropdown-item" href="">
+                                                                                                                                <i class="bx bx-cog me-2"></i>
+                                                                                                                                <span class="align-middle">Settings</span>
+                                                                                                                            </a>
+                                                                                                                        </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -319,7 +319,7 @@
                                             <div id="map-container" class="w-100"
                                                 style="position: relative; height: 250px;">
                                                 <div id="map" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%;
-                        border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                                            border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
                                                 </div>
                                             </div>
 
@@ -327,14 +327,14 @@
                                             <input type="hidden" id="latitude" name="latitude">
                                             <input type="hidden" id="longitude" name="longitude">
                                             <!-- Draft Permits Table -->
+                                            <hr class="my-8" />
                                             <table class="table table-bordered table-striped text-center align-middle">
                                                 <thead class="table-light">
                                                     <tr>
                                                         <th>Name</th>
                                                         <th>Project Name</th>
                                                         <th>Location</th>
-                                                        <th>Latitude</th>
-                                                        <th>Longitude</th>
+                                                        <th>Documents</th>
                                                         <th>Created At</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -352,11 +352,58 @@
                                                             <!-- Location -->
                                                             <td>{{ $draft->location ?? 'N/A' }}</td>
 
-                                                            <!-- Latitude -->
-                                                            <td>{{ $draft->latitude ?? 'N/A' }}</td>
+                                                            <!-- Documents -->
+                                                            <td>
+                                                                @if($draft->document_url)
+                                                                    <!-- Button trigger modal -->
+                                                                    <button type="button" class="btn btn-sm btn-primary"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#viewDocumentModal-{{ $draft->id }}">
+                                                                        View Document
+                                                                    </button>
 
-                                                            <!-- Longitude -->
-                                                            <td>{{ $draft->longitude ?? 'N/A' }}</td>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="viewDocumentModal-{{ $draft->id }}"
+                                                                        tabindex="-1"
+                                                                        aria-labelledby="viewDocumentLabel-{{ $draft->id }}"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header bg-primary text-white">
+                                                                                    <h5 class="modal-title"
+                                                                                        id="viewDocumentLabel-{{ $draft->id }}">
+                                                                                        <i class="bx bx-file"></i> Document Preview
+                                                                                    </h5>
+                                                                                    <button type="button"
+                                                                                        class="btn-close btn-close-white"
+                                                                                        data-bs-dismiss="modal"
+                                                                                        aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body p-0">
+                                                                                    <div class="ratio ratio-16x9">
+                                                                                        <iframe src="{{ $draft->document_url }}"
+                                                                                            style="border:0;"
+                                                                                            allowfullscreen></iframe>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <a href="{{ $draft->document_url }}"
+                                                                                        target="_blank" class="btn btn-success">
+                                                                                        <i class="bx bx-download"></i> Open in New
+                                                                                        Tab
+                                                                                    </a>
+                                                                                    <button type="button" class="btn btn-secondary"
+                                                                                        data-bs-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @else
+                                                                    N/A
+                                                                @endif
+                                                            </td>
+
+
 
                                                             <!-- Created At -->
                                                             <td>{{ $draft->created_at ? $draft->created_at->format('M d, Y h:i A') : 'N/A' }}
