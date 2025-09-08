@@ -278,4 +278,44 @@ class ApplicantController extends Controller
         ]);
     }
 
+
+    public function underReviewIndex()
+    {
+        $currentUser = Auth::user();
+
+        // Get permits that are under review
+        $underReviewPermits = PermitApplication::with('reviewer')->whereIn('status', ['under_review'])
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
+            ->get();
+
+        // Optionally map document URLs like in totalPermitsIndex
+        $underReviewPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0];
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                $fileName = basename($fileName);
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        $underReviewCount = $underReviewPermits->count();
+
+        return view('Applicant.under-review.under-review', [
+            'underReviewPermits' => $underReviewPermits,
+            'underReviewCount' => $underReviewCount,
+            'ActiveTab' => 'under-review',
+            'SubActiveTab' => 'view-under-review'
+        ], compact('currentUser'));
+    }
+
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PermitApplication;
-
+use App\Models\PermitActionHistory;
 class OboController extends Controller
 {
     public function index()
@@ -71,7 +71,7 @@ class OboController extends Controller
 
     public function totalPermitsIndex()
     {
-        $pendingPermits = PermitApplication::where('status', 'pending')
+        $pendingPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
             ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at')
             ->get();
 
@@ -111,5 +111,113 @@ class OboController extends Controller
         ]);
     }
 
+    public function underReviewIndex()
+    {
+        $underReviewPermits = PermitApplication::with('reviewer')->whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
+            ->get();
 
+        // Map permits and add full document URL
+        $underReviewPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        $underReviewCount = $underReviewPermits->count();
+        $currentUser = Auth::user();
+
+        return view("OBO-Processing-Team.total-permits.under-review", [
+            'underReviewPermits' => $underReviewPermits,
+            'underReviewCount' => $underReviewCount,
+            'currentUser' => $currentUser,
+            'ActiveTab' => 'total-permits',
+            'SubActiveTab' => 'obo-under-review',
+        ]);
+    }
+
+    public function markAsUnderReview($id)
+    {
+        $permit = PermitApplication::findOrFail($id);
+        $permit->status = 'under_review';
+        $permit->reviewed_by = Auth::id();
+        $permit->save();
+
+        PermitActionHistory::create([
+            'permit_id' => $permit->id,
+            'user_id' => Auth::id(),
+            'action' => 'under_review',
+            'remarks' => 'Permit is under review.',
+        ]);
+
+        return back()->with('info', "Permit marked as Under Review by " . Auth::user()->name. ' Office of the Building Official Department!');
+    }
+
+    public function approvePermit($id)
+    {
+        $permit = PermitApplication::findOrFail($id);
+        $permit->status = 'approved';
+        $permit->approved_by = Auth::id();
+        $permit->save();
+
+        PermitActionHistory::create([
+            'permit_id' => $permit->id,
+            'user_id' => Auth::id(),
+            'action' => 'approved',
+            'remarks' => 'Permit has been approved.',
+        ]);
+
+        return back()->with('success', "Permit approved successfully by " . Auth::user()->name . ' Office of the Building Official Department!');
+    }
+
+    public function rejectPermit($id)
+    {
+        $permit = PermitApplication::findOrFail($id);
+        $permit->status = 'rejected';
+        $permit->rejected_by = Auth::id();
+        $permit->save();
+
+        PermitActionHistory::create([
+            'permit_id' => $permit->id,
+            'user_id' => Auth::id(),
+            'action' => 'rejected',
+            'remarks' => 'Permit has been rejected.',
+        ]);
+
+        return back()->with('error', "Permit rejected by " . Auth::user()->name . ' Office of the Building Official Department!');
+    }
+
+    public function tempDeletePermit($id)
+    {
+        $permit = PermitApplication::findOrFail($id);
+        $permit->status = 'temporarily deleted';
+        $permit->deleted_by = Auth::id();
+        $permit->save();
+
+        PermitActionHistory::create([
+            'permit_id' => $permit->id,
+            'user_id' => Auth::id(),
+            'action' => 'temporarily deleted',
+            'remarks' => 'Permit has been temporarily deleted.',
+        ]);
+
+        return back()->with('warning', "Permit temporarily deleted by " . Auth::user()->name . ' Office of the Building Official Department!');
+    }
 }

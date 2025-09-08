@@ -46,7 +46,7 @@
                 </a>
               </li>
               <li class="menu-item">
-                <a href="" class="menu-link">
+                <a href="{{ route('obo.total-permits.under-review') }}" class="menu-link">
                   <div data-i18n="Without menu">approved / pending / under review / rejected</div>
                 </a>
               </li>

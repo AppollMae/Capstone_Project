@@ -117,6 +117,12 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::delete('/delete/{id}', [ApplicantController::class, 'deleteDraft'])->name('delete-draft');
     Route::get('/pending', [ApplicantController::class, 'pendingDraft'])->name('pending-draft');
   });
+
+
+  Route::prefix('under-review')->name('applicants.under-reviews.')->group(function () {
+    Route::get('/', [ApplicantController::class, 'underReviewIndex'])->name('view-under-review');
+    Route::post('/mark-as-under-review/{id}', [ApplicantController::class, 'markAsUnderReview'])->name('mark-as-under-review');
+  });
 });
 
 
@@ -133,6 +139,11 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
 
   Route::prefix('total-permits')->name('obo.total-permits.')->group(function () {
     Route::get('/', [OboController::class, 'totalPermitsIndex'])->name('view');
+    Route::get('/under-review', [OboController::class, 'underReviewIndex'])->name('under-review');
+    Route::post('/under-review/{id}/under-review', [OboController::class, 'markAsUnderReview'])->name('mark-under-review');
+    Route::post('/approve/{id}/approve', [OboController::class, 'approvePermit'])->name('approve');
+    Route::post('/reject/{id}/reject', [OboController::class, ' rejectPermit'])->name('reject');
+    Route::post('/temp-delete/{id}/temp-delete', [OboController::class, 'tempDeletePermit'])->name('temp-delete');
   });
 });
 

@@ -32,7 +32,7 @@
                     </li>
 
                     <!-- Layouts -->
-                    <li class="menu-item {{ $ActiveTab === 'pending' ? 'active' : '' }}">
+                    <li class="menu-item {{ $ActiveTab === 'under-review' ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon fa-solid fa-envelope"></i>
                             <div data-i18n="Layouts">My Applications</div>
@@ -44,12 +44,12 @@
                                     <div data-i18n="Without menu">Draft</div>
                                 </a>
                             </li>
-                            <li class="menu-item {{ $SubActiveTab === 'permit' ? 'active' : '' }}">
+                            <li class="menu-item">
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without navbar">Pending</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ $SubActiveTab === 'view-under-review' ? 'active' : '' }}">
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without navbar">Under Review</div>
                                 </a>
@@ -85,10 +85,10 @@
                                 </a>
                             </li>
                             <!-- <li class="menu-item">
-                                                                                              <a href="" class="menu-link">
-                                                                                                <div data-i18n="Without navbar">Download the required documents</div>
-                                                                                              </a>
-                                                                                            </li> -->
+                                                                                                      <a href="" class="menu-link">
+                                                                                                        <div data-i18n="Without navbar">Download the required documents</div>
+                                                                                                      </a>
+                                                                                                    </li> -->
                         </ul>
                     </li>
 
@@ -211,10 +211,8 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        @foreach($pendingDrafts as $draft)
-                                            <img src="{{ $draft->avatar ? asset('storage/' . $draft->avatar) : asset('sneat/img/avatars/1.png') }}"
-                                                alt class="w-px-120 h-px-120 rounded-circle" />
-                                        @endforeach
+                                        <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                            alt="User Avatar" class="w-px-120 h-px-120 rounded-circle" />
                                     </div>
 
                                 </a>
@@ -224,10 +222,8 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        @foreach($pendingDrafts as $draft)
-                                                            <img src="{{ $draft->avatar ? asset('storage/' . $draft->avatar) : asset('sneat/img/avatars/1.png') }}"
-                                                                alt class="w-px-120 h-px-120 rounded-circle" />
-                                                        @endforeach
+                                                        <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                                            alt="User Avatar" class="w-px-120 h-px-120 rounded-circle" />
                                                     </div>
 
                                                 </div>
@@ -263,11 +259,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                                                                                                    <a class="dropdown-item" href="">
-                                                                                                                        <i class="bx bx-cog me-2"></i>
-                                                                                                                        <span class="align-middle">Settings</span>
-                                                                                                                    </a>
-                                                                                                                </li> -->
+                                                                                                                            <a class="dropdown-item" href="">
+                                                                                                                                <i class="bx bx-cog me-2"></i>
+                                                                                                                                <span class="align-middle">Settings</span>
+                                                                                                                            </a>
+                                                                                                                        </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -301,8 +297,8 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Pending View /</span>Show
-                            All Pending
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Under Reviewed /</span>Show
+                            All Under Reviewed
                         </h4>
 
                         <div class="row">
@@ -310,12 +306,12 @@
                                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="javascript:void(0);"><i
-                                                class="bx bx-user me-1"></i> All Pending Viewed</a>
+                                                class="bx bx-user me-1"></i> All Under Reviewed</a>
                                     </li>
                                 </ul>
 
                                 <div class="card mb-4">
-                                    <h5 class="card-header">Pending</h5>
+                                    <h5 class="card-header">Under Review</h5>
                                     <hr class="my-0" />
 
                                     <div class="card-body">
@@ -336,11 +332,12 @@
                                                         <th>Created At</th>
                                                         <th>Documents</th>
                                                         <th>Status</th>
+                                                        <th>Reviewed By</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @forelse($pendingDrafts as $draft)
+                                                    @forelse($underReviewPermits as $draft)
                                                         <tr>
                                                             <!-- Created By (User Name) -->
                                                             <td>{{ $draft->user->name ?? 'N/A' }}</td>
@@ -413,6 +410,37 @@
                                                                 @endif
                                                             </td>
 
+                                                           <td>
+    <span>
+        Reviewed by:
+        <strong>{{ $draft->reviewer->name ?? 'N/A' }}</strong>
+        @if($draft->reviewer)
+            @php
+                $role = strtolower($draft->reviewer->role);
+                if ($role === 'bfp') {
+                    $roleLabel = '(Bureau of Fire Protection)';
+                } elseif ($role === 'admin') {
+                    $roleLabel = '(Administrator)';
+                } elseif ($role === 'mpdo') {
+                    $roleLabel = '(Municipal Planning & Development Office)';
+                } elseif ($role === 'treasurer') {
+                    $roleLabel = '(Municipal Treasurer)';
+                } elseif ($role === 'obo') {
+                    $roleLabel = '(Office of the Building Official)';
+                } else {
+                    $roleLabel = '(User)';
+                }
+            @endphp
+
+            <span class="bg-primary ms-1 text-white px-2 py-1 rounded">
+                {{ $roleLabel }}
+            </span>
+        @endif
+    </span>
+</td>
+
+
+
                                                             <!-- Delete Action -->
                                                             <td>
                                                                 @if(session('success'))
@@ -423,9 +451,7 @@
                                                                             data-bs-dismiss="alert" aria-label="Close"></button>
                                                                     </div>
                                                                 @endif
-                                                                <form
-                                                                    action="{{ route('applicants.drafts.delete-draft', $draft->id) }}"
-                                                                    method="POST" class="delete-draft-form">
+                                                                <form action="" method="POST" class="delete-draft-form">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="button"
