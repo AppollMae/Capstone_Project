@@ -17,10 +17,12 @@ class PermitApplication extends Model
         'description',
         'documents',
         'status',
-        'avatar'
+        'avatar',
+        'seen'
     ];
     protected $casts = [
         'documents' => 'array', // Automatically cast JSON to array
+        'seen' => 'boolean',
     ];
 
     public function user()

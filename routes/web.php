@@ -137,6 +137,7 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
     Route::put('/update-accounts', [OboController::class, 'updateAccounts'])->name('update-accounts');
   });
 
+  // Total Permits OBO (Office of the Building Official) Routes
   Route::prefix('total-permits')->name('obo.total-permits.')->group(function () {
     Route::get('/', [OboController::class, 'totalPermitsIndex'])->name('view');
     Route::get('/under-review', [OboController::class, 'underReviewIndex'])->name('under-review');
@@ -144,6 +145,12 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
     Route::post('/approve/{id}/approve', [OboController::class, 'approvePermit'])->name('approve');
     Route::post('/reject/{id}/reject', [OboController::class, ' rejectPermit'])->name('reject');
     Route::post('/temp-delete/{id}/temp-delete', [OboController::class, 'tempDeletePermit'])->name('temp-delete');
+  });
+
+  // Permit Application History OBO (Office of the Building Official) Routes
+  Route::prefix('permit-applications')->name('obo.permit-applications.')->group(function () {
+    Route::get('/', [OboController::class, 'permitApplicationsIndex'])->name('view');
+    Route::get('/under-review', [OboController::class, 'permitApplicationsUnderReview'])->name('under-review');
   });
 });
 

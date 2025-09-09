@@ -1,7 +1,49 @@
 .hover-shadow {
     transition: all 0.3s ease-in-out;
-  }
-  .hover-shadow:hover {
+}
+.hover-shadow:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
-  }
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.gradient-text-blue {
+    font-size: 6rem;
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-green {
+    font-size: 6rem;
+    background: linear-gradient(45deg, #28a745, #6ddf5f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-yellow {
+    font-size: 6rem;
+    background: linear-gradient(45deg, #ffc107, #ffdd57);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-cyan {
+    font-size: 6rem;
+    background: linear-gradient(45deg, #17a2b8, #72e6f8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-cyan-lg {
+    font-size: 4.5rem;
+    background: linear-gradient(45deg, #17a2b8, #72e6f8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-gray-lg {
+    font-size: 4.5rem;
+    background: linear-gradient(45deg, #6c757d, #adb5bd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

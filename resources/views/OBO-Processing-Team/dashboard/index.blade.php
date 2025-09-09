@@ -16,8 +16,8 @@
           </a>
 
           <!-- <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-              <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
-            </a> -->
+                                                  <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+                                                </a> -->
         </div>
 
         <div class="menu-inner-shadow"></div>
@@ -69,17 +69,46 @@
           </li>
 
           <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon fa-solid fa-file-arrow-up"></i>
-              <div data-i18n="Layouts">Permit Applications</div>
+            <a href="javascript:void(0);" class="menu-link menu-toggle d-flex justify-content-between align-items-center"
+              id="permitApplicationsMenu">
+
+              <div class="d-flex align-items-center">
+                <i class="menu-icon fa-solid fa-file-arrow-up me-2"></i>
+                <div data-i18n="Layouts">Permit Applications</div>
+              </div>
+
+              @if($unseenUnderReviewCount > 0)
+                <span class="bg-danger rounded-pill ms-5 text-white px-2">
+                  {{ $unseenUnderReviewCount }}
+                </span>
+              @endif
             </a>
+
+
+
 
             <ul class="menu-sub">
               <li class="menu-item">
-                <a href="" class="menu-link">
+                <a href="{{ route('obo.permit-applications.view') }}" class="menu-link">
                   <div data-i18n="Without menu"> Pending Applications</div>
                 </a>
               </li>
+
+              <li class="menu-item">
+                <a href="{{ route('obo.permit-applications.under-review') }}"
+                  class="menu-link d-flex justify-content-between align-items-center" id="underReviewLink">
+                  <div data-i18n="Without navbar">Under Review Applications</div>
+                  @if($unseenUnderReviewCount > 0)
+                    <span class="bg-danger rounded-pill ms-5 text-white px-2">
+                      {{ $unseenUnderReviewCount }}
+                    </span>
+                  @endif
+                </a>
+              </li>
+
+
+
+
               <li class="menu-item">
                 <a href="" class="menu-link">
                   <div data-i18n="Without navbar">Approved Applications</div>
@@ -200,10 +229,10 @@
                 </a>
               </li>
               <!-- <li class="menu-item">
-                  <a href="" class="menu-link">
-                    <div data-i18n="Notifications">Settings</div>
-                  </a>
-                </li> -->
+                                                      <a href="" class="menu-link">
+                                                        <div data-i18n="Notifications">Settings</div>
+                                                      </a>
+                                                    </li> -->
 
             </ul>
           </li>
@@ -303,11 +332,11 @@
                     </a>
                   </li>
                   <!-- <li>
-                      <a class="dropdown-item" href="">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li> -->
+                                                          <a class="dropdown-item" href="">
+                                                            <i class="bx bx-cog me-2"></i>
+                                                            <span class="align-middle">Settings</span>
+                                                          </a>
+                                                        </li> -->
                   <li>
                     <a class="dropdown-item" href="">
                       <i class="menu-icon tf-icons bx bx-file"></i>
@@ -342,6 +371,7 @@
           <!-- Content -->
           <div class="container-xxl flex-grow-1 container-p-y">
             <div class="container">
+
               <!-- Dashboard Title -->
               <div class="text-center mb-4">
                 <h3 class="fw-bold text-success mb-1">
@@ -350,7 +380,10 @@
                 </h3>
                 <p class="text-muted">Monitoring and Analytics for Local Development</p>
               </div>
+
+              <!-- First Row: Applications -->
               <div class="row g-4">
+
                 <!-- Total Applications -->
                 <div class="col-md-4">
                   <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
@@ -361,10 +394,7 @@
                         Number of all <span class="fw-bold text-danger">building permit applications</span> filed
                       </p>
                       <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
-                        <strong
-                          style="font-size:6rem; background: linear-gradient(45deg, #007bff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                          120
-                        </strong>
+                        <strong class="gradient-text-blue">{{ $totalApplications ?: 'N/A' }}</strong>
                       </div>
                     </div>
                   </div>
@@ -380,10 +410,7 @@
                         Total <span class="fw-bold text-danger">approved</span> building permits
                       </p>
                       <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
-                        <strong
-                          style="font-size:6rem; background: linear-gradient(45deg, #28a745, #6ddf5f); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                          85
-                        </strong>
+                        <strong class="gradient-text-green">{{ $approveCount ?: 'N/A' }}</strong>
                       </div>
                     </div>
                   </div>
@@ -399,32 +426,48 @@
                         Applications currently <span class="fw-bold text-danger">under review</span>
                       </p>
                       <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
-                        <strong
-                          style="font-size:6rem; background: linear-gradient(45deg, #ffc107, #ffdd57); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                          35
+                        <strong class="gradient-text-yellow">{{ $pendingCount ?: 'N/A' }}</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Under Review Permits -->
+                <div class="col-md-4">
+                  <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                    <div class="card-body text-center">
+                      <i class="fa-solid fa-file-signature fa-2x mb-3" style="color:#17a2b8;"></i>
+                      <h5 class="fw-bold text-dark">UNDER REVIEW PERMITS</h5>
+                      <p class="text-muted mb-3">
+                        Total <span class="fw-bold text-danger">under review</span> building permits
+                      </p>
+                      <div class="d-flex justify-content-center align-items-center" style="height: 8rem;">
+                        <strong class="gradient-text-cyan">
+                          {{ $underReviewCount > 0 ? $underReviewCount : 'N/A' }}
                         </strong>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Additional row for insights -->
-              <div class="row g-4 mt-2">
+
                 <!-- Site Inspections -->
-                <div class="col-md-6">
-                  <div class="card shadow-lg border-0 rounded-3 hover-shadow transition">
+                <div class="col-md-8">
+                  <div class="card shadow-lg border-0 rounded-3 hover-shadow transition h-100">
                     <div class="card-body text-center">
                       <i class="fa-solid fa-helmet-safety fa-2x mb-3" style="color:#17a2b8;"></i>
                       <h5 class="fw-bold text-dark">SITE INSPECTIONS COMPLETED</h5>
                       <p class="text-muted">Number of inspection visits completed this month</p>
-                      <strong
-                        style="font-size:4.5rem; background: linear-gradient(45deg, #17a2b8, #72e6f8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                        15
-                      </strong>
+                      <strong class="gradient-text-cyan-lg">15</strong>
                     </div>
                   </div>
                 </div>
+              </div>
+              <!-- End First Row -->
+
+              <!-- Second Row: Insights -->
+              <div class="row g-4 mt-2">
+
 
                 <!-- Revenue Collected -->
                 <div class="col-md-6">
@@ -433,14 +476,14 @@
                       <i class="fa-solid fa-coins fa-2x mb-3" style="color:#6c757d;"></i>
                       <h5 class="fw-bold text-dark">TOTAL REVENUE COLLECTED</h5>
                       <p class="text-muted">Total fees collected for approved permits</p>
-                      <strong
-                        style="font-size:4.5rem; background: linear-gradient(45deg, #6c757d, #adb5bd); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                        ₱250,000
-                      </strong>
+                      <strong class="gradient-text-gray-lg">₱250,000</strong>
                     </div>
                   </div>
                 </div>
+
               </div>
+              <!-- End Second Row -->
+
             </div>
           </div>
           <!-- /Content -->
@@ -450,9 +493,7 @@
             <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column small">
               <div class="mb-2 mb-md-0">
                 ©
-                <script>
-                  document.write(new Date().getFullYear());
-                </script>
+                <script>document.write(new Date().getFullYear());</script>
                 Office of the Building Official Team Dashboard
               </div>
               <div>

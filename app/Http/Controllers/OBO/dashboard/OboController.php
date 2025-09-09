@@ -13,8 +13,29 @@ class OboController extends Controller
     public function index()
     {
         $currentUser = Auth::user();
-        return view("OBO-Processing-Team.dashboard.index", compact('currentUser'));
+
+        // All under review (seen + unseen)
+        $underReviewCount = PermitApplication::where('status', 'under_review')->count();
+
+        // Only unseen under review (for notifications)
+        $unseenUnderReviewCount = PermitApplication::where('status', 'under_review')
+            ->where('seen', false)
+            ->count();
+
+        $pendingCount = PermitApplication::where('status', 'pending')->count();
+        $approveCount = PermitApplication::where('status', 'approved')->count();
+        $totalApplications = PermitApplication::count();
+
+        return view("OBO-Processing-Team.dashboard.index", compact(
+            'currentUser',
+            'underReviewCount',
+            'unseenUnderReviewCount',
+            'pendingCount',
+            'approveCount',
+            'totalApplications'
+        ));
     }
+
 
     public function viewAccountsIndex()
     {
@@ -167,7 +188,7 @@ class OboController extends Controller
             'remarks' => 'Permit is under review.',
         ]);
 
-        return back()->with('info', "Permit marked as Under Review by " . Auth::user()->name. ' Office of the Building Official Department!');
+        return back()->with('info', "Permit marked as Under Review by " . Auth::user()->name . ' Office of the Building Official Department!');
     }
 
     public function approvePermit($id)
@@ -220,4 +241,98 @@ class OboController extends Controller
 
         return back()->with('warning', "Permit temporarily deleted by " . Auth::user()->name . ' Office of the Building Official Department!');
     }
+
+    public function permitApplicationsIndex()
+    {
+        $permitApplications = PermitApplication::where('status', 'pending')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at')
+            ->get();
+
+        // Map permits and add full document URL
+        $permitApplications->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        $applicationCount = $permitApplications->count();
+        $currentUser = Auth::user();
+
+        return view("OBO-Processing-Team.permit-applications.index", [
+            'permitApplications' => $permitApplications,
+            'applicationCount' => $applicationCount,
+            'currentUser' => $currentUser,
+            'ActiveTab' => 'permit-applications',
+            'SubActiveTab' => 'obo-permit-applications',
+        ]);
+    }
+
+
+    public function permitApplicationsUnderReview()
+    {
+        $currentUser = Auth::user();
+
+        // Mark all unseen under-review applications as seen
+        PermitApplication::where('status', 'under_review')
+            ->where('seen', false)
+            ->update(['seen' => true]);
+
+        // Fetch applications (now all are seen)
+        $underReviewApplications = PermitApplication::with('user')
+            ->where('status', 'under_review')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at')
+            ->get();
+
+        // Map permits and add full document URL
+        $underReviewApplications->transform(function ($permit) {
+            if ($permit->documents) {
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs) && count($docs) > 0) {
+                    $fileName = $docs[0];
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                $fileName = basename($fileName);
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        // Recount unseen under-review applications (should now be 0)
+        $underReviewCount = PermitApplication::where('status', 'under_review')
+            ->where('seen', false)
+            ->count();
+
+        return view("OBO-Processing-Team.permit-applications.under-review", [
+            'currentUser' => $currentUser,
+            'underReviewApplications' => $underReviewApplications,
+            'underReviewCount' => $underReviewCount,
+            'ActiveTab' => 'permit-applications',
+            'SubActiveTab' => 'obo-permit-applications-under-review',
+        ]);
+    }
+
+
 }

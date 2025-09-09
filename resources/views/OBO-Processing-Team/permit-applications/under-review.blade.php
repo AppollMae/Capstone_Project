@@ -7,7 +7,7 @@
 
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
-          <a href="{{ route('mpdo.dashboard') }}" class="app-brand-link">
+          <a href="{{ route('applicant.dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
             </span>
             <img src="{{asset('images/Logo.png')}}" alt="" style="width: 50px;">
@@ -32,20 +32,20 @@
 
           <!-- Layouts -->
 
-          <li class="menu-item">
+          <li class="menu-item {{ $ActiveTab === 'total-permits' ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon fa-solid fa-file"></i>
               <div data-i18n="Layouts">Quick Stat</div>
             </a>
 
             <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="" class="menu-link">
+              <li class="menu-item {{ $SubActiveTab === 'obo-total-permits' ? 'active' : '' }}">
+                <a href="{{ route('obo.total-permits.view') }}" class="menu-link">
                   <div data-i18n="Without menu">Total permits applied</div>
                 </a>
               </li>
               <li class="menu-item">
-                <a href="" class="menu-link">
+                <a href="{{ route('obo.total-permits.under-review') }}" class="menu-link">
                   <div data-i18n="Without menu">approved / pending / rejected</div>
                 </a>
               </li>
@@ -67,15 +67,15 @@
             </ul>
           </li>
 
-          <li class="menu-item">
+          <li class="menu-item {{ $ActiveTab === 'permit-applications' ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon fa-solid fa-file-arrow-up"></i>
               <div data-i18n="Layouts">Permit Applications</div>
             </a>
 
             <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="{{ route('obo.permit-applications.view') }}" class="menu-link">
+              <li class="menu-item {{ $SubActiveTab === 'obo-permit-applications' ? 'active' : '' }}">
+                <a href="" class="menu-link">
                   <div data-i18n="Without menu"> Pending Applications</div>
                 </a>
               </li>
@@ -136,7 +136,8 @@
             <ul class="menu-sub">
               <li class="menu-item">
                 <a href="" class="menu-link">
-                  <div data-i18n="Without navbar">Schedule inspections (structural, electrical, plumbing, etc.)</div>
+                  <div data-i18n="Without navbar">Schedule inspections (structural, electrical, plumbing,
+                    etc.)</div>
                 </a>
               </li>
               <li class="menu-item">
@@ -187,14 +188,14 @@
           <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Accounts</span>
           </li>
-          <li class="menu-item {{ $ActiveTab === 'view-accounts' ? 'active' : '' }}">
+          <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon fa-solid fa-user"></i>
               <div data-i18n="Account Settings">Account Settings</div>
             </a>
             <ul class="menu-sub">
-              <li class="menu-item {{ $SubActiveTab === 'obo-view-accounts' ? 'active' : '' }}">
-                <a href="" class="menu-link">
+              <li class="menu-item">
+                <a href="{{ route('obo.accounts.view-accounts') }}" class="menu-link">
                   <div data-i18n="Account">Account</div>
                 </a>
               </li>
@@ -204,10 +205,10 @@
                 </a>
               </li>
               <!-- <li class="menu-item">
-                    <a href="" class="menu-link">
-                      <div data-i18n="Notifications">Settings</div>
-                    </a>
-                  </li> -->
+                                                                                  <a href="" class="menu-link">
+                                                                                    <div data-i18n="Notifications">Settings</div>
+                                                                                  </a>
+                                                                                </li> -->
 
             </ul>
           </li>
@@ -262,7 +263,7 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
                     <img
-                      src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}"
+                      src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
                       alt class="w-px-120 h-px-120 rounded-circle" />
                   </div>
 
@@ -274,7 +275,7 @@
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
                             <img
-                              src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}"
+                              src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
                               alt class="w-px-120 h-px-120 rounded-circle" />
                           </div>
 
@@ -289,8 +290,8 @@
                               $roleLabel = 'Admin';
                             } elseif ($role === 'mpdo') {
                               $roleLabel = 'MPDO';
-                            } elseif ($role === 'obo') {
-                              $roleLabel = 'Building Official';
+                            } elseif ($role === 'treasurer') {
+                              $roleLabel = 'Treasurer';
                             } else {
                               $roleLabel = 'User';
                             }
@@ -311,11 +312,11 @@
                     </a>
                   </li>
                   <!-- <li>
-                                          <a class="dropdown-item" href="">
-                                              <i class="bx bx-cog me-2"></i>
-                                              <span class="align-middle">Settings</span>
-                                          </a>
-                                      </li> -->
+                                                                                                                                                                                    <a class="dropdown-item" href="">
+                                                                                                                                                                                        <i class="bx bx-cog me-2"></i>
+                                                                                                                                                                                        <span class="align-middle">Settings</span>
+                                                                                                                                                                                    </a>
+                                                                                                                                                                                </li> -->
                   <li>
                     <a class="dropdown-item" href="">
                       <i class="menu-icon tf-icons bx bx-file"></i>
@@ -349,57 +350,128 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Admin Account Settings /</span>Show Account
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Pending Applicants View /</span>Show
+              All Pending Applicants
             </h4>
 
             <div class="row">
               <div class="col-md-12">
                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                   <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Total
+                      Pending Applicants</a>
                   </li>
                 </ul>
 
                 <div class="card mb-4">
-                  <h5 class="card-header">Profile Details</h5>
-                  <!-- Account -->
+                  <h5 class="card-header">Total Pending Applicants</h5>
                   <hr class="my-0" />
 
                   <div class="card-body">
-                    <!-- User Data -->
-                    <div class="row">
-                      <!-- Name Field -->
-                      <div class="mb-3 col-md-6">
-                        <label for="name" class="form-label">Name</label>
-                        <input class="form-control" type="text" id="name" name="name" value="{{ $accounts->name }}"
-                          readonly />
-                      </div>
+                    <div class="table-responsive">
+                      <!-- Map Container -->
 
-                      <!-- Email Field -->
-                      <div class="mb-3 col-md-6">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input class="form-control" type="email" id="email" name="email" value="{{ $accounts->email }}"
-                          readonly />
-                      </div>
 
-                      <div class="mb-3 col-md-6">
-                        <label for="email" class="form-label">Role</label>
-                        <input class="form-control" type="email" id="email" name="email" value="{{ $accounts->role }}"
-                          readonly />
-                      </div>
-                    </div>
+                      <!-- Hidden inputs to store the first location's coordinates (optional) -->
+                      <input type="hidden" id="latitude" name="latitude">
+                      <input type="hidden" id="longitude" name="longitude">
+                      <!-- Draft Permits Table -->
+                      <table class="table table-bordered table-striped text-center align-middle">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Name</th>
+                            <th>Project Name</th>
+                            <th>Location</th>
+                            <th>Created At</th>
+                            <th>Documents</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @forelse($underReviewApplications as $permit)
+                            <tr>
+                              <!-- Created By (User Name) -->
+                              <td>{{ $permit->user->name ?? 'N/A' }}</td>
 
-                    <!-- Image Field -->
-                    <div class="mb-3">
-                      <label for="avatar" class="form-label">Profile Picture</label>
-                      <img id="uploadedAvatar"
-                        src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}"
-                        alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
+                              <!-- Project Name -->
+                              <td>{{ $permit->project_name ?? 'N/A' }}</td>
+
+                              <!-- Location -->
+                              <td>{{ $permit->location ?? 'N/A' }}</td>
+
+                              <!-- Created At -->
+                              <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
+                              </td>
+
+                              <td>
+                                @if($permit->document_url)
+                                  <!-- Button trigger modal -->
+                                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#viewDocumentModal-{{ $permit->id }}">
+                                    View Document
+                                  </button>
+
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="viewDocumentModal-{{ $permit->id }}" tabindex="-1"
+                                    aria-labelledby="viewDocumentLabel-{{ $permit->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                                      <!-- modal-xl for wide screens -->
+                                      <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                          <h5 class="modal-title" id="viewDocumentLabel-{{ $permit->id }}">
+                                            <i class="bx bx-file"></i> Document Preview
+                                          </h5>
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-0">
+                                          <div class="ratio ratio-16x9">
+                                            <!-- Responsive iframe -->
+                                            <iframe src="{{ $permit->document_url }}" style="border:0;"
+                                              allowfullscreen></iframe>
+                                          </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <a href="{{ $permit->document_url }}" target="_blank" class="btn btn-success">
+                                            <i class="bx bx-download"></i> Open in New Tab
+                                          </a>
+                                          <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                @else
+                                  N/A
+                                @endif
+                              </td>
+
+
+                              <!-- Status -->
+                              <td>
+                                @if($permit->status === 'under_review')
+                                  <span class="px-3 py-1 rounded-pill shadow-sm" style="background: linear-gradient(90deg, #dbff59, #ffa751); 
+                                         color:#4a3f00; font-weight:600; font-size:0.85rem;">
+                                    Under Review
+                                  </span>
+                                @endif
+                              </td>
+
+                              <!-- Actions -->
+                            </tr>
+                          @empty
+                            <tr>
+                              <td colspan="8" class="text-muted text-center">No pending permits
+                                found.</td>
+                            </tr>
+                          @endforelse
+                        </tbody>
+                      </table>
+
                     </div>
                   </div>
-                  <!-- /Account -->
-                </div>
 
+                </div>
               </div>
             </div>
           </div>
@@ -416,8 +488,7 @@
                 <script>
                   document.write(new Date().getFullYear());
                 </script>
-                Office of the Building Official Team Dashboard | Developed by
-                <span class="fw-bold text-success">Group 5</span>
+                Office of the Building Official Team Dashboard
               </div>
               <div>
                 <a href="#" class="footer-link me-4">License</a>

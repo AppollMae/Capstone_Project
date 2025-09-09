@@ -41,12 +41,12 @@
 
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="{{ route('obo.total-permits.view') }}" class="menu-link">
                                     <div data-i18n="Without menu">Total permits applied</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="{{ route('obo.total-permits.uneder-review') }}" class="menu-link">
                                     <div data-i18n="Without menu">approved / pending / rejected</div>
                                 </a>
                             </li>
@@ -76,8 +76,13 @@
 
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="" class="menu-link">
+                                <a href="{{ route('obo.permit-applications.view') }}" class="menu-link">
                                     <div data-i18n="Without menu"> Pending Applications</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Without navbar">Under Review Applications</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -201,10 +206,10 @@
                                 </a>
                             </li>
                             <!-- <li class="menu-item">
-                                <a href="" class="menu-link">
-                                    <div data-i18n="Notifications">Settings</div>
-                                </a>
-                            </li> -->
+                                    <a href="" class="menu-link">
+                                        <div data-i18n="Notifications">Settings</div>
+                                    </a>
+                                </li> -->
 
                         </ul>
                     </li>
@@ -246,8 +251,8 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 <!-- <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                    aria-label="Search..." /> -->
+                      <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+                        aria-label="Search..." /> -->
                             </div>
 
                         </div>
@@ -311,11 +316,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                        <a class="dropdown-item" href="">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li> -->
+                                            <a class="dropdown-item" href="">
+                                                <i class="bx bx-cog me-2"></i>
+                                                <span class="align-middle">Settings</span>
+                                            </a>
+                                        </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -412,8 +417,7 @@
 
                                                 <img id="uploadedAvatar" src="{{ Auth::user()->avatar
         ? asset('storage/' . Auth::user()->avatar)
-        : asset('sneat/img/avatars/1.png') }}" alt="avatar" class="d-block rounded mt-2" width="100"
-                                                    height="100" />
+        : asset('sneat/img/avatars/1.png') }}" alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
                                             </div>
 
                                             <!-- Submit Button -->

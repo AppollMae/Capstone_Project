@@ -127,6 +127,7 @@
     <script src="{{ asset('js/pinpoint.js') }}"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="{{ asset('js/delete-modal.js') }}"></script>
+    <script src="{{ asset('js/notif-count.js') }}"></script>
 </body>
 
 </html>
