@@ -321,7 +321,10 @@
 
                                 <div class="card-body">
                                     <div class="row g-4">
-
+                                        <div id="map" style="height: 400px; width: 100%; margin-bottom:20px;" class="rounded shadow"></div>
+                                        <!-- Hidden inputs to store the first location's coordinates (optional) --> 
+                                         <input type="hidden" id="latitude" name="latitude"> 
+                                         <input type="hidden" id="longitude" name="longitude">
                                         @forelse($draftPermits as $draft)
                                         <!-- Permit Card -->
                                         <div class="col-12 col-md-6 col-lg-4">

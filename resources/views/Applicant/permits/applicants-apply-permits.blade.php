@@ -39,17 +39,17 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                                 <div data-i18n="Without menu">Draft</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('applicants.under-reviews.view-under-review') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Under Review</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('applicants.drafts.pending-draft') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Pending</div>
                             </a>
                         </li>
