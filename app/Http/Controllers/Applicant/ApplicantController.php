@@ -13,15 +13,30 @@ class ApplicantController extends Controller
 {
     public function index()
     {
-        $draftpermitcount = DraftPermit::where('status', 'draft')->count();
-        $pendingCounts = PermitApplication::where('user_id', Auth::user()->id)
+        $currentUser = Auth::user();
+
+        // Count only this user's draft permits
+        $draftpermitcount = DraftPermit::where('user_id', $currentUser->id)
+            ->where('status', 'draft')
+            ->count();
+
+        // Pending permits for this user
+        $pendingCounts = PermitApplication::where('user_id', $currentUser->id)
             ->where('status', 'pending')
             ->count();
 
-        $underReviewCount = PermitApplication::where('user_id', Auth::user()->id)->where('status', 'under_review')->count();
+        // Under review permits for this user
+        $underReviewCount = PermitApplication::where('user_id', $currentUser->id)
+            ->where('status', 'under_review')
+            ->count();
 
-        return view('applicant.dashboard.index', compact('draftpermitcount', 'pendingCounts', 'underReviewCount'));
+        return view('applicant.dashboard.index', compact(
+            'draftpermitcount',
+            'pendingCounts',
+            'underReviewCount'
+        ));
     }
+
 
     public function applicantsIndex()
     {
@@ -286,7 +301,9 @@ class ApplicantController extends Controller
         $currentUser = Auth::user();
 
         // Get permits that are under review
-        $underReviewPermits = PermitApplication::with('reviewer')->whereIn('status', ['under_review'])
+        $underReviewPermits = PermitApplication::with('reviewer')
+            ->where('user_id', $currentUser->id) // restrict to current user
+            ->where('status', 'under_review')
             ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
             ->get();
 
