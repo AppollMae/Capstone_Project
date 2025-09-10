@@ -346,7 +346,7 @@
                       <i class="fa-solid fa-hourglass-half text-info mb-3" style="font-size: 2.5rem;"></i>
                       <h5 class="card-title">Under Review</h5>
                       <p class="card-text text-muted">Applications currently being reviewed</p>
-                      <strong style="font-size: 2.5rem;">0</strong>
+                      <strong style="font-size: 2.5rem;">{{ $underReviewCount }}</strong>
                     </div>
                   </div>
                 </div>

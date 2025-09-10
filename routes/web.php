@@ -69,12 +69,15 @@ Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function 
   Route::prefix('accounts')->name('mpdo.accounts.')->group(function () {
     Route::get('/', [MpdoController::class, 'viewAccountsIndex'])
       ->name('mpdo-view-accounts');
-
     Route::get('/update-accounts/{id}/edit', [MpdoController::class, 'updateAccountsIndex'])
       ->name('mpdo-edit-accounts');
-
     Route::put('/update-accounts', [MpdoController::class, 'updateAccounts'])
       ->name('mpdo-update-accounts');
+  });
+
+  Route::prefix('permit-applicants')->name('mpdo.permit-applicants.')->group(function(){
+    Route::get('/', [MpdoController::class, 'permitApplicantIndex'])->name('view');
+    Route::post('/{id}/under-review', [MpdoController::class, 'markUnderReviewIndex'])->name('mark-under-review');
   });
 });
 

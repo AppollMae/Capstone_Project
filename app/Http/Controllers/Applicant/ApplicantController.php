@@ -18,7 +18,9 @@ class ApplicantController extends Controller
             ->where('status', 'pending')
             ->count();
 
-        return view('applicant.dashboard.index', compact('draftpermitcount', 'pendingCounts'));
+        $underReviewCount = PermitApplication::where('user_id', Auth::user()->id)->where('status', 'under_review')->count();
+
+        return view('applicant.dashboard.index', compact('draftpermitcount', 'pendingCounts', 'underReviewCount'));
     }
 
     public function applicantsIndex()
@@ -272,7 +274,7 @@ class ApplicantController extends Controller
             ->get();
 
 
-        return view('applicant.drafts.pending-permit', compact('pendingDrafts'), [
+        return view('applicant.drafts.pending-permit', compact('pendingDrafts', 'currentUser'), [
             'ActiveTab' => 'pending',
             'SubActiveTab' => 'permit'
         ]);
@@ -317,5 +319,4 @@ class ApplicantController extends Controller
             'SubActiveTab' => 'view-under-review'
         ], compact('currentUser'));
     }
-
 }
