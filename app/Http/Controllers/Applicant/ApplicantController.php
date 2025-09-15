@@ -304,7 +304,7 @@ class ApplicantController extends Controller
         $underReviewPermits = PermitApplication::with('reviewer')
             ->where('user_id', $currentUser->id) // restrict to current user
             ->where('status', 'under_review')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
+            ->select('id', 'user_id', 'project_name', 'location', 'latitude', 'longitude', 'status', 'documents', 'created_at', 'reviewed_by')
             ->get();
 
         // Optionally map document URLs like in totalPermitsIndex
@@ -325,6 +325,16 @@ class ApplicantController extends Controller
             }
 
             return $permit;
+        });
+
+        $locations = $underReviewPermits->map(function ($draft) {
+            return [
+                'id' => $draft->id,
+                'name' => $draft->project_name, // for popup
+                'location' => $draft->location ?? null,
+                'latitude' => $draft->latitude ?? null,
+                'longitude' => $draft->longitude ?? null,
+            ];
         });
 
         $underReviewCount = $underReviewPermits->count();

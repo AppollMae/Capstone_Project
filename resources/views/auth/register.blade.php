@@ -105,6 +105,12 @@
                             <span>Sign in instead</span>
                         </a>
                     </p>
+                    <p class="text-center">
+                        <span>Back to welcome page?</span>
+                        <a href="/">
+                            <span>Go to Welcome</span>
+                        </a>
+                    </p>
                 </div>
             </div>
             <!-- Register Card -->

@@ -322,7 +322,10 @@
 
                                 <div class="card-body">
                                     <div class="row g-4">
-
+                                        <div id="map" style="height: 400px; width: 100%; margin-bottom:20px;" class="rounded shadow"></div>
+                                        <!-- Hidden inputs to store the first location's coordinates (optional) -->
+                                        <input type="hidden" id="latitude" name="latitude">
+                                        <input type="hidden" id="longitude" name="longitude">
                                         @forelse($underReviewPermits as $draft)
                                         <!-- Permit Card -->
                                         <div class="col-12 col-md-6 col-lg-4">
@@ -517,3 +520,13 @@
 </div>
 <!-- / Layout wrapper -->
 @endsection
+
+<!-- REMINDER PLEASE READ BELOW THE COMMENTS -->
+<!-- Don't mind the error line its totaly fine and it's working -->
+<!-- If you decided to remove that line of code below the generated map it won't work -->
+<!-- But it will display the map, the main point of this code is to pinpoint already the location -->
+<!-- That already save to the draft permits database table. -->
+<script>
+    window.draftPermits = @json($underReviewPermits);
+</script>
+<script src="{{ asset('js/pinpoint.js') }}"></script>
