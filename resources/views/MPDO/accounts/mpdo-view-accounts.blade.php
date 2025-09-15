@@ -40,13 +40,8 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('mpdo.permit-applicants.view') }}" class="menu-link">
                                 <div data-i18n="Without menu">Active projects</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Completed projects</div>
                             </a>
                         </li>
                         <li class="menu-item">
@@ -54,6 +49,12 @@
                                 <div data-i18n="Without menu">Ongoing building permits</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">Completed projects</div>
+                            </a>
+                        </li>
+
                         <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without menu">Population and demographic updates</div>
@@ -222,7 +223,7 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
                                     <img src="{{ $accounts->avatar ? asset('storage/' . $accounts->avatar) : asset('sneat/img/avatars/1.png') }}" alt
-                            class="w-px-120 h-px-120 rounded-circle" />
+                                        class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
                             </a>

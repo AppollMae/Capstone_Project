@@ -14,8 +14,12 @@ class MpdoController extends Controller
 {
     public function index()
     {
-        $currentUser = Auth::user();  
-        return view('MPDO.dashboard.index', compact('currentUser'));
+        $currentUser = Auth::user();
+        $totalApplicants = User::whereIn('role', ['user'])->count();
+        $approvePermits = PermitApplication::where('status', 'approved')->count();
+        $ongoingProjects = PermitApplication::whereIn('status', ['pending','under_review','approved','rejected'])->count();
+
+        return view('MPDO.dashboard.index', compact('currentUser', 'totalApplicants', 'approvePermits', 'ongoingProjects'));
     }
 
 
@@ -72,11 +76,12 @@ class MpdoController extends Controller
             ->with('success', 'Your profile has been updated successfully!');
     }
 
-    public function permitApplicantIndex(){
+    public function permitApplicantIndex()
+    {
         $currentUser = Auth::user();
-        $permitApplications = PermitApplication::whereIn('status',['pending', 'under_review', 'approved', 'rejected'])
-        ->select('id', 'user_id', 'project_name', 'location', 'description', 'documents', 'status', 'reviewed_by', 'created_at')
-        ->get();
+        $permitApplications = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
+            ->select('id', 'user_id', 'project_name', 'location', 'description', 'documents', 'status', 'reviewed_by', 'created_at')
+            ->get();
 
         $permitApplications->transform(function ($permit) {
             if ($permit->documents) {
@@ -101,15 +106,58 @@ class MpdoController extends Controller
         ]);
     }
 
-    public function markUnderReviewIndex($id){
+    public function markUnderReviewIndex($id)
+    {
         $currentUser = Auth::user();
         $permit = PermitApplication::find($id);
         $permit->status = 'under_review';
-        if($currentUser->role === 'mpdo'){
+        if ($currentUser->role === 'mpdo') {
             // Additional logic for MPDO role
             $permit->reviewed_by = $currentUser->id;
         }
         $permit->save();
-        return redirect()->back()->with('success','Permit marked as Under Review.');
+        return redirect()->back()->with('success', 'Permit marked as Under Review.');
+    }
+
+    public function ongoingProjectsIndex(){
+        $currentUser = Auth::user();
+        $ongoingProjects = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
+            ->select('id', 'user_id', 'project_name', 'location', 'description', 'documents', 'status', 'reviewed_by', 'created_at')
+            ->get();
+
+        $ongoingProjects->transform(function ($permit) {
+            if ($permit->documents) {
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0];
+                } else {
+                    $fileName = $permit->documents;
+                }
+                $fileName = basename($fileName);
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+            return $permit;
+        });
+
+        return view('MPDO.permit-applicants.ongoing-projects', compact('currentUser', 'ongoingProjects'), [
+            'ActiveTab' => 'Permit-Applicants',
+            'SubActiveTab' => 'view-applicants'
+        ]);
+    }
+
+    public function markApprovedIndex($id)
+    {
+        $currentUser = Auth::user();
+        $permit = PermitApplication::find($id);
+        $permit->status = 'approved';
+        if ($currentUser->role === 'mpdo') {
+            // Additional logic for MPDO role
+            $permit->reviewed_by = $currentUser->id;
+        }
+        $permit->save();
+        return redirect()->back()->with('success', 'Permit marked as Approved.');
     }
 }

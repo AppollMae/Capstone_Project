@@ -46,14 +46,15 @@
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Completed projects</div>
+                                <div data-i18n="Without menu">Ongoing building permits</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Ongoing building permits</div>
+                                <div data-i18n="Without menu">Completed projects</div>
                             </a>
                         </li>
+
                         <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without menu">Population and demographic updates</div>
@@ -321,7 +322,7 @@
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Total
-                                     Projects</a>
+                                        Projects</a>
                                 </li>
                             </ul>
 
@@ -415,67 +416,69 @@
                                                     <td>
                                                         @switch($permit->status)
                                                         @case('pending')
-                                                        <span class="px-3 py-1 rounded-pill shadow-sm"
-                                                            style="background: linear-gradient(90deg, #dbff59, #ffa751); 
-                       color:#4a3f00; font-weight:600; font-size:0.85rem;">
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm d-inline-block text-center"
+                                                            style="background: linear-gradient(90deg, #36d1dc, #5b86e5); 
+                       color:#4a3f00; font-weight:600; font-size:0.85rem; white-space:nowrap;">
                                                             Pending
                                                         </span>
                                                         @break
-
-                                                        @case('under review')
-                                                        <span class="px-3 py-1 rounded-pill shadow-sm"
-                                                            style="background: linear-gradient(90deg, #36d1dc, #5b86e5); 
-                       color:#fff; font-weight:600; font-size:0.85rem;">
+                                            
+                                                        @case('under_review')
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm d-inline-block text-center"
+                                                            style="background: linear-gradient(90deg,  #dbff59, #ffa751); 
+                       color:black; font-weight:600; font-size:0.85rem; white-space:nowrap;">
                                                             Under Review
                                                         </span>
                                                         @break
 
                                                         @case('approved')
-                                                        <span class="px-3 py-1 rounded-pill shadow-sm"
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm d-inline-block text-center"
                                                             style="background: linear-gradient(90deg, #56ab2f, #a8e063); 
-                       color:#fff; font-weight:600; font-size:0.85rem;">
+                       color:#fff; font-weight:600; font-size:0.85rem; white-space:nowrap;">
                                                             Approved
                                                         </span>
                                                         @break
 
                                                         @case('rejected')
-                                                        <span class="px-3 py-1 rounded-pill shadow-sm"
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm d-inline-block text-center"
                                                             style="background: linear-gradient(90deg, #ff6b6b, #ff3d3d); 
-                       color:#fff; font-weight:600; font-size:0.85rem;">
+                       color:#fff; font-weight:600; font-size:0.85rem; white-space:nowrap;">
                                                             Rejected
                                                         </span>
                                                         @break
 
                                                         @default
-                                                        <span class="px-3 py-1 rounded-pill shadow-sm bg-secondary text-white">
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm bg-secondary text-white d-inline-block text-center"
+                                                            style="white-space:nowrap;">
                                                             {{ ucfirst($permit->status ?? 'N/A') }}
                                                         </span>
                                                         @endswitch
                                                     </td>
-
                                                     <td>
                                                         <span>
                                                             Reviewed by:
                                                             <strong>{{ $permit->reviewer->name ?? 'N/A' }}</strong>
+
                                                             @if($permit->reviewer)
                                                             @php
                                                             $role = strtolower($permit->reviewer->role);
                                                             if ($role === 'bfp') {
-                                                            $roleLabel = '(Bureau of Fire Protection)';
+                                                            $roleLabel = 'Bureau of Fire Protection';
                                                             } elseif ($role === 'admin') {
-                                                            $roleLabel = '(Administrator)';
+                                                            $roleLabel = 'Administrator';
                                                             } elseif ($role === 'mpdo') {
-                                                            $roleLabel = '(Municipal Planning & Development Office)';
+                                                            $roleLabel = 'Municipal Planning & Development Office';
                                                             } elseif ($role === 'treasurer') {
-                                                            $roleLabel = '(Municipal Treasurer)';
+                                                            $roleLabel = 'Municipal Treasurer';
                                                             } elseif ($role === 'obo') {
-                                                            $roleLabel = '(Office of the Building Official)';
+                                                            $roleLabel = 'Office of the Building Official';
                                                             } else {
-                                                            $roleLabel = '(User)';
+                                                            $roleLabel = 'User';
                                                             }
                                                             @endphp
 
-                                                            <span class="bg-primary ms-1 text-white px-2 py-1 rounded">
+                                                            <span class="ms-2 px-3 py-1 rounded-pill bg-primary text-white d-inline-block align-middle"
+                                                                style="font-size:0.8rem; font-weight:600; white-space:nowrap;">
                                                                 {{ $roleLabel }}
                                                             </span>
                                                             @endif
@@ -522,7 +525,7 @@
                                                                         </form>
 
                                                                         <!-- Approve -->
-                                                                        <form action="" method="POST">
+                                                                        <form action="{{ route('mpdo.permit-applicants.mark-approved', $permit->id) }}" method="POST">
                                                                             @csrf
                                                                             <button type="submit" class="btn btn-success">
                                                                                 <i class="bx bx-check-circle"></i> Approve

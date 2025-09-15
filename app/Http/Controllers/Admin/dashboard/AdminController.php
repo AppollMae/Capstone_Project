@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\PermitApplication;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,12 +16,20 @@ class AdminController extends Controller
 
         // Fetch all users except admin
         $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO'])->get();
-        $TotalUsers = User::whereIn('role', ['user'])->count();
+        $TotalUsers = PermitApplication::whereIn('status', ['pending','under_review','approved','rejected'])->count();
+        $pendingApplications = PermitApplication::where('status', 'pending')->count();
+        $underReviewApplications = PermitApplication::where('status', 'under_review')->count();
+        $approvedApplications = PermitApplication::where('status', 'approved')->count();
+        $rejectedApplications = PermitApplication::where('status', 'rejected')->count();
 
         return view('admin.dashboard.dashboard', [
             'currentUser' => $currentUser,
             'users' => $users,
-            'TotalUsers' => $TotalUsers
+            'TotalUsers' => $TotalUsers,
+            'pendingApplications' => $pendingApplications,
+            'underReviewApplications' => $underReviewApplications,
+            'approvedApplications' => $approvedApplications,
+            'rejectedApplications' => $rejectedApplications
         ]);
     }
 

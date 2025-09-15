@@ -30,10 +30,20 @@ class ApplicantController extends Controller
             ->where('status', 'under_review')
             ->count();
 
+        $totalApprovePermits = PermitApplication::where('user_id', $currentUser->id)
+            ->where('status', 'approved')
+            ->count();
+        
+        $totalRejectedPermits = PermitApplication::where('user_id', $currentUser->id)
+            ->where('status', 'rejected')
+            ->count();
+
         return view('applicant.dashboard.index', compact(
             'draftpermitcount',
             'pendingCounts',
-            'underReviewCount'
+            'underReviewCount',
+            'totalApprovePermits',
+            'totalRejectedPermits'
         ));
     }
 

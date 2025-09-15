@@ -45,15 +45,16 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Under Review</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('applicants.drafts.pending-draft') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Pending</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{ route('applicants.under-reviews.view-under-review') }}" class="menu-link">
+                                <div data-i18n="Without navbar">Under Review</div>
+                            </a>
+                        </li>
+
                         <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Approve</div>
@@ -298,7 +299,7 @@
 
                     <!-- Page Header -->
                     <h4 class="fw-bold py-3 mb-4">
-                        <span class="text-muted fw-light">Drafts /</span>
+                        <span class="text-muted fw-light">Drafts User Account/</span>
                         Show All Drafts
                     </h4>
 
@@ -309,22 +310,22 @@
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="javascript:void(0);">
-                                        <i class="bx bx-user me-1"></i> All Drafts
+                                        <i class="bx bx-file me-1"></i> All Drafts
                                     </a>
                                 </li>
                             </ul>
 
                             <!-- Card -->
                             <div class="card mb-4">
-                                <h5 class="card-header">Drafts</h5>
+                                <h5 class="card-header">Drafts Permit</h5>
                                 <hr class="my-0" />
 
                                 <div class="card-body">
                                     <div class="row g-4">
                                         <div id="map" style="height: 400px; width: 100%; margin-bottom:20px;" class="rounded shadow"></div>
-                                        <!-- Hidden inputs to store the first location's coordinates (optional) --> 
-                                         <input type="hidden" id="latitude" name="latitude"> 
-                                         <input type="hidden" id="longitude" name="longitude">
+                                        <!-- Hidden inputs to store the first location's coordinates (optional) -->
+                                        <input type="hidden" id="latitude" name="latitude">
+                                        <input type="hidden" id="longitude" name="longitude">
                                         @forelse($draftPermits as $draft)
                                         <!-- Permit Card -->
                                         <div class="col-12 col-md-6 col-lg-4">

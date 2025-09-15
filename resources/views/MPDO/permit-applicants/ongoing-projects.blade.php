@@ -7,12 +7,11 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="{{ route('applicant.dashboard') }}" class="app-brand-link">
+                <a href="{{ route('mpdo.dashboard') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('images/Logo.png')}}" alt="" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2"
-                        style="text-transform:uppercase">BPMS</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">BPMS</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -25,7 +24,7 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item">
-                    <a href="{{ route('obo.dashboard') }}" class="menu-link">
+                    <a href="{{ route('mpdo.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -33,7 +32,7 @@
 
                 <!-- Layouts -->
 
-                <li class="menu-item {{ $ActiveTab === 'total-permits' ? 'active' : '' }}">
+                <li class="menu-item {{ $ActiveTab  === 'Permit-Applicants' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-file"></i>
                         <div data-i18n="Layouts">Quick Stat</div>
@@ -41,28 +40,24 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('obo.total-permits.view') }}" class="menu-link">
-                                <div data-i18n="Without menu">Total permits applied</div>
+                            <a href="{{ route('mpdo.permit-applicants.view') }}" class="menu-link">
+                                <div data-i18n="Without menu">Active projects</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ $ActiveTab === 'total-permits' ? 'active' : '' }}">
+                        <li class="menu-item {{$SubActiveTab  === 'view-applicants' ? 'active' : '' }}">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">approved / pending / under review / rejected</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Number of inspections scheduled/completed</div>
+                                <div data-i18n="Without menu">Ongoing building permits</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Revenue collected from permit fees</div>
+                                <div data-i18n="Without menu">Completed projects</div>
                             </a>
                         </li>
+
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Notifications for pending tasks</div>
+                                <div data-i18n="Without menu">Population and demographic updates</div>
                             </a>
                         </li>
                     </ul>
@@ -70,29 +65,19 @@
 
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-file-arrow-up"></i>
-                        <div data-i18n="Layouts">Permit Applications</div>
+                        <i class="menu-icon fa-solid fa-chart-simple"></i>
+                        <div data-i18n="Layouts">Visualizations</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('obo.permit-applications.view') }}" class="menu-link">
-                                <div data-i18n="Without menu"> Pending Applications</div>
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu"> Maps of ongoing development zones</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Under Review Applications</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Approved Applications</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Rejected Applications</div>
+                                <div data-i18n="Without navbar">Charts for project allocation and budgets</div>
                             </a>
                         </li>
                     </ul>
@@ -130,55 +115,29 @@
 
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-calendar-check"></i>
-                        <div data-i18n="Layouts">Inspections & Scheduling</div>
+                        <i class="menu-icon fa-solid fa-chart-simple"></i>
+                        <div data-i18n="Layouts">Reports & Analytics</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Schedule inspections (structural, electrical, plumbing,
-                                    etc.)</div>
+                                <div data-i18n="Without navbar">Annual investment plans (AIP)</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Assign inspectors to projects</div>
+                                <div data-i18n="Without navbar">Budget allocation and utilization</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Update inspection results</div>
+                                <div data-i18n="Without navbar">Infrastructure development progress</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">View inspection calendar and upcoming tasks</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-comments-dollar"></i>
-                        <div data-i18n="Layouts">Payments & Fees</div>
-                    </a>
-
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Verify payment records</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Manage payment statuses (Paid/Unpaid)</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Generate receipts and reports</div>
+                                <div data-i18n="Without navbar">Population and demographic analysis</div>
                             </a>
                         </li>
                     </ul>
@@ -196,20 +155,20 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('obo.accounts.view-accounts') }}" class="menu-link">
+                            <a href="{{ route('mpdo.accounts.mpdo-view-accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('obo.accounts.edit-accounts', Auth::user()->id) }}" class="menu-link">
+                            <a href="{{ route('mpdo.accounts.mpdo-edit-accounts', Auth::user()->id) }}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
                         <!-- <li class="menu-item">
-                                                                              <a href="" class="menu-link">
-                                                                                <div data-i18n="Notifications">Settings</div>
-                                                                              </a>
-                                                                            </li> -->
+                  <a href="" class="menu-link">
+                    <div data-i18n="Notifications">Settings</div>
+                  </a>
+                </li> -->
 
                     </ul>
                 </li>
@@ -238,7 +197,8 @@
         <div class="layout-page">
             <!-- Navbar -->
 
-            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            <nav
+                class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                 id="layout-navbar">
                 <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
                     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -260,10 +220,10 @@
                         <!-- Place this tag where you want the button to render. -->
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                                data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                    <img
+                                        src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
                                         alt class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
@@ -274,7 +234,8 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                                    <img
+                                                        src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                         alt class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
@@ -291,7 +252,10 @@
                                                     $roleLabel = 'MPDO';
                                                     } elseif ($role === 'treasurer') {
                                                     $roleLabel = 'Treasurer';
-                                                    } else {
+                                                    }elseif($role === 'obo'){
+                                                    $roleLabel = 'OBO';
+                                                    }
+                                                    else {
                                                     $roleLabel = 'User';
                                                     }
                                                     @endphp
@@ -311,11 +275,11 @@
                                     </a>
                                 </li>
                                 <!-- <li>
-                                                                                                                                                                                <a class="dropdown-item" href="">
-                                                                                                                                                                                    <i class="bx bx-cog me-2"></i>
-                                                                                                                                                                                    <span class="align-middle">Settings</span>
-                                                                                                                                                                                </a>
-                                                                                                                                                                            </li> -->
+                                                                                                                                                                                    <a class="dropdown-item" href="">
+                                                                                                                                                                                        <i class="bx bx-cog me-2"></i>
+                                                                                                                                                                                        <span class="align-middle">Settings</span>
+                                                                                                                                                                                    </a>
+                                                                                                                                                                                </li> -->
                                 <li>
                                     <a class="dropdown-item" href="">
                                         <i class="menu-icon tf-icons bx bx-file"></i>
@@ -349,21 +313,21 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Total View /</span>Show
-                        All Permits
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Total Project /</span>Show
+                        All Projects
                     </h4>
 
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);"><i
-                                            class="bx bx-user me-1"></i> Total Permits</a>
+                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Total
+                                        Projects</a>
                                 </li>
                             </ul>
 
                             <div class="card mb-4">
-                                <h5 class="card-header">Total Permit Applied</h5>
+                                <h5 class="card-header">Total Projects</h5>
                                 <hr class="my-0" />
 
                                 <div class="card-body">
@@ -385,11 +349,11 @@
                                                     <th>Documents</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
-                                                    <th>Actions</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($underReviewPermits as $permit)
+                                                @forelse($ongoingProjects as $permit)
                                                 <tr>
                                                     <!-- Created By (User Name) -->
                                                     <td>{{ $permit->user->name ?? 'N/A' }}</td>
@@ -415,7 +379,8 @@
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="viewDocumentModal-{{ $permit->id }}" tabindex="-1"
                                                             aria-labelledby="viewDocumentLabel-{{ $permit->id }}" aria-hidden="true">
-                                                            <div class="modal-dialog modal-xl modal-dialog-centered"> <!-- modal-xl for wide screens -->
+                                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                                <!-- modal-xl for wide screens -->
                                                                 <div class="modal-content">
                                                                     <div class="modal-header bg-primary text-white">
                                                                         <h5 class="modal-title" id="viewDocumentLabel-{{ $permit->id }}">
@@ -427,14 +392,16 @@
                                                                     <div class="modal-body p-0">
                                                                         <div class="ratio ratio-16x9">
                                                                             <!-- Responsive iframe -->
-                                                                            <iframe src="{{ $permit->document_url }}" style="border:0;" allowfullscreen></iframe>
+                                                                            <iframe src="{{ $permit->document_url }}" style="border:0;"
+                                                                                allowfullscreen></iframe>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <a href="{{ $permit->document_url }}" target="_blank" class="btn btn-success">
                                                                             <i class="bx bx-download"></i> Open in New Tab
                                                                         </a>
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -445,7 +412,6 @@
                                                     </td>
 
 
-                                                    <!-- Status -->
                                                     <td>
                                                         @switch($permit->status)
                                                         @case('pending')
@@ -455,7 +421,7 @@
                                                             Pending
                                                         </span>
                                                         @break
-
+                                                        
                                                         @case('under_review')
                                                         <span class="px-3 py-1 rounded-pill shadow-sm d-inline-block text-center"
                                                             style="background: linear-gradient(90deg, #dbff59, #ffa751 ); 
@@ -486,10 +452,12 @@
                                                             {{ ucfirst($permit->status ?? 'N/A') }}
                                                         </span>
                                                         @endswitch
-                                                    </td>   
+                                                    </td>
+
 
                                                     <td>
                                                         <span>
+                                                            Reviewed by:
                                                             <strong>{{ $permit->reviewer->name ?? 'N/A' }}</strong>
 
                                                             @if($permit->reviewer)
@@ -550,7 +518,7 @@
                                                                     <div class="modal-footer d-flex flex-wrap gap-2 justify-content-center">
 
                                                                         <!-- Under Review -->
-                                                                        <form action="{{ route('obo.total-permits.mark-under-review', $permit->id) }}" method="POST">
+                                                                        <form action="{{ route('mpdo.permit-applicants.mark-under-review', $permit->id) }}" method="POST">
                                                                             @csrf
                                                                             <button type="submit" class="btn btn-warning">
                                                                                 <i class="bx bx-hourglass"></i> Under Review
@@ -558,7 +526,7 @@
                                                                         </form>
 
                                                                         <!-- Approve -->
-                                                                        <form action="" method="POST">
+                                                                        <form action="{{ route('mpdo.permit-applicants.mark-approved', $permit->id) }}" method="POST">
                                                                             @csrf
                                                                             <button type="submit" class="btn btn-success">
                                                                                 <i class="bx bx-check-circle"></i> Approve
@@ -586,9 +554,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-
-
-
                                                 </tr>
                                                 @empty
                                                 <tr>
@@ -613,8 +578,7 @@
 
                 <!-- Footer -->
                 <footer class="content-footer footer bg-footer-theme mt-4">
-                    <div
-                        class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column small">
+                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column small">
                         <div class="mb-2 mb-md-0">
                             ©
                             <script>

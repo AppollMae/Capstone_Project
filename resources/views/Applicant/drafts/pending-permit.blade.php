@@ -301,7 +301,7 @@
 
                     <!-- Page Header -->
                     <h4 class="fw-bold py-3 mb-4">
-                        <span class="text-muted fw-light">Pendings /</span>
+                        <span class="text-muted fw-light">Pending User Accounts /</span>
                         Show All Pendings
                     </h4>
 
@@ -312,14 +312,14 @@
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="javascript:void(0);">
-                                        <i class="bx bx-user me-1"></i> All Pendings
+                                        <i class="bx bx-loader bx-spin"></i> All Pendings
                                     </a>
                                 </li>
                             </ul>
 
                             <!-- Card -->
                             <div class="card mb-4">
-                                <h5 class="card-header">Pendings</h5>
+                                <h5 class="card-header">Pending Permit Table</h5>
                                 <hr class="my-0" />
 
                                 <div class="card-body">
@@ -474,7 +474,7 @@
                                         <!-- /Permit Card -->
                                         @empty
                                         <div class="col-12 text-center text-muted">
-                                            No draft permits found.
+                                            No pending permits found.
                                         </div>
                                         @endforelse
 

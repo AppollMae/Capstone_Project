@@ -93,7 +93,7 @@ class OboController extends Controller
     public function totalPermitsIndex()
     {
         $pendingPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at')
             ->get();
 
         // Map permits and add full document URL

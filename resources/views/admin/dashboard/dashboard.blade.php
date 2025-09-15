@@ -260,7 +260,10 @@
                           $roleLabel = 'Admin';
                           } elseif ($role === 'mpdo') {
                           $roleLabel = 'MPDO';
-                          } else {
+                          } elseif($role === 'obo'){
+                          $roleLabel = 'OBO';
+                          }
+                          else {
                           $roleLabel = 'User';
                           }
                           @endphp
@@ -347,7 +350,7 @@
                   <div class="card-body text-center">
                     <i class="fa-solid fa-hourglass-half fa-2x text-warning mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Pending Approvals</h6>
-                    <h3 class="fw-bolder text-warning mb-1" id="pendingApprovals">15</h3>
+                    <h3 class="fw-bolder text-warning mb-1" id="pendingApprovals">{{ $pendingApplications }}</h3>
                     <p class="text-muted small mb-0">Awaiting review</p>
                   </div>
                 </div>
@@ -359,7 +362,7 @@
                   <div class="card-body text-center">
                     <i class="fa-solid fa-circle-check fa-2x text-success mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Approved Permits</h6>
-                    <h3 class="fw-bolder text-success mb-1" id="approvedPermits">96</h3>
+                    <h3 class="fw-bolder text-success mb-1" id="approvedPermits">{{ $approvedApplications }}</h3>
                     <p class="text-muted small mb-0">Successfully issued permits</p>
                   </div>
                 </div>

@@ -71,6 +71,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ asset('css/map-container.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animation.css') }}">
 </head>
 
 <body>

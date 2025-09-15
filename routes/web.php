@@ -78,6 +78,8 @@ Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function 
   Route::prefix('permit-applicants')->name('mpdo.permit-applicants.')->group(function(){
     Route::get('/', [MpdoController::class, 'permitApplicantIndex'])->name('view');
     Route::post('/{id}/under-review', [MpdoController::class, 'markUnderReviewIndex'])->name('mark-under-review');
+    Route::get('/ongoing-projects', [MpdoController::class, 'ongoingProjectsIndex'])->name('view-ongoing-projects');
+    Route::post('/{id}/approved', [MpdoController::class, 'markApprovedIndex'])->name('mark-approved');
   });
 });
 
