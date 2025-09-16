@@ -345,6 +345,12 @@
                                                         {{ $draft->created_at ? $draft->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </p>
 
+                                                    <!-- Description -->
+                                                    <p class="mb-2">
+                                                        <i class="bx bx-info-circle"></i>
+                                                        {{ $draft->description ?? 'N/A' }}
+                                                    </p>
+                                                    
                                                     <!-- Status -->
                                                     <strong class='mb-2'><i class="bx bx-badge-check me-1"></i> <span class="px-3 py-1 rounded-pill shadow-sm mb-3 align-self-start"
                                                             style="background: linear-gradient(90deg, #dbff59, #ffa751);
@@ -353,6 +359,7 @@
                                                             {{ ucfirst($draft->status ?? 'Draft') }}
                                                         </span></strong>
 
+                                                    
 
                                                     <!-- Document Section -->
                                                     <div class="mb-3">

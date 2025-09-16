@@ -357,8 +357,8 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);"><i
-                                            class="bx bx-user me-1"></i> Total Permits</a>
+                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-archive me-1"></i>
+                                        Total Permits</a>
                                 </li>
                             </ul>
 
@@ -381,10 +381,11 @@
                                                     <th>Name</th>
                                                     <th>Project Name</th>
                                                     <th>Location</th>
-                                                    <th>Created At</th>
                                                     <th>Documents</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
+                                                    <th>Description</th>
+                                                    <th>Created At</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -398,10 +399,6 @@
 
                                                     <!-- Location -->
                                                     <td>{{ $permit->location ?? 'N/A' }}</td>
-
-                                                    <!-- Created At -->
-                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
-                                                    </td>
 
                                                     <td>
                                                         @if($permit->document_url)
@@ -515,6 +512,13 @@
                                                             </span>
                                                             @endif
                                                         </span>
+                                                    </td>
+
+                                                    <!-- Description -->
+                                                    <td>{{ $permit->description ?? 'N/A' }}</td>
+
+                                                     <!-- Created At -->
+                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </td>
                                                     <!-- Actions -->
 

@@ -357,6 +357,18 @@
                                                 required />
                                         </div>
 
+                                        <!-- Address -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="address" class="form-label">Address</label>
+                                            <input
+                                                class="form-control"
+                                                type="text"
+                                                id="address"
+                                                name="address"
+                                                placeholder="Enter address"
+                                                required />
+                                        </div>
+
                                         <!-- Project Location -->
                                         <div class="mb-3 col-md-12">
                                             <label for="location" class="form-label">Project Location</label>

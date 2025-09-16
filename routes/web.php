@@ -94,6 +94,12 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
     Route::get('/update-accounts/{id?}/edit', [BfpController::class, 'updateAccountsIndex'])->name('edit-accounts');
     Route::put('/update-accounts', [BfpController::class, 'updateAccounts'])->name('update-accounts');
   });
+
+  // BFP Permits
+  Route::prefix('permits')->name('bfp.permits.')->group(function(){
+    Route::get('/', [BfpController::class, 'viewPermitsIndex'])->name('view-permits');
+    Route::post('{id}/under-review', [BfpController::class, 'markUnderReviewIndex'])->name('mark-under-review');
+  });
 });
 
 

@@ -191,7 +191,7 @@ class ApplicantController extends Controller
 
         // Get the draft permits for the current user
         $draftPermits = DraftPermit::with('user')
-            ->select('id', 'project_name', 'location', 'user_id', 'created_at', 'latitude', 'longitude', 'documents')
+            ->select('id', 'project_name', 'location', 'user_id', 'created_at', 'latitude', 'longitude', 'documents', 'description', 'status')
             ->where('user_id', $currentUser->id)
             ->where('status', 'draft')
             ->get();
@@ -314,7 +314,7 @@ class ApplicantController extends Controller
         $underReviewPermits = PermitApplication::with('reviewer')
             ->where('user_id', $currentUser->id) // restrict to current user
             ->where('status', 'under_review')
-            ->select('id', 'user_id', 'project_name', 'location', 'latitude', 'longitude', 'status', 'documents', 'created_at', 'reviewed_by')
+            ->select('id', 'user_id', 'project_name', 'location', 'latitude', 'longitude', 'status', 'description', 'documents', 'created_at', 'reviewed_by')
             ->get();
 
         // Optionally map document URLs like in totalPermitsIndex

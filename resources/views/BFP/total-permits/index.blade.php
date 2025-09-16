@@ -25,7 +25,7 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item">
-                    <a href="{{ route('obo.dashboard') }}" class="menu-link">
+                    <a href="{{ route('bfp.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -33,36 +33,36 @@
 
                 <!-- Layouts -->
 
-                <li class="menu-item {{ $ActiveTab === 'total-permits' ? 'active' : '' }}">
+                <li class="menu-item {{ $ActiveTab === 'bfp-permits' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-file"></i>
                         <div data-i18n="Layouts">Quick Stat</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('obo.total-permits.view') }}" class="menu-link">
-                                <div data-i18n="Without menu">Total permits applied</div>
-                            </a>
-                        </li>
-                        <li class="menu-item {{ $ActiveTab === 'total-permits' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without menu">approved / pending / under review / rejected</div>
+                        <li class="menu-item {{ $SubActiveTab === 'view-permits' ? 'active' : '' }}">
+                            <a href="{{ route('bfp.permits.view-permits') }}" class="menu-link">
+                                <div data-i18n="Without menu">Total permits issued</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Number of inspections scheduled/completed</div>
+                                <div data-i18n="Without menu">Pending applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Revenue collected from permit fees</div>
+                                <div data-i18n="Without menu">Approved applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Notifications for pending tasks</div>
+                                <div data-i18n="Without menu">Rejected applications</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">Revenue from permit fees</div>
                             </a>
                         </li>
                     </ul>
@@ -70,115 +70,43 @@
 
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-file-arrow-up"></i>
+                        <i class="menu-icon fa-solid fa-chart-simple"></i>
+                        <div data-i18n="Layouts">Graph/Charts</div>
+                    </a>
+
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">Monthly application trends</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Approval rates</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fa-solid fa-building"></i>
                         <div data-i18n="Layouts">Permit Applications</div>
                     </a>
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('obo.permit-applications.view') }}" class="menu-link">
-                                <div data-i18n="Without menu"> Pending Applications</div>
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">All Applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Under Review Applications</div>
+                                <div data-i18n="Without navbar">Pending Review</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Approved Applications</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Rejected Applications</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-building"></i>
-                        <div data-i18n="Layouts">Development Projects</div>
-                    </a>
-
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">All Projects</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Ongoing</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Completed</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Proposed</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-calendar-check"></i>
-                        <div data-i18n="Layouts">Inspections & Scheduling</div>
-                    </a>
-
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Schedule inspections (structural, electrical, plumbing,
-                                    etc.)</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Assign inspectors to projects</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Update inspection results</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">View inspection calendar and upcoming tasks</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-comments-dollar"></i>
-                        <div data-i18n="Layouts">Payments & Fees</div>
-                    </a>
-
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Verify payment records</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Manage payment statuses (Paid/Unpaid)</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Generate receipts and reports</div>
+                                <div data-i18n="Without navbar">Approved & Rejected</div>
                             </a>
                         </li>
                     </ul>
@@ -196,20 +124,20 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('obo.accounts.view-accounts') }}" class="menu-link">
+                            <a href="{{ route('bfp.accounts.view-accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('obo.accounts.edit-accounts', Auth::user()->id) }}" class="menu-link">
+                            <a href="{{ route('bfp.accounts.edit-accounts', Auth::user()->id) }}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
                         <!-- <li class="menu-item">
-                                                                              <a href="" class="menu-link">
-                                                                                <div data-i18n="Notifications">Settings</div>
-                                                                              </a>
-                                                                            </li> -->
+                <a href="" class="menu-link">
+                  <div data-i18n="Notifications">Settings</div>
+                </a>
+              </li> -->
 
                     </ul>
                 </li>
@@ -349,7 +277,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Total Under Review /</span>Show
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Total View /</span>Show
                         All Permits
                     </h4>
 
@@ -357,45 +285,13 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">
-                                        <i class="bx bx-time-five me-1 text-warning"></i>
-                                        Pending
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);">
-                                        <i class="bx bx-file-find me-1 text-info"></i>
-                                        Under Review
-                                        @if(($underReview ?? 0) > 0)
-                                        <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
-                                            style="background-color: #0dd5f0ff;">
-                                            {{ $underReview }}
-                                        </span>
-                                        @endif
-
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">
-                                        <i class="bx bx-check-circle me-1 text-success"></i>
-                                        Approved
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;"></span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">
-                                        <i class="bx bx-x-circle me-1 text-danger"></i>
-                                        Rejected
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;"></span>
-                                    </a>
+                                    <a class="nav-link active" href="javascript:void(0);"><i
+                                            class="bx bx-user me-1"></i> Total Permits</a>
                                 </li>
                             </ul>
 
-
-
                             <div class="card mb-4">
-                                <h5 class="card-header">Total Permit Under Review</h5>
+                                <h5 class="card-header">Total Permit Applied</h5>
                                 <hr class="my-0" />
 
                                 <div class="card-body">
@@ -413,15 +309,15 @@
                                                     <th>Name</th>
                                                     <th>Project Name</th>
                                                     <th>Location</th>
+                                                    <th>Created At</th>
                                                     <th>Documents</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
-                                                    <th>Created At</th>
-                                                    <th>Actions</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($underReviewPermits as $permit)
+                                                @forelse($pendingPermits as $permit)
                                                 <tr>
                                                     <!-- Created By (User Name) -->
                                                     <td>{{ $permit->user->name ?? 'N/A' }}</td>
@@ -432,6 +328,9 @@
                                                     <!-- Location -->
                                                     <td>{{ $permit->location ?? 'N/A' }}</td>
 
+                                                    <!-- Created At -->
+                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                                    </td>
 
                                                     <td>
                                                         @if($permit->document_url)
@@ -546,11 +445,6 @@
                                                             @endif
                                                         </span>
                                                     </td>
-
-                                                    <!-- Created At -->
-                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
-                                                    </td>
-
                                                     <!-- Actions -->
                                                     <td>
                                                         <!-- Button trigger modal -->
@@ -583,7 +477,7 @@
                                                                     <div class="modal-footer d-flex flex-wrap gap-2 justify-content-center">
 
                                                                         <!-- Under Review -->
-                                                                        <form action="{{ route('obo.total-permits.mark-under-review', $permit->id) }}" method="POST">
+                                                                        <form action="{{ route('bfp.permits.mark-under-review', $permit->id) }}" method="POST">
                                                                             @csrf
                                                                             <button type="submit" class="btn btn-warning">
                                                                                 <i class="bx bx-hourglass"></i> Under Review
@@ -619,9 +513,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-
-
-
                                                 </tr>
                                                 @empty
                                                 <tr>

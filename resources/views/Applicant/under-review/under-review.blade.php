@@ -353,6 +353,11 @@
                                                             {{ ucfirst($draft->status ?? 'Draft') }}
                                                         </span></strong>
 
+                                                    <!-- Description -->
+                                                    <p class="mb-2">
+                                                        <i class="bx bx-info-circle"></i>
+                                                        {{ $draft->description ?? 'N/A' }}
+                                                    </p>
 
                                                     <!-- Document Section -->
                                                     <div class="mb-3">
@@ -413,12 +418,13 @@
                                                             elseif ($role === 'obo') $roleLabel = '(Office of the Building Official)';
                                                             else $roleLabel = '(User)';
                                                             @endphp
-                                                            <span class="bg-primary ms-1 text-white px-2 py-1 rounded">
+                                                            <span class="bg-primary ms-1 text-white px-2 py-1 rounded text-nowrap d-inline-block">
                                                                 {{ $roleLabel }}
                                                             </span>
                                                             @endif
                                                         </span>
                                                     </div>
+
 
                                                     <!-- Actions -->
                                                     <div class="mt-auto">

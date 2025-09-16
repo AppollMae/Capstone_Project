@@ -93,7 +93,7 @@ class OboController extends Controller
     public function totalPermitsIndex()
     {
         $pendingPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at', 'description')
             ->get();
 
         // Map permits and add full document URL
@@ -134,6 +134,7 @@ class OboController extends Controller
 
     public function underReviewIndex()
     {
+        $underReview = PermitApplication::where('status', 'under_review')->count();
         $underReviewPermits = PermitApplication::with('reviewer')->whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
             ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
             ->get();
@@ -171,6 +172,7 @@ class OboController extends Controller
             'currentUser' => $currentUser,
             'ActiveTab' => 'total-permits',
             'SubActiveTab' => 'obo-under-review',
+            'underReview' => $underReview,
         ]);
     }
 

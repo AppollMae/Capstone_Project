@@ -321,7 +321,7 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Total
+                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-archive me-1"></i>Total
                                         Projects</a>
                                 </li>
                             </ul>
@@ -349,6 +349,7 @@
                                                     <th>Documents</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
+                                                    <th>Description</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -367,6 +368,9 @@
                                                     <!-- Created At -->
                                                     <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </td>
+
+                                                    <!-- Description -->
+                                                    <td>{{ $permit->description ?? 'N/A' }}</td>
 
                                                     <td>
                                                         @if($permit->document_url)
@@ -422,7 +426,7 @@
                                                             Pending
                                                         </span>
                                                         @break
-                                            
+
                                                         @case('under_review')
                                                         <span class="px-3 py-1 rounded-pill shadow-sm d-inline-block text-center"
                                                             style="background: linear-gradient(90deg,  #dbff59, #ffa751); 
