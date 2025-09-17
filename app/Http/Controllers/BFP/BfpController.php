@@ -10,6 +10,7 @@ use App\Models\PermitApplication;
 
 class BfpController extends Controller
 {
+    // For BFP Dashboard
     public function index()
     {
         $currentUser = Auth::user();
@@ -29,6 +30,7 @@ class BfpController extends Controller
         );
     }
 
+    // For BFP Accounts
     public function viewAccountsIndex()
     {
         $accounts = Auth::user();
@@ -38,6 +40,7 @@ class BfpController extends Controller
         ]);
     }
 
+    // For BFP Update Accounts
     public function updateAccountsIndex()
     {
         $accounts = Auth::user();
@@ -47,6 +50,7 @@ class BfpController extends Controller
         ]);
     }
 
+    // Handle the account update logic
     public function updateAccounts(Request $request)
     {
         $user = Auth::user();
@@ -79,11 +83,13 @@ class BfpController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
+    // For BFP View Permits
     public function viewPermitsIndex()
     {
         $currentUser = Auth::user();
+        $underReview = PermitApplication::where('status', 'under_review')->count();
         $pendingPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at', 'description')
             ->get();
 
         // Map permits and add full document URL
@@ -110,12 +116,14 @@ class BfpController extends Controller
             return $permit;
         });
 
-        return view('BFP.total-permits.index', compact('pendingPermits', 'currentUser'), [
+        return view('BFP.total-permits.index', compact('pendingPermits', 'currentUser', 'underReview'), [
             'ActiveTab' => 'bfp-permits',
-            'SubActiveTab' => 'view-permits'
+            'SubActiveTab' => 'view-permits',
+            'linkActiveTab' => 'bfp-permits',
         ]);
     }
 
+    // Mark permit as Under Review
     public function markUnderReviewIndex($id)
     {
         $currentUser = Auth::user();
@@ -128,5 +136,122 @@ class BfpController extends Controller
         $permit->save();
 
         return redirect()->back()->with('success', 'Permit marked as Under Review.');
+    }
+
+    // For BFP Pending Permits dashboard
+    public function pendingPermitsIndex()
+    {
+        $currentUser = Auth::user();
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $pendingPermits = PermitApplication::where('status', 'pending')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description','documents', 'created_at')
+            ->get();
+
+        // Map permits and add full document URL
+        $pendingPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        return view('BFP.total-permits.pending-permit', compact('pendingPermits', 'currentUser'), [
+            'ActiveTab' => 'bfp-permits',
+            'SubActiveTab' => 'view-pending-permits',
+            'linkActiveTab' => 'bfp-permits',
+        ]);
+    }
+
+    // For BFP Approved Permits dashboard
+    public function approvePermitsIndex(){
+        $currentUser = Auth::user();
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $approveApplications = PermitApplication::where('status', 'approved')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description','documents', 'created_at')
+            ->get();
+
+        // Map permits and add full document URL
+        $approveApplications->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        return view('BFP.total-permits.approve-permits', compact('approveApplications', 'currentUser', 'underReview'), [
+            'ActiveTab' => 'bfp-permits',
+            'SubActiveTab' => 'view-approve-permits',
+            'linkActiveTab' => 'bfp-permits',
+        ]);
+    }
+
+    public function rejectedPermitsIndex(){
+        $currentUser = Auth::user();
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $rejectedPermits = PermitApplication::where('status', 'rejected')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description','documents', 'created_at')
+            ->get();
+
+        // Map permits and add full document URL
+        $rejectedPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        return view('BFP.total-permits.rejected-permits', compact('rejectedPermits', 'currentUser', 'underReview'), [
+            'ActiveTab' => 'bfp-permits',
+            'SubActiveTab' => 'view-rejected-permits',
+            'linkActiveTab' => 'bfp-permits',
+        ]);
     }
 }

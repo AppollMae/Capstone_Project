@@ -40,23 +40,23 @@
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'view-permits' ? 'active' : '' }}">
+                        <li class="menu-item">
                             <a href="{{ route('bfp.permits.view-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Total permits issued</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="{{ route('bfp.permits.view-pending-permits') }}" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTab === 'view-pending-permits' ? 'active' : '' }}">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Without menu">Pending applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('bfp.permits.view-approve-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Approved applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('bfp.permits.view-rejected-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Rejected applications</div>
                             </a>
                         </li>
@@ -305,14 +305,14 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('bfp.permits.view-pending-permits') }}">
+                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="javascript:void(0);">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="javascript:void(0);">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
                                         @if(($underReview ?? 0) > 0)
@@ -325,14 +325,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('bfp.permits.view-approve-permits') }}">
+                                    <a class="nav-link" href="javascript:void(0);">
                                         <i class="bx bx-check-circle me-1 text-success"></i>
                                         Approved
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('bfp.permits.view-rejected-permits') }}">
+                                    <a class="nav-link" href="javascript:void(0);">
                                         <i class="bx bx-x-circle me-1 text-danger"></i>
                                         Rejected
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;"></span>
@@ -359,11 +359,11 @@
                                                     <th>Name</th>
                                                     <th>Project Name</th>
                                                     <th>Location</th>
+                                                    <th>Created At</th>
                                                     <th>Documents</th>
                                                     <th>Description</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
-                                                    <th>Created At</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -379,7 +379,9 @@
                                                     <!-- Location -->
                                                     <td>{{ $permit->location ?? 'N/A' }}</td>
 
-
+                                                    <!-- Created At -->
+                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                                    </td>
 
                                                     <td>
                                                         @if($permit->document_url)
@@ -495,10 +497,6 @@
                                                             @endif
                                                         </span>
                                                     </td>
-
-                                                    <!-- Created At -->
-                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
-                                                    </td>
                                                     <!-- Actions -->
                                                     <td>
                                                         <!-- Button trigger modal -->
@@ -591,24 +589,20 @@
 
                 <!-- Footer -->
                 <footer class="content-footer footer bg-footer-theme mt-4">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                    <div
+                        class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column small">
                         <div class="mb-2 mb-md-0">
                             ©
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            | Bureau of Fire Protection - Building Permit Management System
+                            Office of the Building Official Team Dashboard
                         </div>
                         <div>
-                            <a href="#" class="footer-link me-4 text-danger">
-                                <i class="fa-solid fa-book"></i> Documentation
-                            </a>
-                            <a href="#" class="footer-link me-4 text-danger">
-                                <i class="fa-solid fa-envelope"></i> Contact
-                            </a>
-                            <a href="#" class="footer-link me-4 text-danger">
-                                <i class="fa-solid fa-circle-info"></i> Support
-                            </a>
+                            <a href="#" class="footer-link me-4">License</a>
+                            <a href="#" class="footer-link me-4">Contact</a>
+                            <a href="#" class="footer-link me-4">Documentation</a>
+                            <a href="#" class="footer-link me-4">Support</a>
                         </div>
                     </div>
                 </footer>

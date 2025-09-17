@@ -99,6 +99,9 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
   Route::prefix('permits')->name('bfp.permits.')->group(function(){
     Route::get('/', [BfpController::class, 'viewPermitsIndex'])->name('view-permits');
     Route::post('{id}/under-review', [BfpController::class, 'markUnderReviewIndex'])->name('mark-under-review');
+    Route::get('/pending-permits', [BfpController::class, 'pendingPermitsIndex'])->name('view-pending-permits');
+    Route::get('/approve-permits', [BfpController::class, 'approvePermitsIndex'])->name('view-approve-permits');
+    Route::get('/rejected-permits', [BfpController::class, 'rejectedPermitsIndex'])->name('view-rejected-permits');
   });
 });
 

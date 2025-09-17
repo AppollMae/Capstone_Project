@@ -46,17 +46,17 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('bfp.permits.view-pending-permits') }}" class="menu-link">
                 <div data-i18n="Without menu">Pending applications</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('bfp.permits.view-approve-permits') }}" class="menu-link">
                 <div data-i18n="Without menu">Approved applications</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('bfp.permits.view-rejected-permits') }}" class="menu-link">
                 <div data-i18n="Without menu">Rejected applications</div>
               </a>
             </li>
@@ -394,12 +394,17 @@
                     <div class="d-flex justify-content-around text-center">
                       <div>
                         <i class="fa-solid fa-file-circle-check fa-2x text-success mb-2"></i>
-                        <p class="fw-bold mb-0">45</p>
+                        <p class="fw-bold mb-0">{{ $approveApplications }}</p>
                         <small class="text-muted">Approved Permits</small>
                       </div>
                       <div>
+                        <i class="fa-solid fa-spinner fa-2x text-info mb-2"></i>
+                        <p class="fw-bold mb-0">{{ $underReviewPermits }}</p>
+                        <small class="text-muted">Under Review</small>
+                      </div>
+                      <div>
                         <i class="fa-solid fa-clock fa-2x text-warning mb-2"></i>
-                        <p class="fw-bold mb-0">10</p>
+                        <p class="fw-bold mb-0">{{ $pendingPermits }}</p>
                         <small class="text-muted">Pending Applications</small>
                       </div>
                       <div>

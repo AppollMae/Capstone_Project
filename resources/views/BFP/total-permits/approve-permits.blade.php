@@ -40,7 +40,7 @@
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'view-permits' ? 'active' : '' }}">
+                        <li class="menu-item">
                             <a href="{{ route('bfp.permits.view-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Total permits issued</div>
                             </a>
@@ -50,13 +50,13 @@
                                 <div data-i18n="Without menu">Pending applications</div>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <li class="menu-item {{ $SubActiveTab === 'view-approve-permits' ? 'active' : '' }}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without menu">Approved applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('bfp.permits.view-rejected-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Rejected applications</div>
                             </a>
                         </li>
@@ -312,7 +312,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="javascript:void(0);">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
                                         @if(($underReview ?? 0) > 0)
@@ -324,8 +324,8 @@
 
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('bfp.permits.view-approve-permits') }}">
+                                <li class="nav-item ">
+                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="javascript:void(0);">
                                         <i class="bx bx-check-circle me-1 text-success"></i>
                                         Approved
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;"></span>
@@ -368,7 +368,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($pendingPermits as $permit)
+                                                @forelse($approveApplications as $permit)
                                                 <tr>
                                                     <!-- Created By (User Name) -->
                                                     <td>{{ $permit->user->name ?? 'N/A' }}</td>
@@ -422,7 +422,7 @@
                                                     </td>
 
                                                     <!-- Description -->
-                                                    <td>{{ $permit->description ?? 'N/A' }}</td>
+                                                     <td>{{ $permit->description ?? 'N/A' }}</td>
                                                     <!-- Status -->
                                                     <td>
                                                         @switch($permit->status)
@@ -570,7 +570,7 @@
                                                 </tr>
                                                 @empty
                                                 <tr>
-                                                    <td colspan="8" class="text-muted text-center">No pending permits
+                                                    <td colspan="8" class="text-muted text-center">No approved permits
                                                         found.</td>
                                                 </tr>
                                                 @endforelse
