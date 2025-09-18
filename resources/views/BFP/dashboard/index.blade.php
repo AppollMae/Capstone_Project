@@ -46,6 +46,11 @@
               </a>
             </li>
             <li class="menu-item">
+              <a href="{{ route('bfp.permits.view-total-permits') }}" class="menu-link">
+                <div data-i18n="Without menu">Under Review Applications</div>
+              </a>
+            </li>
+            <li class="menu-item">
               <a href="{{ route('bfp.permits.view-pending-permits') }}" class="menu-link">
                 <div data-i18n="Without menu">Pending applications</div>
               </a>

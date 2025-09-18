@@ -144,7 +144,7 @@ class BfpController extends Controller
         $currentUser = Auth::user();
         $underReview = PermitApplication::where('status', 'under_review')->count();
         $pendingPermits = PermitApplication::where('status', 'pending')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description','documents', 'created_at')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description', 'documents', 'created_at')
             ->get();
 
         // Map permits and add full document URL
@@ -179,11 +179,12 @@ class BfpController extends Controller
     }
 
     // For BFP Approved Permits dashboard
-    public function approvePermitsIndex(){
+    public function approvePermitsIndex()
+    {
         $currentUser = Auth::user();
         $underReview = PermitApplication::where('status', 'under_review')->count();
         $approveApplications = PermitApplication::where('status', 'approved')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description','documents', 'created_at')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description', 'documents', 'created_at')
             ->get();
 
         // Map permits and add full document URL
@@ -217,11 +218,12 @@ class BfpController extends Controller
         ]);
     }
 
-    public function rejectedPermitsIndex(){
+    public function rejectedPermitsIndex()
+    {
         $currentUser = Auth::user();
         $underReview = PermitApplication::where('status', 'under_review')->count();
         $rejectedPermits = PermitApplication::where('status', 'rejected')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description','documents', 'created_at')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description', 'documents', 'created_at')
             ->get();
 
         // Map permits and add full document URL
@@ -251,6 +253,59 @@ class BfpController extends Controller
         return view('BFP.total-permits.rejected-permits', compact('rejectedPermits', 'currentUser', 'underReview'), [
             'ActiveTab' => 'bfp-permits',
             'SubActiveTab' => 'view-rejected-permits',
+            'linkActiveTab' => 'bfp-permits',
+        ]);
+    }
+
+    public function totalPermitsIndex()
+    {
+        $currentUser = Auth::user();
+
+        // Count under review permits only
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $totalPermitsCounts = PermitApplication::count();
+
+
+        // Get ALL permits without filtering status
+        $totalPermits = PermitApplication::select(
+            'id',
+            'user_id',
+            'project_name',
+            'location',
+            'status',
+            'reviewed_by',
+            'description',
+            'documents',
+            'created_at'
+        )->get();
+
+        // Map permits and add full document URL
+        $totalPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        return view('BFP.total-permits.total-permits', compact('totalPermits', 'currentUser', 'underReview', 'totalPermitsCounts'), [
+            'ActiveTab' => 'bfp-permits',
+            'SubActiveTab' => 'view-total-permits',
             'linkActiveTab' => 'bfp-permits',
         ]);
     }
