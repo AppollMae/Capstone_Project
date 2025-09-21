@@ -319,11 +319,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="{{ route('bfp.permits.view-permits') }}">
                                         <i class="bx bx-file me-1 text-success"></i>
-                                        Total Permits
-                                        @if(($underReview['under_review'] ?? 0) > 0)
+                                        Total Permits :
+                                        {{-- Total Permits --}}
+                                        @if($totalPermits > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
-                                            style="background-color: #0dd5f0ff;">
-                                            {{ $underReview['under_review'] ?? 0 }}
+                                            style="background-color: #6c757d;">
+                                            {{ $totalPermits }}
                                         </span>
                                         @endif
                                     </a>
@@ -332,17 +333,21 @@
                                     <a class="nav-link" href="{{ route('bfp.permits.view-pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
+                                        @if(($Permits ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
+                                            {{ $Permits ?? 0 }}
+                                        </span>
+                                        @endif
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('bfp.permits.view-total-permits') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
-                                        @if(($underReview['under_review'] ?? 0) > 0)
+                                        @if(($underReview ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #0dd5f0ff;">
-                                            {{ $underReview['under_review'] ?? 0 }}
+                                            {{ $underReview }}
                                         </span>
                                         @endif
 
@@ -365,7 +370,26 @@
                             </ul>
 
                             <div class="card mb-4">
-                                <h5 class="card-header">Total Permit Applied</h5>
+                                <h5 class="card-header">Total Permit Applied
+                                    {{-- Individual Statuses --}}
+                                    @php
+                                    $colors = [
+                                    'pending' => '#ffc107', // Yellow
+                                    'under_review' => '#0dd5f0', // Cyan
+                                    'approved' => '#28a745', // Green
+                                    'rejected' => '#dc3545', // Red
+                                    ];
+                                    @endphp
+
+                                    @foreach($colors as $status => $color)
+                                    @if(($statuses[$status] ?? 0) > 0)
+                                    <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
+                                        style="background-color: {{ $color }};">
+                                        {{ ucfirst(str_replace('_', ' ', $status)) }}: {{ $statuses[$status] }}
+                                    </span>
+                                    @endif
+                                    @endforeach
+                                </h5>
                                 <hr class="my-0" />
 
                                 <div class="card-body">
@@ -387,6 +411,7 @@
                                                     <th>Description</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
+                                                    <th>Issue Flags</th>
                                                     <th>Created At</th>
                                                 </tr>
                                             </thead>
@@ -489,6 +514,7 @@
                                                         @endswitch
                                                     </td>
 
+                                                    <!-- Review By -->
                                                     <td>
                                                         <span>
                                                             <strong>{{ $permit->reviewer->name ?? 'N/A' }}</strong>
@@ -519,6 +545,123 @@
                                                         </span>
                                                     </td>
 
+                                                    <!-- Issue Flags -->
+                                                    <td>
+                                                        <!-- List existing issues -->
+                                                        @if($permit->issues->count())
+                                                        <ul class="list-unstyled">
+                                                            @foreach($permit->issues as $issue)
+                                                            <li>
+                                                                <span class="badge bg-danger">{{ $issue->issue }}</span>
+                                                                <small class="text-muted">by {{ $issue->user->name ?? 'Unknown' }}</small>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                        @else
+                                                        <span class="text-muted">No issues</span>
+                                                        @endif
+
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-m btn-danger mt-2 d-flex align-items-center justify-content-center"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#addIssueModal-{{ $permit->id }}"
+                                                            title="Add Issue">
+                                                            <i class="fa-solid fa-flag"></i>
+                                                        </button>
+
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="addIssueModal-{{ $permit->id }}" tabindex="-1"
+                                                            aria-labelledby="addIssueLabel-{{ $permit->id }}" aria-hidden="true">
+                                                            <div class="modal-dialog modal-md modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header bg-danger text-white">
+                                                                        <h5 class="modal-title text-white" id="addIssueLabel-{{ $permit->id }}">
+                                                                            <i class="bx bx-error text-white"></i> Report an Issue
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="" method="POST">
+                                                                            @csrf
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Select Issues for this Building</label>
+                                                                                <table class="table table-bordered table-sm text-center align-middle">
+                                                                                    <thead class="table-light">
+                                                                                        <tr>
+                                                                                            <th>Select</th>
+                                                                                            <th>Issue</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="No fire exit" id="issue-exit-{{ $permit->id }}">
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label class="form-check-label" for="issue-exit-{{ $permit->id }}">
+                                                                                                    No fire exit
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="Faulty electrical wiring" id="issue-wiring-{{ $permit->id }}">
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label class="form-check-label" for="issue-wiring-{{ $permit->id }}">
+                                                                                                    Faulty electrical wiring
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="No fire extinguishers" id="issue-extinguisher-{{ $permit->id }}">
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label class="form-check-label" for="issue-extinguisher-{{ $permit->id }}">
+                                                                                                    No fire extinguishers
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="Blocked emergency exit" id="issue-blocked-{{ $permit->id }}">
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label class="form-check-label" for="issue-blocked-{{ $permit->id }}">
+                                                                                                    Blocked emergency exit
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="Overcrowding" id="issue-crowding-{{ $permit->id }}">
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label class="form-check-label" for="issue-crowding-{{ $permit->id }}">
+                                                                                                    Overcrowding
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+
+                                                                            <div class="d-flex justify-content-end">
+                                                                                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                                                                                <button type="submit" class="btn btn-warning">Submit Issues</button>
+                                                                            </div>
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
                                                     <!-- Created At -->
                                                     <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </td>
@@ -533,6 +676,10 @@
                                                 @endforelse
                                             </tbody>
                                         </table>
+
+                                        <div class="d-flex justify-content-center mt-3">
+                                            {{ $pendingPermits->links('pagination::bootstrap-5') }}
+                                        </div>
 
                                     </div>
                                 </div>

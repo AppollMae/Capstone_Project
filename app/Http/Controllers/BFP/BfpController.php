@@ -63,13 +63,13 @@ class BfpController extends Controller
 
         // Validate request data
         $request->validate([
-            'name'   => 'required|string|max:255',
-            'email'  => 'required|email|max:255|unique:users,email,' . $user->id,
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Update basic fields
-        $user->name  = $request->name;
+        $user->name = $request->name;
         $user->email = $request->email;
 
         // Handle avatar if uploaded
@@ -88,12 +88,33 @@ class BfpController extends Controller
     public function viewPermitsIndex()
     {
         $currentUser = Auth::user();
-        $underReview = PermitApplication::select('status', DB::raw('COUNT(*) as total'))
+        $Permits = PermitApplication::where('status', 'pending')->count();
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $statuses = PermitApplication::select('status', DB::raw('COUNT(*) as total'))
             ->groupBy('status')
             ->pluck('total', 'status');
-        $pendingPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at', 'description')
-            ->get();
+        $totalPermits = $statuses->sum();
+        $pendingPermits = PermitApplication::whereIn(
+            'status',
+            [
+                'pending',
+                'under_review',
+                'approved',
+                'rejected'
+            ]
+        )
+            ->select(
+                'id',
+                'user_id',
+                'project_name',
+                'location',
+                'status',
+                'reviewed_by',
+                'documents',
+                'created_at',
+                'description'
+            )
+            ->paginate(10);
 
         // Map permits and add full document URL
         $pendingPermits->transform(function ($permit) {
@@ -119,11 +140,22 @@ class BfpController extends Controller
             return $permit;
         });
 
-        return view('BFP.total-permits.index', compact('pendingPermits', 'currentUser', 'underReview'), [
-            'ActiveTab' => 'bfp-permits',
-            'SubActiveTab' => 'view-permits',
-            'linkActiveTab' => 'bfp-permits',
-        ]);
+        return view(
+            'BFP.total-permits.index',
+            compact(
+                'pendingPermits',
+                'currentUser',
+                'statuses',
+                'totalPermits',
+                'Permits',
+                'underReview'
+            ),
+            [
+                'ActiveTab' => 'bfp-permits',
+                'SubActiveTab' => 'view-permits',
+                'linkActiveTab' => 'bfp-permits',
+            ]
+        );
     }
 
     // Mark permit as Under Review
@@ -146,8 +178,23 @@ class BfpController extends Controller
     {
         $currentUser = Auth::user();
         $underReview = PermitApplication::where('status', 'under_review')->count();
+        $Permits = PermitApplication::where('status', 'pending')->count();
+        $statuses = PermitApplication::select('status', DB::raw('COUNT(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status');
+        $totalPermitsAll = $statuses->sum();
         $pendingPermits = PermitApplication::where('status', 'pending')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description', 'documents', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'project_name',
+                'location',
+                'status',
+                'reviewed_by',
+                'description',
+                'documents',
+                'created_at'
+            )
             ->get();
 
         // Map permits and add full document URL
@@ -174,7 +221,7 @@ class BfpController extends Controller
             return $permit;
         });
 
-        return view('BFP.total-permits.pending-permit', compact('pendingPermits', 'currentUser'), [
+        return view('BFP.total-permits.pending-permit', compact('pendingPermits', 'currentUser', 'underReview', 'Permits', 'totalPermitsAll'), [
             'ActiveTab' => 'bfp-permits',
             'SubActiveTab' => 'view-pending-permits',
             'linkActiveTab' => 'bfp-permits',
@@ -187,7 +234,17 @@ class BfpController extends Controller
         $currentUser = Auth::user();
         $underReview = PermitApplication::where('status', 'under_review')->count();
         $approveApplications = PermitApplication::where('status', 'approved')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description', 'documents', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'project_name',
+                'location',
+                'status',
+                'reviewed_by',
+                'description',
+                'documents',
+                'created_at'
+            )
             ->get();
 
         // Map permits and add full document URL
@@ -214,11 +271,19 @@ class BfpController extends Controller
             return $permit;
         });
 
-        return view('BFP.total-permits.approve-permits', compact('approveApplications', 'currentUser', 'underReview'), [
-            'ActiveTab' => 'bfp-permits',
-            'SubActiveTab' => 'view-approve-permits',
-            'linkActiveTab' => 'bfp-permits',
-        ]);
+        return view(
+            'BFP.total-permits.approve-permits',
+            compact(
+                'approveApplications',
+                'currentUser',
+                'underReview'
+            ),
+            [
+                'ActiveTab' => 'bfp-permits',
+                'SubActiveTab' => 'view-approve-permits',
+                'linkActiveTab' => 'bfp-permits',
+            ]
+        );
     }
 
     public function rejectedPermitsIndex()
@@ -226,7 +291,17 @@ class BfpController extends Controller
         $currentUser = Auth::user();
         $underReview = PermitApplication::where('status', 'under_review')->count();
         $rejectedPermits = PermitApplication::where('status', 'rejected')
-            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'description', 'documents', 'created_at')
+            ->select(
+                'id',
+                'user_id',
+                'project_name',
+                'location',
+                'status',
+                'reviewed_by',
+                'description',
+                'documents',
+                'created_at'
+            )
             ->get();
 
         // Map permits and add full document URL
@@ -253,11 +328,19 @@ class BfpController extends Controller
             return $permit;
         });
 
-        return view('BFP.total-permits.rejected-permits', compact('rejectedPermits', 'currentUser', 'underReview'), [
-            'ActiveTab' => 'bfp-permits',
-            'SubActiveTab' => 'view-rejected-permits',
-            'linkActiveTab' => 'bfp-permits',
-        ]);
+        return view(
+            'BFP.total-permits.rejected-permits',
+            compact(
+                'rejectedPermits',
+                'currentUser',
+                'underReview'
+            ),
+            [
+                'ActiveTab' => 'bfp-permits',
+                'SubActiveTab' => 'view-rejected-permits',
+                'linkActiveTab' => 'bfp-permits',
+            ]
+        );
     }
 
     public function totalPermitsIndex()
@@ -266,9 +349,12 @@ class BfpController extends Controller
 
         // Count under review permits only
         $underReview = PermitApplication::where('status', 'under_review')->count();
-        $totalPermitsCounts = PermitApplication::count();
+        $statuses = PermitApplication::select('status', DB::raw('COUNT(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status');
+        $totalPermitsAll = $statuses->sum();
 
-
+        $Permits = PermitApplication::where('status', 'pending')->count();
         // Get ALL permits without filtering status
         $totalPermits = PermitApplication::select(
             'id',
@@ -280,7 +366,9 @@ class BfpController extends Controller
             'description',
             'documents',
             'created_at'
-        )->get();
+        )
+            ->where('status', 'under_review') // 👈 only under_review
+            ->get();
 
         // Map permits and add full document URL
         $totalPermits->transform(function ($permit) {
@@ -306,10 +394,21 @@ class BfpController extends Controller
             return $permit;
         });
 
-        return view('BFP.total-permits.total-permits', compact('totalPermits', 'currentUser', 'underReview', 'totalPermitsCounts'), [
-            'ActiveTab' => 'bfp-permits',
-            'SubActiveTab' => 'view-total-permits',
-            'linkActiveTab' => 'bfp-permits-under-review',
-        ]);
+        return view(
+            'BFP.total-permits.total-permits',
+            compact(
+                'totalPermits',
+                'currentUser',
+                'underReview',
+                'statuses',
+                'totalPermitsAll',
+                'Permits'
+            ),
+            [
+                'ActiveTab' => 'bfp-permits',
+                'SubActiveTab' => 'view-total-permits',
+                'linkActiveTab' => 'bfp-permits-under-review',
+            ]
+        );
     }
 }

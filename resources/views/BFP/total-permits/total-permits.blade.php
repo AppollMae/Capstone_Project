@@ -321,10 +321,11 @@
                                     <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
                                         <i class="bx bx-file me-1 text-success"></i>
                                         Total Permits
-                                        @if(($underReview ?? 0) > 0)
+                                        {{-- Total Permits --}}
+                                        @if($totalPermitsAll > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
-                                            style="background-color: #0dd5f0ff;">
-                                            {{ $underReview ?? 0 }}
+                                            style="background-color: #6c757d;">
+                                            {{ $totalPermitsAll }}
                                         </span>
                                         @endif
                                     </a>
@@ -334,7 +335,11 @@
                                     <a class="nav-link" href="{{ route('bfp.permits.view-pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
+                                        @if(($Permits ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
+                                            {{ $Permits ?? 0 }}
+                                        </span>
+                                        @endif
                                     </a>
                                 </li>
                                 <li class="nav-item ">
@@ -492,6 +497,7 @@
                                                         @endswitch
                                                     </td>
 
+                                                    <!-- Review By -->
                                                     <td>
                                                         <span>
                                                             <strong>{{ $permit->reviewer->name ?? 'N/A' }}</strong>
@@ -522,6 +528,8 @@
                                                         </span>
                                                     </td>
 
+                                                    <!-- Issue Flags -->
+                                                     
                                                     <!-- Created At -->
                                                     <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </td>

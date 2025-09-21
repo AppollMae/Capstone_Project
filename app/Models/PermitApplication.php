@@ -35,5 +35,10 @@ class PermitApplication extends Model
         return $this->belongsTo(User::class, 'reviewed_by');
     }
 
+    public function issues()
+    {
+        return $this->hasMany(PermitIssue::class, 'permit_id');
+    }
+
     use HasFactory;
 }
