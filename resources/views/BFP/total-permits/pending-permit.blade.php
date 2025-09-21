@@ -51,6 +51,11 @@
                             </a>
                         </li>
                         <li class="menu-item">
+                            <a href="{{ route('bfp.permits.view-total-permits') }}" class="menu-link">
+                                <div data-i18n="Without menu">Under Review Applications</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
                             <a href="{{ route('bfp.permits.view-approve-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Approved applications</div>
                             </a>
@@ -280,13 +285,18 @@
                     <h4 class="fw-bold py-3 mb-4">
                         <span class="text-muted fw-light">Total View /</span>
 
+                        <a href="{{ route('bfp.permits.view-total-permits') }}"
+                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            Total Permits
+                        </a> /
+
                         <a href="{{ route('bfp.permits.view-pending-permits') }}"
                             class="{{ request()->routeIs('bfp.permits.view-pending-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Pending
                         </a> /
 
                         <a href="{{ route('bfp.permits.view-permits') }}"
-                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            class="{{ request()->routeIs('bfp.permits.view-total-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Under Review
                         </a> /
 
@@ -305,6 +315,15 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
+                                        <i class="bx bx-file me-1 text-success"></i>
+                                        Total Permits
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
+                                            {{ $totalPermitsCounts ?? 0 }}
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="javascript:void(0);">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
@@ -312,7 +331,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-total-permits') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
                                         @if(($underReview ?? 0) > 0)

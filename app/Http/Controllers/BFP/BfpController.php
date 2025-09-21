@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PermitApplication;
+use Illuminate\Support\Facades\DB;
 
 class BfpController extends Controller
 {
@@ -87,7 +88,9 @@ class BfpController extends Controller
     public function viewPermitsIndex()
     {
         $currentUser = Auth::user();
-        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $underReview = PermitApplication::select('status', DB::raw('COUNT(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status');
         $pendingPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
             ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at', 'description')
             ->get();
@@ -306,7 +309,7 @@ class BfpController extends Controller
         return view('BFP.total-permits.total-permits', compact('totalPermits', 'currentUser', 'underReview', 'totalPermitsCounts'), [
             'ActiveTab' => 'bfp-permits',
             'SubActiveTab' => 'view-total-permits',
-            'linkActiveTab' => 'bfp-permits',
+            'linkActiveTab' => 'bfp-permits-under-review',
         ]);
     }
 }

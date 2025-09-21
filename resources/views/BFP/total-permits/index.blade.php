@@ -51,12 +51,18 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('bfp.permits.view-total-permits') }}" class="menu-link">
+                                <div data-i18n="Without menu">Under Review Applications</div>
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a href="{{ route('bfp.permits.view-approve-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Approved applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('bfp.permits.view-rejected-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Rejected applications</div>
                             </a>
                         </li>
@@ -280,13 +286,19 @@
                     <h4 class="fw-bold py-3 mb-4">
                         <span class="text-muted fw-light">Total View /</span>
 
+                        <a href="{{ route('bfp.permits.view-total-permits') }}"
+                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            Total Permits
+                        </a> /
+
+
                         <a href="{{ route('bfp.permits.view-pending-permits') }}"
                             class="{{ request()->routeIs('bfp.permits.view-pending-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Pending
                         </a> /
 
                         <a href="{{ route('bfp.permits.view-permits') }}"
-                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            class="{{ request()->routeIs('bfp.permits.view-total-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Under Review
                         </a> /
 
@@ -305,6 +317,18 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
+                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="{{ route('bfp.permits.view-permits') }}">
+                                        <i class="bx bx-file me-1 text-success"></i>
+                                        Total Permits
+                                        @if(($underReview['under_review'] ?? 0) > 0)
+                                        <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
+                                            style="background-color: #0dd5f0ff;">
+                                            {{ $underReview['under_review'] ?? 0 }}
+                                        </span>
+                                        @endif
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('bfp.permits.view-pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
@@ -312,13 +336,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="javascript:void(0);">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-total-permits') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
-                                        @if(($underReview ?? 0) > 0)
+                                        @if(($underReview['under_review'] ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #0dd5f0ff;">
-                                            {{ $underReview }}
+                                            {{ $underReview['under_review'] ?? 0 }}
                                         </span>
                                         @endif
 
@@ -364,7 +388,6 @@
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
                                                     <th>Created At</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -500,73 +523,7 @@
                                                     <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </td>
                                                     <!-- Actions -->
-                                                    <td>
-                                                        <!-- Button trigger modal -->
-                                                        <button type="button" class="btn btn-sm btn-warning"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#permitActionModal-{{ $permit->id }}">
-                                                            <i class="bx bx-cog"></i> Actions
-                                                        </button>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="permitActionModal-{{ $permit->id }}"
-                                                            tabindex="-1"
-                                                            aria-labelledby="permitActionLabel-{{ $permit->id }}"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-md modal-dialog-centered">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header bg-dark text-white">
-                                                                        <h5 class="modal-title" id="permitActionLabel-{{ $permit->id }}">
-                                                                            <i class="bx bx-cog"></i> Application Actions
-                                                                        </h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body text-center">
-                                                                        <p class="fs-6">
-                                                                            What action do you want to take for
-                                                                            <strong>{{ $permit->project_name }}</strong>?
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="modal-footer d-flex flex-wrap gap-2 justify-content-center">
-
-                                                                        <!-- Under Review -->
-                                                                        <form action="{{ route('bfp.permits.mark-under-review', $permit->id) }}" method="POST">
-                                                                            @csrf
-                                                                            <button type="submit" class="btn btn-warning">
-                                                                                <i class="bx bx-hourglass"></i> Under Review
-                                                                            </button>
-                                                                        </form>
-
-                                                                        <!-- Approve -->
-                                                                        <form action="" method="POST">
-                                                                            @csrf
-                                                                            <button type="submit" class="btn btn-success">
-                                                                                <i class="bx bx-check-circle"></i> Approve
-                                                                            </button>
-                                                                        </form>
-
-                                                                        <!-- Reject -->
-                                                                        <form action="" method="POST">
-                                                                            @csrf
-                                                                            <button type="submit" class="btn btn-danger">
-                                                                                <i class="bx bx-x-circle"></i> Reject
-                                                                            </button>
-                                                                        </form>
-
-                                                                        <!-- Temporary Delete -->
-                                                                        <form action="" method="POST">
-                                                                            @csrf
-                                                                            <button type="submit" class="btn btn-secondary">
-                                                                                <i class="bx bx-trash"></i> Temporary Delete
-                                                                            </button>
-                                                                        </form>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
                                                 </tr>
                                                 @empty
                                                 <tr>

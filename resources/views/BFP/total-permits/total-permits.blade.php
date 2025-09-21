@@ -33,7 +33,7 @@
 
                 <!-- Layouts -->
 
-                <li class="menu-item">
+                <li class="menu-item {{ $ActiveTab === 'bfp-permits' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-file"></i>
                         <div data-i18n="Layouts">Quick Stat</div>
@@ -48,6 +48,11 @@
                         <li class="menu-item">
                             <a href="{{ route('bfp.permits.view-pending-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Pending applications</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ $SubActiveTab === 'view-total-permits' ? 'active' : '' }}">
+                            <a href="{{ route('bfp.permits.view-total-permits') }}" class="menu-link">
+                                <div data-i18n="Without menu">Under Review Applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
@@ -284,7 +289,7 @@
                         <span class="text-muted fw-light">Total View /</span>
 
                         <a href="{{ route('bfp.permits.view-pending-permits') }}"
-                            class="{{ request()->routeIs('bfp.permits.view-total-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Total Permits
                         </a> /
 
@@ -294,7 +299,7 @@
                         </a> /
 
                         <a href="{{ route('bfp.permits.view-permits') }}"
-                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            class="{{ request()->routeIs('bfp.permits.view-total-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Under Review
                         </a> /
 
@@ -313,12 +318,15 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits' ? 'active' : '' }}" href="{{ route('bfp.permits.view-total-permits') }}">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
                                         <i class="bx bx-file me-1 text-success"></i>
                                         Total Permits
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
-                                            {{ $totalPermitsCounts ?? 0 }}
+                                        @if(($underReview ?? 0) > 0)
+                                        <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
+                                            style="background-color: #0dd5f0ff;">
+                                            {{ $underReview ?? 0 }}
                                         </span>
+                                        @endif
                                     </a>
                                 </li>
 
@@ -329,14 +337,14 @@
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
+                                <li class="nav-item ">
+                                    <a class="nav-link {{ $linkActiveTab === 'bfp-permits-under-review' ? 'active' : '' }}" href="{{ route('bfp.permits.view-total-permits') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
                                         @if(($underReview ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #0dd5f0ff;">
-                                            {{ $underReview }}
+                                            {{ $underReview ?? 0 }}
                                         </span>
                                         @endif
 

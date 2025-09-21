@@ -50,11 +50,17 @@
                                 <div data-i18n="Without menu">Pending applications</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{ route('bfp.permits.view-total-permits') }}" class="menu-link">
+                                <div data-i18n="Without menu">Under Review Applications</div>
+                            </a>
+                        </li>
                         <li class="menu-item {{ $SubActiveTab === 'view-approve-permits' ? 'active' : '' }}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without menu">Approved applications</div>
                             </a>
                         </li>
+
                         <li class="menu-item">
                             <a href="{{ route('bfp.permits.view-rejected-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Rejected applications</div>
@@ -280,6 +286,11 @@
                     <h4 class="fw-bold py-3 mb-4">
                         <span class="text-muted fw-light">Total View /</span>
 
+                        <a href="{{ route('bfp.permits.view-total-permits') }}"
+                            class="{{ request()->routeIs('bfp.permits.view-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            Total Permits
+                        </a> /
+
                         <a href="{{ route('bfp.permits.view-pending-permits') }}"
                             class="{{ request()->routeIs('bfp.permits.view-pending-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Pending
@@ -304,6 +315,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('bfp.permits.view-permits') }}">
+                                        <i class="bx bx-file me-1 text-success"></i>
+                                        Total Permits
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
+                                            {{ $totalPermitsCounts ?? 0 }}
+                                        </span>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('bfp.permits.view-pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
@@ -422,7 +442,7 @@
                                                     </td>
 
                                                     <!-- Description -->
-                                                     <td>{{ $permit->description ?? 'N/A' }}</td>
+                                                    <td>{{ $permit->description ?? 'N/A' }}</td>
                                                     <!-- Status -->
                                                     <td>
                                                         @switch($permit->status)
