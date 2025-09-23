@@ -411,8 +411,8 @@
                                                     <th>Description</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
-                                                    <th>Issue Flags</th>
                                                     <th>Created At</th>
+                                                    <th>Issue Flags</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -545,6 +545,12 @@
                                                         </span>
                                                     </td>
 
+
+
+                                                    <!-- Created At -->
+                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                                    </td>
+
                                                     <!-- Issue Flags -->
                                                     <td>
                                                         <!-- List existing issues -->
@@ -660,10 +666,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </td>
-
-                                                    <!-- Created At -->
-                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
                                                     </td>
                                                     <!-- Actions -->
 

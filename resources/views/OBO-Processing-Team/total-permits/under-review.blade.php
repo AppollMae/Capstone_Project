@@ -357,7 +357,7 @@
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">
+                                    <a class="nav-link" href="{{ route('obo.permit-applications.pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">

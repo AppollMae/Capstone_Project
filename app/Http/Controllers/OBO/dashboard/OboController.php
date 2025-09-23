@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PermitApplication;
 use App\Models\PermitActionHistory;
+
 class OboController extends Controller
 {
     public function index()
@@ -135,9 +136,11 @@ class OboController extends Controller
     public function underReviewIndex()
     {
         $underReview = PermitApplication::where('status', 'under_review')->count();
-        $underReviewPermits = PermitApplication::with('reviewer')->whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
+        $underReviewPermits = PermitApplication::with('reviewer')
+            ->where('status', 'under_review')
             ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
             ->get();
+
 
         // Map permits and add full document URL
         $underReviewPermits->transform(function ($permit) {
@@ -336,5 +339,47 @@ class OboController extends Controller
         ]);
     }
 
+    public function pendingPermitsIndex()
+    {
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $pendingPermits = PermitApplication::where('status', 'pending')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'description')
+            ->get();
 
+        // Map permits and add full document URL
+        $pendingPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        $pendingCount = $pendingPermits->count();
+        $currentUser = Auth::user();
+
+        return view("OBO-Processing-Team.total-permits.pending-permits", [
+            'pendingPermits' => $pendingPermits,
+            'pendingCount' => $pendingCount,
+            'currentUser' => $currentUser,
+            'underReview' => $underReview,
+            'ActiveTab' => 'permit-applications',
+            'SubActiveTab' => 'obo-pending-permits',
+        ]);
+    }
 }

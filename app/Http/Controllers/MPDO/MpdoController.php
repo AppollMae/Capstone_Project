@@ -18,8 +18,8 @@ class MpdoController extends Controller
         $totalApplicants = User::whereIn('role', ['user'])->count();
         $approvePermits = PermitApplication::where('status', 'approved')->count();
         $ongoingProjects = PermitApplication::whereIn('status', ['pending','under_review','approved','rejected'])->count();
-
-        return view('MPDO.dashboard.index', compact('currentUser', 'totalApplicants', 'approvePermits', 'ongoingProjects'));
+        $underReviewCountsPermits = PermitApplication::where('status', 'under_review')->count();
+        return view('MPDO.dashboard.index', compact('currentUser', 'totalApplicants', 'approvePermits', 'ongoingProjects', 'underReviewCountsPermits'));
     }
 
 

@@ -356,6 +356,18 @@
                 </div>
               </div>
 
+              <!-- Under Review -->
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card shadow-sm border-0 h-100">
+                  <div class="card-body text-center">
+                    <i class="fa-solid fa-magnifying-glass fa-2x text-warning mb-2"></i>
+                    <h6 class="fw-bold text-uppercase small">Under Review</h6>
+                    <h3 class="fw-bolder text-warning mb-1" id="pendingApprovals">{{$underReviewCounts}}</h3>
+                    <p class="text-muted small mb-0">Awaiting review</p>
+                  </div>
+                </div>
+              </div>
+
               <!-- Approved Permits -->
               <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card shadow-sm border-0 h-100">

@@ -166,6 +166,7 @@ Route::group(['middleware' => ['auth', 'ifOBO'], 'prefix' => 'obo'], function ()
   Route::prefix('permit-applications')->name('obo.permit-applications.')->group(function () {
     Route::get('/', [OboController::class, 'permitApplicationsIndex'])->name('view');
     Route::get('/under-review', [OboController::class, 'permitApplicationsUnderReview'])->name('under-review');
+    Route::get('/pending-permits', [OboController::class, 'pendingPermitsIndex'])->name('pending-permits');
   });
 });
 

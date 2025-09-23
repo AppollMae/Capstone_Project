@@ -21,6 +21,7 @@ class AdminController extends Controller
         $underReviewApplications = PermitApplication::where('status', 'under_review')->count();
         $approvedApplications = PermitApplication::where('status', 'approved')->count();
         $rejectedApplications = PermitApplication::where('status', 'rejected')->count();
+        $underReviewCounts = PermitApplication::where('status', 'under_review')->count();
 
         return view('admin.dashboard.dashboard', [
             'currentUser' => $currentUser,
@@ -29,7 +30,8 @@ class AdminController extends Controller
             'pendingApplications' => $pendingApplications,
             'underReviewApplications' => $underReviewApplications,
             'approvedApplications' => $approvedApplications,
-            'rejectedApplications' => $rejectedApplications
+            'rejectedApplications' => $rejectedApplications,
+            'underReviewCounts' => $underReviewCounts,
         ]);
     }
 

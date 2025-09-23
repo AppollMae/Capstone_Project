@@ -339,6 +339,20 @@
                 <div class="card shadow-sm border-0">
                   <div class="card-body text-center">
                     <div class="text-primary mb-2">
+                      <i class="fa-solid fa-magnifying-glass fa-3x"></i>
+                    </div>
+                    <h6 class="fw-bold text-uppercase text-muted">Under Review</h6>
+                    <h1 class="fw-bold text-primary" style="font-size: 3.5rem;">{{$underReviewCountsPermits}}</h1>
+                    <p class="text-muted small mb-0">Successfully processed permits</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Total Approved -->
+              <div class="col-md-4 col-sm-6 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body text-center">
+                    <div class="text-primary mb-2">
                       <i class="fa-solid fa-file-circle-check fa-3x"></i>
                     </div>
                     <h6 class="fw-bold text-uppercase text-muted">Approved Permits</h6>
@@ -347,6 +361,8 @@
                   </div>
                 </div>
               </div>
+
+
 
               <!-- Ongoing Projects -->
               <div class="col-md-4 col-sm-6 col-12">
