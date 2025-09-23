@@ -291,7 +291,10 @@
                                                     $roleLabel = 'MPDO';
                                                     } elseif ($role === 'treasurer') {
                                                     $roleLabel = 'Treasurer';
-                                                    } else {
+                                                    } elseif ($role === 'obo') {
+                                                    $roleLabel = 'OBO || Office of the Building Official';
+                                                    }
+                                                    else {
                                                     $roleLabel = 'User';
                                                     }
                                                     @endphp
@@ -305,7 +308,7 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ route('obo.accounts.view-accounts') }}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
                                     </a>
@@ -360,7 +363,12 @@
                                     <a class="nav-link" href="{{ route('obo.permit-applications.pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
+                                        @if(($pendingCounts ?? 0 ) > 0)
+                                        <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
+                                            style="background-color: #0dd5f0ff;">
+                                            {{ $pendingCounts }}
+                                        </span>
+                                        @endif
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -377,17 +385,17 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">
+                                    <a class="nav-link" href="{{ route('obo.permit-applications.approve-permits') }}">
                                         <i class="bx bx-check-circle me-1 text-success"></i>
                                         Approved
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;"></span>
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;">0</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">
+                                    <a class="nav-link" href="{{ route('obo.permit-applications.rejected-permits') }}">
                                         <i class="bx bx-x-circle me-1 text-danger"></i>
                                         Rejected
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;"></span>
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;">{{ $rejectedCount ?? 0 }}</span>
                                     </a>
                                 </li>
                             </ul>

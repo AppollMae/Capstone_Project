@@ -136,6 +136,7 @@ class OboController extends Controller
     public function underReviewIndex()
     {
         $underReview = PermitApplication::where('status', 'under_review')->count();
+        $pendingCounts = PermitApplication::where('status', 'pending')->count();
         $underReviewPermits = PermitApplication::with('reviewer')
             ->where('status', 'under_review')
             ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'reviewed_by')
@@ -176,6 +177,7 @@ class OboController extends Controller
             'ActiveTab' => 'total-permits',
             'SubActiveTab' => 'obo-under-review',
             'underReview' => $underReview,
+            'pendingCounts' => $pendingCounts,
         ]);
     }
 
@@ -380,6 +382,98 @@ class OboController extends Controller
             'underReview' => $underReview,
             'ActiveTab' => 'permit-applications',
             'SubActiveTab' => 'obo-pending-permits',
+        ]);
+    }
+
+    public function approvePermitsIndex()
+    {
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $pendingPermits = PermitApplication::where('status', 'pending')->count();
+        $approvePermits = PermitApplication::where('status', 'approved')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'description')
+            ->get();
+
+        // Map permits and add full document URL
+        $approvePermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        $approveCount = $approvePermits->count();
+        $currentUser = Auth::user();
+
+        return view("OBO-Processing-Team.total-permits.approve-permits", [
+            'approvePermits' => $approvePermits,
+            'approveCount' => $approveCount,
+            'currentUser' => $currentUser,
+            'underReview' => $underReview,
+            'ActiveTab' => 'total-permits',
+            'SubActiveTab' => 'obo-approve-permits',
+            'pendingPermits' => $pendingPermits,
+        ]);
+    }
+
+    public function rejectedPermitsIndex()
+    {
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $pendingPermits = PermitApplication::where('status', 'pending')->count();
+        $rejectedPermits = PermitApplication::where('status', 'rejected')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'documents', 'created_at', 'description')
+            ->get();
+
+        // Map permits and add full document URL
+        $rejectedPermits->transform(function ($permit) {
+            if ($permit->documents) {
+                // Decode JSON safely
+                $docs = json_decode($permit->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first element
+                } else {
+                    $fileName = $permit->documents;
+                }
+
+                // Remove unwanted paths like "documents//" or "documents/"
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        $rejectedCount = $rejectedPermits->count();
+        $currentUser = Auth::user();
+
+        return view("OBO-Processing-Team.total-permits.rejected-permits", [
+            'rejectedPermits' => $rejectedPermits,
+            'rejectedCount' => $rejectedCount,
+            'currentUser' => $currentUser,
+            'underReview' => $underReview,
+            'ActiveTab' => 'total-permits',
+            'SubActiveTab' => 'obo-rejected-permits',
+            'pendingPermits' => $pendingPermits,
         ]);
     }
 }

@@ -194,7 +194,7 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item {{ $SubActiveTab === 'obo-view-accounts' ? 'active' : '' }}">
-                <a href="" class="menu-link">
+                <a href="{{ route('obo.accounts.view-accounts') }}" class="menu-link">
                   <div data-i18n="Account">Account</div>
                 </a>
               </li>
@@ -269,7 +269,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('obo.accounts.view-accounts') }}">
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
@@ -290,7 +290,7 @@
                             } elseif ($role === 'mpdo') {
                               $roleLabel = 'MPDO';
                             } elseif ($role === 'obo') {
-                              $roleLabel = 'Building Official';
+                              $roleLabel = 'OBO || Office of the Building Official';
                             } else {
                               $roleLabel = 'User';
                             }

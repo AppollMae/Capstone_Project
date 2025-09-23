@@ -202,7 +202,7 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="{{ route('bfp.accounts.view-accounts') }}">
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
@@ -216,14 +216,17 @@
                           @php
                           $role = strtolower(auth()->user()->role);
                           if ($role === 'bfp') {
-                          $roleLabel = 'BFP';
+                          $roleLabel = 'BFP || Bureau of Fire Protection';
                           } elseif ($role === 'admin') {
                           $roleLabel = 'Admin';
                           } elseif ($role === 'mpdo') {
-                          $roleLabel = 'MPDO';
+                          $roleLabel = 'MPDO || Municipal Planning and Development Office';
                           } elseif ($role === 'treasurer') {
                           $roleLabel = 'Treasurer';
-                          } else {
+                          } elseif($role === 'obo'){
+                          $roleLabel = 'OBO || Office of the Building Official';
+                          }
+                          else {
                           $roleLabel = 'User';
                           }
                           @endphp
@@ -237,7 +240,7 @@
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="">
+                  <a class="dropdown-item" href="{{ route('bfp.accounts.view-accounts') }}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>

@@ -291,7 +291,7 @@
                           $roleLabel = 'MPDO';
                           } elseif ($role === 'treasurer') {
                           $roleLabel = 'Treasurer';
-                          } elseif ($role === 'obo') {
+                          }elseif ($role === 'obo') {
                           $roleLabel = 'OBO || Office of the Building Official';
                           }
                           else {
@@ -313,7 +313,12 @@
                     <span class="align-middle">My Profile</span>
                   </a>
                 </li>
-                
+                <!-- <li>
+                                                                                                                                                                                <a class="dropdown-item" href="">
+                                                                                                                                                                                    <i class="bx bx-cog me-2"></i>
+                                                                                                                                                                                    <span class="align-middle">Settings</span>
+                                                                                                                                                                                </a>
+                                                                                                                                                                            </li> -->
                 <li>
                   <a class="dropdown-item" href="">
                     <i class="menu-icon tf-icons bx bx-file"></i>
@@ -355,13 +360,13 @@
             <div class="col-md-12">
               <ul class="nav nav-pills flex-column flex-md-row mb-3">
                 <li class="nav-item">
-                  <a class="nav-link {{ request()->routeIs('obo.permit-applications.pending-permits') ? 'active' : '' }}" href="{{ route('obo.permit-applications.pending-permits') }}">
+                  <a class="nav-link " href="{{ route('obo.permit-applications.pending-permits') }}">
                     <i class="bx bx-time-five me-1 text-warning"></i>
                     Pending
-                    @if(($pendingPermits->count() ?? 0) > 0)
+                    @if(($pendingPermits ?? 0) > 0)
                     <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                       style="background-color: #f0c60dff;">
-                      {{ $pendingPermits->count() }}
+                      {{ $pendingPermits }}
                     </span>
                     @endif
 
@@ -381,17 +386,17 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('obo.permit-applications.approve-permits') }}">
+                  <a class="nav-link {{ request()->routeIs('obo.permit-applications.approve-permits') ? 'active' : '' }}" href="javascript:void(0);">
                     <i class="bx bx-check-circle me-1 text-success"></i>
                     Approved
-                    <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;">{{ $approvedCount ?? 0 }}</span>
+                    <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;">{{ $approvedPermits ?? 0 }}</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('obo.permit-applications.rejected-permits') }}">
                     <i class="bx bx-x-circle me-1 text-danger"></i>
                     Rejected
-                    <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;">{{$rejectedCount ?? 0}}</span>
+                    <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;">{{ $rejectedPermits ?? 0 }}</span>
                   </a>
                 </li>
               </ul>
@@ -425,7 +430,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @forelse($pendingPermits as $permit)
+                        @forelse($approvePermits as $permit)
                         <tr>
                           <!-- Created By (User Name) -->
                           <td>{{ $permit->user->name ?? 'N/A' }}</td>
@@ -629,7 +634,7 @@
                         </tr>
                         @empty
                         <tr>
-                          <td colspan="8" class="text-muted text-center">No pending permits
+                          <td colspan="8" class="text-muted text-center">No approve permits
                             found.</td>
                         </tr>
                         @endforelse
