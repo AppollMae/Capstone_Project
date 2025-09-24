@@ -24,7 +24,7 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item">
-                    <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                    <a href="{{ route('bfp.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -123,12 +123,12 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('admin.accounts.view-accounts') }}" class="menu-link">
+                            <a href="{{ route('bfp.accounts.view-accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('admin.accounts.edit-account', Auth::user()->id) }}" class="menu-link">
+                            <a href="{{ route('bfp.accounts.edit-accounts', Auth::user()->id) }}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
@@ -142,19 +142,14 @@
                 </li>
 
 
-                <li class="menu-item {{ $ActiveMenu === 'user_management' ? 'active' : '' }}">
+                <li class="menu-item {{ $ActiveTab === 'bfp-accounts' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-list-check"></i>
                         <div data-i18n="Account Settings">User Management</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item ">
-                            <a href="{{ route('admin.user_management.user-list') }}" class="menu-link">
-                                <div data-i18n="Account">Staff/Inspector</div>
-                            </a>
-                        </li>
-                        <li class="menu-item {{ $SubActive === 'Applicants' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTab === 'view-inspectors' ? 'active' : '' }}">
+                            <a href="{{ route('bfp.inspectors.view-inspectors') }}" class="menu-link">
                                 <div data-i18n="Notifications">Applicant</div>
                             </a>
                         </li>
@@ -210,7 +205,7 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ $CurrentUsers->avatar ? asset('storage/' . $CurrentUsers->avatar) : asset('sneat/img/avatars/1.png') }}" alt
+                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
@@ -221,26 +216,35 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ $CurrentUsers->avatar ? asset('storage/' . $CurrentUsers->avatar) : asset('sneat/img/avatars/1.png') }}" alt
+                                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                                <small class="text-muted"> @php
+                                                <small class="text-muted">
+                                                    @php
                                                     $role = strtolower(auth()->user()->role);
                                                     if ($role === 'bfp') {
-                                                    $roleLabel = 'BFP';
+                                                    $roleLabel = 'BFP || Bureau of Fire Protection';
                                                     } elseif ($role === 'admin') {
                                                     $roleLabel = 'Admin';
                                                     } elseif ($role === 'mpdo') {
-                                                    $roleLabel = 'MPDO';
-                                                    } else {
+                                                    $roleLabel = 'MPDO || Municipal Planning and Development Office';
+                                                    } elseif ($role === 'treasurer') {
+                                                    $roleLabel = 'Treasurer';
+                                                    } elseif($role === 'obo'){
+                                                    $roleLabel = 'OBO || Office of the Building Official';
+                                                    }elseif($role === 'bfp_inspector'){
+                                                    $roleLabel = 'BFP Inspector || Bureau of Fire Protection Inspector';
+                                                    }
+                                                    else {
                                                     $roleLabel = 'User';
                                                     }
                                                     @endphp
-                                                    {{ $roleLabel }}</small>
+                                                    {{ $roleLabel }}
+                                                </small>
                                             </div>
 
                                         </div>
@@ -255,12 +259,12 @@
                                         <span class="align-middle">My Profile</span>
                                     </a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a class="dropdown-item" href="">
                                         <i class="bx bx-cog me-2"></i>
                                         <span class="align-middle">Settings</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a class="dropdown-item" href="">
                                         <i class="menu-icon tf-icons bx bx-file"></i>
@@ -322,8 +326,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($users as $user)
-                                                @if(in_array(strtolower($user->role), ['user']))
+                                                @foreach($inspectors as $user)
+                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo', 'treasurer', 'bfp_inspector']))
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
@@ -401,12 +405,11 @@
                                                                         </button>
                                                                     </div>
 
-
-
                                                                 </div>
                                                             </div>
                                                         </div>
 
+                                                        <!-- Edit Button -->
                                                         <!-- Edit Button -->
                                                         <a href="#"
                                                             class="btn btn-warning btn-sm shadow-sm"
@@ -454,15 +457,14 @@
                                                                             <div class="mb-3">
                                                                                 <label class="form-label fw-semibold">Change Role</label>
                                                                                 <select name="role" class="form-select" required>
-                                                                                    <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                                                                                    <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
-                                                                                    <option value="mpdo" {{ $user->role === 'mpdo' ? 'selected' : '' }}>MPDO - Municipal Planning and Development Office</option>
-                                                                                    <option value="bfp" {{ $user->role === 'bfp' ? 'selected' : '' }}>BFP - Bureau of Fire Protection</option>
-                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector</option> <!-- 👈 New Role -->
-                                                                                    <option value="obo" {{ $user->role === 'obo' ? 'selected' : '' }}>OBO - Office of the Building Official</option>
-                                                                                    <option value="treasurer" {{ $user->role === 'treasurer' ? 'selected' : '' }}>Treasurer</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector I</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector II</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector III</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector IV</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector V</option>
                                                                                 </select>
                                                                             </div>
+
                                                                         </div>
 
                                                                         <!-- Modal Footer -->
@@ -478,6 +480,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </td>
                                                 </tr>
                                                 @endif
@@ -499,26 +502,25 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
+                <footer class="content-footer footer bg-footer-theme mt-4">
                     <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                         <div class="mb-2 mb-md-0">
                             ©
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span
-                                    class="fw-bold" style="color: #ff6347;">Coder</span></a>
+                            | Bureau of Fire Protection - Building Permit Management System
                         </div>
                         <div>
-                            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
-
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                                class="footer-link me-4">Support</a>
+                            <a href="#" class="footer-link me-4 text-danger">
+                                <i class="fa-solid fa-book"></i> Documentation
+                            </a>
+                            <a href="#" class="footer-link me-4 text-danger">
+                                <i class="fa-solid fa-envelope"></i> Contact
+                            </a>
+                            <a href="#" class="footer-link me-4 text-danger">
+                                <i class="fa-solid fa-circle-info"></i> Support
+                            </a>
                         </div>
                     </div>
                 </footer>

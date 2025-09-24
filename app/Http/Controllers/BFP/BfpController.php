@@ -18,6 +18,8 @@ class BfpController extends Controller
         $totalApplicants = User::where('role', 'user')->count();
         $pendingPermits = PermitApplication::where('status', 'pending')->count();
         $underReviewPermits = PermitApplication::where('status', 'under_review')->count();
+        $bfpInspectors = User::where('role', 'bfp_inspector')->count();
+        $inspectors = User::where('role', 'bfp_inspector')->get();
         $approveApplications = PermitApplication::where('status', 'approved')->count();
         return view(
             'bfp.dashboard.index',
@@ -26,7 +28,9 @@ class BfpController extends Controller
                 'totalApplicants',
                 'pendingPermits',
                 'underReviewPermits',
-                'approveApplications'
+                'approveApplications',
+                'bfpInspectors',
+                'inspectors'
             )
         );
     }
@@ -410,5 +414,16 @@ class BfpController extends Controller
                 'linkActiveTab' => 'bfp-permits-under-review',
             ]
         );
+    }
+
+    public function bfpInspectorsIndex()
+    {
+        $currentUser = Auth::user();
+        $inspectors = User::where('role', 'bfp_inspector')->get();
+
+        return view('BFP.inspector.bfp-inspector', compact('inspectors', 'currentUser'), [
+            'ActiveTab' => 'bfp-accounts',
+            'SubActiveTab' => 'view-inspectors',
+        ]);
     }
 }

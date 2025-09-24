@@ -5,11 +5,13 @@ use App\Http\Controllers\Admin\dashboard\AdminController;
 use App\Http\Controllers\MPDO\MpdoController;
 use App\Http\Controllers\Applicant\ApplicantController;
 use App\Http\Controllers\BFP\BfpController;
+use App\Http\Controllers\Auth\InspectorAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OBO\dashboard\OboController;
 use App\Http\Controllers\Treasurer\TreasurerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,12 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
     Route::put('/update-accounts', [AccountsController::class, 'updateAccounts'])
       ->name('update-account');
   });
+
+  // Admin Adding A Inspector
+  Route::prefix('inspector')->name('admin.inspectors.')->group(function () {
+    Route::get('/', [AdminController::class, 'addInspectorIndex'])->name('add-inspector');
+    Route::post('/store-inspector', [AdminController::class, 'storeInspector'])->name('store-inspector');
+  });
 });
 
 
@@ -75,7 +83,7 @@ Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function 
       ->name('mpdo-update-accounts');
   });
 
-  Route::prefix('permit-applicants')->name('mpdo.permit-applicants.')->group(function(){
+  Route::prefix('permit-applicants')->name('mpdo.permit-applicants.')->group(function () {
     Route::get('/', [MpdoController::class, 'permitApplicantIndex'])->name('view');
     Route::post('/{id}/under-review', [MpdoController::class, 'markUnderReviewIndex'])->name('mark-under-review');
     Route::get('/ongoing-projects', [MpdoController::class, 'ongoingProjectsIndex'])->name('view-ongoing-projects');
@@ -96,13 +104,18 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
   });
 
   // BFP Permits
-  Route::prefix('permits')->name('bfp.permits.')->group(function(){
+  Route::prefix('permits')->name('bfp.permits.')->group(function () {
     Route::get('/', [BfpController::class, 'viewPermitsIndex'])->name('view-permits');
     Route::post('{id}/under-review', [BfpController::class, 'markUnderReviewIndex'])->name('mark-under-review');
     Route::get('/pending-permits', [BfpController::class, 'pendingPermitsIndex'])->name('view-pending-permits');
     Route::get('/approve-permits', [BfpController::class, 'approvePermitsIndex'])->name('view-approve-permits');
     Route::get('/rejected-permits', [BfpController::class, 'rejectedPermitsIndex'])->name('view-rejected-permits');
     Route::get('/total-permits', [BfpController::class, 'totalPermitsIndex'])->name('view-total-permits');
+  });
+
+  // BFP Inspectors
+  Route::prefix('inspectors')->name('bfp.inspectors.')->group(function () {
+    Route::get('/', [BfpController::class, 'bfpInspectorsIndex'])->name('view-inspectors');
   });
 });
 

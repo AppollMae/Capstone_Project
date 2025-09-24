@@ -70,6 +70,6 @@ class Kernel extends HttpKernel
         'ifUsers' => \App\Http\Middleware\IfUsers::class,
         'ifBFP' => \App\Http\Middleware\ifBFP::class,
         'ifOBO' => \App\Http\Middleware\ifOBO::class,
-        'iftreasurer' => \App\Http\Middleware\Iftreasurer::class
+        'iftreasurer' => \App\Http\Middleware\Iftreasurer::class,
     ];
 }

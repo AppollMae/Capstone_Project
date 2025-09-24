@@ -42,31 +42,31 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
+        switch (strtolower($user->role)) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
 
-        if ($user->role === 'mpdo') {
-            return redirect()->route('mpdo.dashboard');
-        }
+            case 'mpdo':
+                return redirect()->route('mpdo.dashboard');
 
-        if ($user->role === 'bfp') {
-            return redirect()->route('bfp.dashboard');
-        }
+            case 'bfp':
+                return redirect()->route('bfp.dashboard');
 
-        if ($user->role === 'user') {
-            return redirect()->route('applicant.dashboard');
-        }
+            case 'user':
+                return redirect()->route('applicant.dashboard');
 
-        if($user->role === 'obo'){
-            return redirect()->route('obo.dashboard');
-        }
+            case 'obo':
+                return redirect()->route('obo.dashboard');
 
-        if($user->role === 'treasurer'){
-            return redirect()->route('treasurer.dashboard');
-        }
+            case 'treasurer':
+                return redirect()->route('treasurer.dashboard');
+            
+            case 'bfp_inspector':
+                return redirect()->route('bfp.dashboard');
 
-        return redirect()->route('home');
+            default:
+                return redirect()->route('login'); // 👈 changed from 'home'
+        }
     }
 
     public function logout(Request $request)

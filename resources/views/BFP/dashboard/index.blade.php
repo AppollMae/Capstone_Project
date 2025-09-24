@@ -92,6 +92,7 @@
             </li>
           </ul>
         </li>
+
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-building"></i>
@@ -118,9 +119,8 @@
         </li>
 
 
-
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Accounts</span>
+          <span class="menu-header-text">Accounts || Inspector</span>
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -138,12 +138,21 @@
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-                <a href="" class="menu-link">
-                  <div data-i18n="Notifications">Settings</div>
-                </a>
-              </li> -->
+          </ul>
+        </li>
 
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-list-check"></i>
+            <div data-i18n="Account Settings">User Management</div>
+          </a>
+          <ul class="menu-sub">
+
+            <li class="menu-item">
+              <a href="{{ route('bfp.inspectors.view-inspectors') }}" class="menu-link">
+                <div data-i18n="Notifications">Assigned Inspectors</div>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -193,7 +202,7 @@
             <!-- Place this tag where you want the button to render. -->
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
-              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="{{ route('bfp.accounts.view-accounts') }}" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
                   <img
                     src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
@@ -225,6 +234,8 @@
                           $roleLabel = 'Treasurer';
                           } elseif($role === 'obo'){
                           $roleLabel = 'OBO || Office of the Building Official';
+                          }elseif($role === 'bfp_inspector'){
+                          $roleLabel = 'BFP Inspector || Bureau of Fire Protection Inspector';
                           }
                           else {
                           $roleLabel = 'User';
@@ -245,12 +256,7 @@
                     <span class="align-middle">My Profile</span>
                   </a>
                 </li>
-                <!-- <li>
-                    <a class="dropdown-item" href="">
-                      <i class="bx bx-cog me-2"></i>
-                      <span class="align-middle">Settings</span>
-                    </a>
-                  </li> -->
+
                 <li>
                   <a class="dropdown-item" href="">
                     <i class="menu-icon tf-icons bx bx-file"></i>
@@ -311,7 +317,7 @@
                     <i class="fa-solid fa-user-shield fa-2x text-primary mb-2"></i>
                     <h6 class="card-title fw-bold">INSPECTORS ASSIGNED</h6>
                     <p class="text-muted">Active fire safety officers</p>
-                    <strong style="font-size: 3rem; color: #0077b6;">15</strong>
+                    <strong style="font-size: 3rem; color: #0077b6;">{{ $bfpInspectors }}</strong>
                   </div>
                 </div>
               </div>
@@ -420,6 +426,76 @@
                         <p class="fw-bold mb-0">5</p>
                         <small class="text-muted">Flagged Issues</small>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <h5 class="fw-bold mb-3">
+                      <i class="fa-solid fa-users-gear me-2 text-primary"></i>BFP Management
+                    </h5>
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover mb-0">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Last Seen</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @forelse ($inspectors as $user)
+                          @php
+                          $status = 'Offline';
+                          $badgeClass = 'bg-danger';
+
+                          if ($user->last_seen) {
+                          $lastActivity = \Carbon\Carbon::parse($user->last_seen);
+
+                          if ($lastActivity->gt(now()->subMinutes(5))) {
+                          $status = 'Active';
+                          $badgeClass = 'bg-success';
+                          } elseif ($lastActivity->gt(now()->subMinutes(10))) {
+                          $status = 'Idle';
+                          $badgeClass = 'bg-warning';
+                          }
+                          }
+                          @endphp
+                          <tr>
+                            <!-- Name -->
+                            <td>{{ $user->name }}</td>
+
+                            <!-- Role -->
+                            <td>{{ ucfirst($user->role) }}</td>
+
+                            <!-- Status -->
+                            <td>
+                              <span class="text-white px-3 py-2 rounded-pill shadow-sm fw-semibold {{ $badgeClass }}"
+                                style="font-size: 0.9rem; letter-spacing: 0.5px;">
+                                {{ $status }}
+                              </span>
+                            </td>
+
+
+                            <!-- Last Seen -->
+                            <td>
+                              {{ $user->last_seen ? \Carbon\Carbon::parse($user->last_seen)->diffForHumans() : 'N/A' }}
+                            </td>
+                          </tr>
+                          @empty
+                          <tr>
+                            <td colspan="4" class="text-center text-muted">No users found</td>
+                          </tr>
+                          @endforelse
+                        </tbody>
+                      </table>
+
                     </div>
                   </div>
                 </div>

@@ -20,6 +20,10 @@ class ifBFP
             return $next($request);
         }
 
+        if(Auth::check() && Auth::user()->role === 'bfp_inspector') {
+            return $next($request);
+        }
+
         return response()->json(['error' => 'Unauthorized'], 403);
     }
 }

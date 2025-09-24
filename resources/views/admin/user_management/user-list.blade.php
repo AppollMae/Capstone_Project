@@ -323,7 +323,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($users as $user)
-                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo', 'treasurer']))
+                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo', 'treasurer', 'bfp_inspector']))
                                                 <tr>
                                                     <td>{{ $user->name }}</td>
                                                     <td>{{ $user->email }}</td>
@@ -457,10 +457,12 @@
                                                                                     <option value="user" {{ $user->role === 'user' ? 'selected' : '' }}>User</option>
                                                                                     <option value="mpdo" {{ $user->role === 'mpdo' ? 'selected' : '' }}>MPDO - Municipal Planning and Development Office</option>
                                                                                     <option value="bfp" {{ $user->role === 'bfp' ? 'selected' : '' }}>BFP - Bureau of Fire Protection</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector</option> <!-- 👈 New Role -->
                                                                                     <option value="obo" {{ $user->role === 'obo' ? 'selected' : '' }}>OBO - Office of the Building Official</option>
                                                                                     <option value="treasurer" {{ $user->role === 'treasurer' ? 'selected' : '' }}>Treasurer</option>
                                                                                 </select>
                                                                             </div>
+
                                                                         </div>
 
                                                                         <!-- Modal Footer -->

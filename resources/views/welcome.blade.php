@@ -94,7 +94,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                <a class="dropdown-item" href="">Dashboard</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
