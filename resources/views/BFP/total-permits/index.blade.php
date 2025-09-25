@@ -589,8 +589,12 @@
                                                                             aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <form action="" method="POST">
+                                                                        <form action="{{ route('bfp.permits.issue-flags-store') }}" method="POST">
                                                                             @csrf
+
+                                                                            <!-- Hidden field for permit_id -->
+                                                                            <input type="hidden" name="permit_id" value="{{ $permit->id }}">
+
                                                                             <div class="mb-3">
                                                                                 <label class="form-label">Select Issues for this Building</label>
                                                                                 <table class="table table-bordered table-sm text-center align-middle">
@@ -601,66 +605,40 @@
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
+                                                                                        @php
+                                                                                        $issueOptions = [
+                                                                                        'No fire exit',
+                                                                                        'Faulty electrical wiring',
+                                                                                        'No fire extinguishers',
+                                                                                        'Blocked emergency exit',
+                                                                                        'Overcrowding'
+                                                                                        ];
+                                                                                        @endphp
+
+                                                                                        @foreach($issueOptions as $index => $option)
                                                                                         <tr>
                                                                                             <td>
-                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="No fire exit" id="issue-exit-{{ $permit->id }}">
+                                                                                                <input class="form-check-input" type="checkbox"
+                                                                                                    name="issues[]" value="{{ $option }}"
+                                                                                                    id="issue-{{ $permit->id }}-{{ $index }}">
                                                                                             </td>
                                                                                             <td>
-                                                                                                <label class="form-check-label" for="issue-exit-{{ $permit->id }}">
-                                                                                                    No fire exit
+                                                                                                <label class="form-check-label" for="issue-{{ $permit->id }}-{{ $index }}">
+                                                                                                    {{ $option }}
                                                                                                 </label>
                                                                                             </td>
                                                                                         </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="Faulty electrical wiring" id="issue-wiring-{{ $permit->id }}">
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <label class="form-check-label" for="issue-wiring-{{ $permit->id }}">
-                                                                                                    Faulty electrical wiring
-                                                                                                </label>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="No fire extinguishers" id="issue-extinguisher-{{ $permit->id }}">
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <label class="form-check-label" for="issue-extinguisher-{{ $permit->id }}">
-                                                                                                    No fire extinguishers
-                                                                                                </label>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="Blocked emergency exit" id="issue-blocked-{{ $permit->id }}">
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <label class="form-check-label" for="issue-blocked-{{ $permit->id }}">
-                                                                                                    Blocked emergency exit
-                                                                                                </label>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <input class="form-check-input" type="checkbox" name="issues[]" value="Overcrowding" id="issue-crowding-{{ $permit->id }}">
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <label class="form-check-label" for="issue-crowding-{{ $permit->id }}">
-                                                                                                    Overcrowding
-                                                                                                </label>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                        @endforeach
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
-
 
                                                                             <div class="d-flex justify-content-end">
                                                                                 <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
                                                                                 <button type="submit" class="btn btn-warning">Submit Issues</button>
                                                                             </div>
                                                                         </form>
+
 
                                                                     </div>
                                                                 </div>

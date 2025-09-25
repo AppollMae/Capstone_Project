@@ -111,11 +111,14 @@ Route::group(['middleware' => ['auth', 'ifBFP'], 'prefix' => 'bfp'], function ()
     Route::get('/approve-permits', [BfpController::class, 'approvePermitsIndex'])->name('view-approve-permits');
     Route::get('/rejected-permits', [BfpController::class, 'rejectedPermitsIndex'])->name('view-rejected-permits');
     Route::get('/total-permits', [BfpController::class, 'totalPermitsIndex'])->name('view-total-permits');
+    Route::post('/issue-flags-store', [BfpController::class, 'issueFlagsStore'])->name('issue-flags-store');
   });
 
   // BFP Inspectors
   Route::prefix('inspectors')->name('bfp.inspectors.')->group(function () {
     Route::get('/', [BfpController::class, 'bfpInspectorsIndex'])->name('view-inspectors');
+    Route::put('/update-role', [BfpController::class, 'updateInspectorRoleStore'])->name('update-role');
+    Route::get('/issue-flags', [BfpController::class, 'issueFlagsIndex'])->name('issue-flags');
   });
 });
 

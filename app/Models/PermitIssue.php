@@ -11,6 +11,7 @@ class PermitIssue extends Model
         'permit_id',
         'user_id',
         'issue',
+        'reported_by'
     ];
     protected $table = 'issue_permit_flags';
 
@@ -20,6 +21,17 @@ class PermitIssue extends Model
     }
 
     public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function permitApplication()
+    {
+        return $this->belongsTo(PermitApplication::class, 'permit_id');
+    }
+
+    // Relation to User
+    public function reportedBy()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

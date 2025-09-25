@@ -150,7 +150,7 @@
                     <ul class="menu-sub">
                         <li class="menu-item {{ $SubActiveTab === 'view-inspectors' ? 'active' : '' }}">
                             <a href="{{ route('bfp.inspectors.view-inspectors') }}" class="menu-link">
-                                <div data-i18n="Notifications">Applicant</div>
+                                <div data-i18n="Notifications">Inspectors</div>
                             </a>
                         </li>
                     </ul>
@@ -298,9 +298,8 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Admin User Management /</span>Show All Accounts
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> BFP User Management /</span>Show All Inspectors
                     </h4>
-
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
@@ -327,11 +326,18 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($inspectors as $user)
-                                                @if(in_array(strtolower($user->role), ['bfp', 'mpdo', 'obo', 'treasurer', 'bfp_inspector']))
+                                                @if(auth()->id() !== $user->id) <!-- Exclude the logged-in user -->
                                                 <tr>
+                                                    <!-- Name -->
                                                     <td>{{ $user->name }}</td>
+
+                                                    <!-- Email -->
                                                     <td>{{ $user->email }}</td>
-                                                    <td>{{ strtoupper($user->role) }}</td>
+
+                                                    <!-- Role -->
+                                                    <td>{{ str_replace('_', ' ', strtoupper($user->role)) }}</td>
+
+                                                    <!-- Avatar -->
                                                     <td>
                                                         <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                             alt="avatar"
@@ -339,8 +345,10 @@
                                                             height="50"
                                                             class="rounded">
                                                     </td>
+
+                                                    <!-- Action -->
                                                     <td>
-                                                        <!-- View Button -->
+                                                        {{-- View Button --}}
                                                         <a href="#"
                                                             class="btn btn-info btn-sm shadow-sm"
                                                             data-bs-toggle="modal"
@@ -349,7 +357,7 @@
                                                             <i class="bx bx-show"></i>
                                                         </a>
 
-                                                        <!-- Modal -->
+                                                        {{-- View Modal --}}
                                                         <div class="modal fade" id="viewModal-{{ $user->id }}" tabindex="-1" aria-labelledby="viewModalLabel-{{ $user->id }}" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                                                 <div class="modal-content border-0 shadow-lg rounded-4">
@@ -377,7 +385,7 @@
                                                                         <div class="border-top pt-3 mt-3">
                                                                             <div class="row mb-2">
                                                                                 <div class="col-4 fw-semibold text-muted">Role:</div>
-                                                                                <div class="col-8">{{ ucfirst($user->role) }}</div>
+                                                                                <div class="col-8">{{ str_replace('_', ' ', strtoupper($user->role)) }}</div>
                                                                             </div>
 
                                                                             <div class="row mb-2">
@@ -409,8 +417,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <!-- Edit Button -->
-                                                        <!-- Edit Button -->
+                                                        {{-- Edit Button --}}
                                                         <a href="#"
                                                             class="btn btn-warning btn-sm shadow-sm"
                                                             data-bs-toggle="modal"
@@ -419,7 +426,7 @@
                                                             <i class="bx bx-edit"></i>
                                                         </a>
 
-                                                        <!-- Edit Role Modal -->
+                                                        {{-- Edit Role Modal --}}
                                                         <div class="modal fade" id="editRoleModal-{{ $user->id }}" tabindex="-1" aria-labelledby="editRoleModalLabel-{{ $user->id }}" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content border-0 shadow-lg rounded-4">
@@ -433,11 +440,13 @@
                                                                     </div>
 
                                                                     <!-- Modal Body -->
-                                                                    <form action="{{ route('admin.user_management.user-update-role', $user->id) }}" method="POST">
+                                                                    <form action="{{ route('bfp.inspectors.update-role') }}" method="POST">
                                                                         @csrf
                                                                         @method('PUT')
+                                                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+
                                                                         <div class="modal-body px-4 py-4">
-                                                                            <!-- User Info (Read-Only) -->
+                                                                            <!-- User Info -->
                                                                             <div class="text-center mb-3">
                                                                                 <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                                                     alt="avatar"
@@ -450,21 +459,21 @@
 
                                                                             <div class="mb-3">
                                                                                 <label class="form-label fw-semibold">Current Role</label>
-                                                                                <input type="text" class="form-control" value="{{ ucfirst($user->role) }}" readonly>
+                                                                                <input type="text" class="form-control" value="{{ str_replace('_', ' ', strtoupper($user->role)) }}" readonly>
                                                                             </div>
 
                                                                             <!-- Editable Role -->
                                                                             <div class="mb-3">
                                                                                 <label class="form-label fw-semibold">Change Role</label>
                                                                                 <select name="role" class="form-select" required>
-                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector I</option>
-                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector II</option>
-                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector III</option>
-                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector IV</option>
-                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector V</option>
+                                                                                    <option value="bfp_inspector" {{ $user->role === 'bfp_inspector' ? 'selected' : '' }}>BFP Inspector</option>
+                                                                                    <option value="bfp_inspector_I" {{ $user->role === 'bfp_inspector_I' ? 'selected' : '' }}>BFP Inspector I</option>
+                                                                                    <option value="bfp_inspector_II" {{ $user->role === 'bfp_inspector_II' ? 'selected' : '' }}>BFP Inspector II</option>
+                                                                                    <option value="bfp_inspector_III" {{ $user->role === 'bfp_inspector_III' ? 'selected' : '' }}>BFP Inspector III</option>
+                                                                                    <option value="bfp_inspector_IV" {{ $user->role === 'bfp_inspector_IV' ? 'selected' : '' }}>BFP Inspector IV</option>
+                                                                                    <option value="bfp_inspector_V" {{ $user->role === 'bfp_inspector_V' ? 'selected' : '' }}>BFP Inspector V</option>
                                                                                 </select>
                                                                             </div>
-
                                                                         </div>
 
                                                                         <!-- Modal Footer -->
@@ -477,16 +486,17 @@
                                                                             </button>
                                                                         </div>
                                                                     </form>
+
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </td>
+
                                                 </tr>
                                                 @endif
                                                 @endforeach
-
                                             </tbody>
+
                                         </table>
 
 

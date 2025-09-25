@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\PermitApplication;
+use App\Models\PermitIssue;
+use App\Models\BfpInspections;
 use Illuminate\Support\Facades\DB;
 
 class BfpController extends Controller
@@ -18,8 +20,26 @@ class BfpController extends Controller
         $totalApplicants = User::where('role', 'user')->count();
         $pendingPermits = PermitApplication::where('status', 'pending')->count();
         $underReviewPermits = PermitApplication::where('status', 'under_review')->count();
-        $bfpInspectors = User::where('role', 'bfp_inspector')->count();
-        $inspectors = User::where('role', 'bfp_inspector')->get();
+        $bfpInspectors = User::whereIn('role', [
+            'bfp_inspector',
+            'bfp_inspector_I',
+            'bfp_inspector_II',
+            'bfp_inspector_III',
+            'bfp_inspector_IV',
+            'bfp_inspector_V'
+        ])->count();
+
+        $inspectors = User::whereIn('role', [
+            'bfp_inspector',
+            'bfp_inspector_I',
+            'bfp_inspector_II',
+            'bfp_inspector_III',
+            'bfp_inspector_IV',
+            'bfp_inspector_V'
+        ])->get();
+
+        $bfpInspections = BfpInspections::all()->count();
+        $issueFlags = PermitIssue::where('permit_id', '!=', null)->count();
         $approveApplications = PermitApplication::where('status', 'approved')->count();
         return view(
             'bfp.dashboard.index',
@@ -30,7 +50,9 @@ class BfpController extends Controller
                 'underReviewPermits',
                 'approveApplications',
                 'bfpInspectors',
-                'inspectors'
+                'inspectors',
+                'issueFlags',
+                'bfpInspections'
             )
         );
     }
@@ -39,7 +61,15 @@ class BfpController extends Controller
     public function viewAccountsIndex()
     {
         $accounts = Auth::user();
-        return view('bfp.accounts.bfp-view-accounts', compact('accounts'), [
+        $bfprole = User::whereIn('role', [
+            'bfp_inspector',
+            'bfp_inspector_I',
+            'bfp_inspector_II',
+            'bfp_inspector_III',
+            'bfp_inspector_IV',
+            'bfp_inspector_V'
+        ])->get();
+        return view('bfp.accounts.bfp-view-accounts', compact('accounts', 'bfprole'), [
             'ActiveTab' => 'bfp-accounts',
             'SubActiveTab' => 'view-accounts'
         ]);
@@ -418,12 +448,70 @@ class BfpController extends Controller
 
     public function bfpInspectorsIndex()
     {
+
         $currentUser = Auth::user();
-        $inspectors = User::where('role', 'bfp_inspector')->get();
+        $inspectors = User::whereIn('role', [
+            'bfp_inspector',
+            'bfp_inspector_I',
+            'bfp_inspector_II',
+            'bfp_inspector_III',
+            'bfp_inspector_IV',
+            'bfp_inspector_V'
+        ])->get();
+
+        // dd($inspectors->pluck('id', 'role'));
 
         return view('BFP.inspector.bfp-inspector', compact('inspectors', 'currentUser'), [
             'ActiveTab' => 'bfp-accounts',
             'SubActiveTab' => 'view-inspectors',
         ]);
+    }
+
+    public function updateInspectorRoleStore(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'role' => 'required|in:bfp_inspector,bfp_inspector_I,bfp_inspector_II,bfp_inspector_III,bfp_inspector_IV,bfp_inspector_V',
+        ]);
+        $user = User::find($validated['user_id']);
+        $user->role = $validated['role'];
+        $user->save();
+
+        return redirect()->route('bfp.inspectors.view-inspectors')
+            ->with('success', 'Inspector role updated successfully.');
+    }
+
+    public function issueFlagsIndex()
+    {
+        $currentUser = Auth::user();
+        $issueFlags = PermitIssue::where('permit_id', '!=', null)
+            ->with('permitApplication', 'reportedBy')
+            ->get();
+
+        return view('BFP.inspector.issue-flags', compact('issueFlags', 'currentUser'), [
+            'ActiveTab' => 'bfp-issue-flags',
+            'SubActiveTab' => 'view-issue-flags',
+        ]);
+    }
+
+    public function issueFlagsStore(Request $request)
+    {
+        $validated = $request->validate([
+            'permit_id' => 'required|exists:permit_applications,id',
+            'issues' => 'required|array|min:1',
+        ]);
+
+        $currentUser = Auth::user();
+
+        foreach ($validated['issues'] as $desc) {
+            $issue = new PermitIssue();
+            $issue->permit_id = $validated['permit_id'];
+            $issue->issue = $desc;
+            $issue->user_id = $currentUser->id;
+            $issue->save();
+        }
+
+        return redirect()->route('bfp.permits.view-permits')
+            ->with('success', 'Issue(s) reported successfully.');
     }
 }

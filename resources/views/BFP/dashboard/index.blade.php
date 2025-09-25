@@ -118,6 +118,26 @@
           </ul>
         </li>
 
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-handshake"></i>
+            <div data-i18n="Layouts">Issue & Facilitate</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('bfp.inspectors.issue-flags') }}" class="menu-link">
+                <div data-i18n="Without navbar">Issue Flags</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Facilitate</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
 
         <li class="menu-header small text-uppercase">
           <span class="menu-header-text">Accounts || Inspector</span>
@@ -150,7 +170,7 @@
 
             <li class="menu-item">
               <a href="{{ route('bfp.inspectors.view-inspectors') }}" class="menu-link">
-                <div data-i18n="Notifications">Assigned Inspectors</div>
+                <div data-i18n="Notifications">Inspectors</div>
               </a>
             </li>
           </ul>
@@ -224,6 +244,7 @@
                         <small class="text-muted">
                           @php
                           $role = strtolower(auth()->user()->role);
+
                           if ($role === 'bfp') {
                           $roleLabel = 'BFP || Bureau of Fire Protection';
                           } elseif ($role === 'admin') {
@@ -232,14 +253,22 @@
                           $roleLabel = 'MPDO || Municipal Planning and Development Office';
                           } elseif ($role === 'treasurer') {
                           $roleLabel = 'Treasurer';
-                          } elseif($role === 'obo'){
+                          } elseif ($role === 'obo') {
                           $roleLabel = 'OBO || Office of the Building Official';
-                          }elseif($role === 'bfp_inspector'){
+                          } elseif ($role === 'bfp_inspector') {
                           $roleLabel = 'BFP Inspector || Bureau of Fire Protection Inspector';
-                          }
-                          else {
+                          } elseif (in_array($role, [
+                          'bfp_inspector_i',
+                          'bfp_inspector_ii',
+                          'bfp_inspector_iii',
+                          'bfp_inspector_iv',
+                          'bfp_inspector_v'
+                          ])) {
+                          $roleLabel = strtoupper($role) . ' || Bureau of Fire Protection Inspector';
+                          } else {
                           $roleLabel = 'User';
                           }
+
                           @endphp
                           {{ $roleLabel }}
                         </small>
@@ -299,8 +328,9 @@
 
             <div class="row">
               <!-- Total Participants -->
+              @if($totalApplicants > 0)
               <div class="col-md-4 pt-3">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-users fa-2x text-danger mb-2"></i>
                     <h6 class="card-title fw-bold">TOTAL APPLICANTS</h6>
@@ -309,10 +339,11 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Fire Safety Inspectors -->
               <div class="col-md-4 pt-3">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-user-shield fa-2x text-primary mb-2"></i>
                     <h6 class="card-title fw-bold">INSPECTORS ASSIGNED</h6>
@@ -323,28 +354,32 @@
               </div>
 
               <!-- Facilities Inspected -->
+              @if($bfpInspections > 0)
               <div class="col-md-4 pt-3">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-city fa-2x text-success mb-2"></i>
                     <h6 class="card-title fw-bold">FACILITIES INSPECTED</h6>
                     <p class="text-muted">Buildings under fire safety inspection</p>
-                    <strong style="font-size: 3rem; color: #28a745;">25</strong>
+                    <strong style="font-size: 3rem; color: #28a745;">{{ $bfpInspections }}</strong>
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Establishments Monitored -->
+              @if($issueFlags > 0)
               <div class="col-md-4 pt-3">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-city fa-2x text-dark mb-2"></i>
                     <h6 class="card-title fw-bold">ESTABLISHMENTS MONITORED</h6>
                     <p class="text-muted">Under BFP fire safety supervision</p>
-                    <strong style="font-size: 3rem; color: #343a40;">320</strong>
+                    <strong style="font-size: 3rem; color: #343a40;">{{ $issueFlags }}</strong>
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Pending Applications -->
               @if($pendingPermits > 0)
@@ -366,7 +401,7 @@
               <!-- under reviewed permit -->
               @if($underReviewPermits > 0)
               <div class="col-md-4 pt-3">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-eye fa-2x text-info mb-2"></i>
                     <h6 class="card-title fw-bold">UNDER REVIEW APPLICATIONS</h6>
@@ -382,7 +417,7 @@
               <!-- Approved Applications -->
               @if ($approveApplications > 0)
               <div class="col-md-4 pt-3">
-                <div class="card shadow border-0">
+                <div class="card shadow border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-circle-check fa-2x text-success mb-2"></i>
                     <h6 class="card-title fw-bold">APPROVED APPLICATIONS</h6>
@@ -423,7 +458,7 @@
                       </div>
                       <div>
                         <i class="fa-solid fa-triangle-exclamation fa-2x text-danger mb-2"></i>
-                        <p class="fw-bold mb-0">5</p>
+                        <p class="fw-bold mb-0">{{$issueFlags }}</p>
                         <small class="text-muted">Flagged Issues</small>
                       </div>
                     </div>
@@ -472,7 +507,8 @@
                             <td>{{ $user->name }}</td>
 
                             <!-- Role -->
-                            <td>{{ ucfirst($user->role) }}</td>
+                            <td>{{ str_replace('_', ' ', strtoupper($user->role)) }}</td>
+
 
                             <!-- Status -->
                             <td>
