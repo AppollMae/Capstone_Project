@@ -355,9 +355,37 @@
 
                                                     <!-- Description -->
                                                     <p class="mb-2">
+                                                        <i class="bx bx-user-pin"></i>
+                                                        {{ $draft->address ?? 'N/A' }}
+                                                    </p>
+
+                                                    <!-- Address -->
+                                                     <p class="mb-2">
                                                         <i class="bx bx-info-circle"></i>
                                                         {{ $draft->description ?? 'N/A' }}
                                                     </p>
+
+                                                    <!-- Reviewer -->
+                                                    <div class="mb-3">
+                                                        <span>
+                                                            Reviewed by:
+                                                            <strong>{{ $draft->reviewer->name ?? 'N/A' }}</strong>
+                                                            @if($draft->reviewer)
+                                                            @php
+                                                            $role = strtolower($draft->reviewer->role);
+                                                            if ($role === 'bfp') $roleLabel = '(Bureau of Fire Protection)';
+                                                            elseif ($role === 'admin') $roleLabel = '(Administrator)';
+                                                            elseif ($role === 'mpdo') $roleLabel = '(Municipal Planning & Development Office)';
+                                                            elseif ($role === 'treasurer') $roleLabel = '(Municipal Treasurer)';
+                                                            elseif ($role === 'obo') $roleLabel = '(Office of the Building Official)';
+                                                            else $roleLabel = '(User)';
+                                                            @endphp
+                                                            <span class="bg-primary ms-1 text-white px-2 py-1 rounded text-nowrap d-inline-block">
+                                                                {{ $roleLabel }}
+                                                            </span>
+                                                            @endif
+                                                        </span>
+                                                    </div>
 
                                                     <!-- Document Section -->
                                                     <div class="mb-3">
@@ -401,28 +429,6 @@
                                                         @else
                                                         <span class="text-muted">No document uploaded</span>
                                                         @endif
-                                                    </div>
-
-                                                    <!-- Reviewer -->
-                                                    <div class="mb-3">
-                                                        <span>
-                                                            Reviewed by:
-                                                            <strong>{{ $draft->reviewer->name ?? 'N/A' }}</strong>
-                                                            @if($draft->reviewer)
-                                                            @php
-                                                            $role = strtolower($draft->reviewer->role);
-                                                            if ($role === 'bfp') $roleLabel = '(Bureau of Fire Protection)';
-                                                            elseif ($role === 'admin') $roleLabel = '(Administrator)';
-                                                            elseif ($role === 'mpdo') $roleLabel = '(Municipal Planning & Development Office)';
-                                                            elseif ($role === 'treasurer') $roleLabel = '(Municipal Treasurer)';
-                                                            elseif ($role === 'obo') $roleLabel = '(Office of the Building Official)';
-                                                            else $roleLabel = '(User)';
-                                                            @endphp
-                                                            <span class="bg-primary ms-1 text-white px-2 py-1 rounded text-nowrap d-inline-block">
-                                                                {{ $roleLabel }}
-                                                            </span>
-                                                            @endif
-                                                        </span>
                                                     </div>
 
 

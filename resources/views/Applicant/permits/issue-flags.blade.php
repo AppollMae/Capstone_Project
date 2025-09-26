@@ -32,20 +32,20 @@
                 </li>
 
                 <!-- Layouts -->
-                <li class="menu-item {{ $ActiveTab === 'draft' ? 'active' : '' }}">
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-envelope"></i>
                         <div data-i18n="Layouts">My Applications</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActivetab === 'view' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
+                        <li class="menu-item ">
+                            <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                                 <div data-i18n="Without menu">Draft</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="{{ route('applicants.drafts.pending-draft') }}" class="menu-link">
+                        <li class="menu-item ">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Pending</div>
                             </a>
                         </li>
@@ -72,7 +72,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ $ActiveTab === 'permits' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-ticket"></i>
                         <div data-i18n="Layouts">Apply for Permit</div>
@@ -84,11 +84,10 @@
                                 <div data-i18n="Without navbar">Apply Now</div>
                             </a>
                         </li>
-                        <!-- <li class="menu-item">
-                                                                                                      <a href="" class="menu-link">
-                                                                                                        <div data-i18n="Without navbar">Download the required documents</div>
-                                                                                                      </a>
-                                                                                                    </li> -->
+                        <li class="menu-item {{ $SubActiveTab === 'issue-flags' ? 'active' : '' }}">
+                            <a href="{{ route('applicants.permits.view-issue-flags', Auth::user()->id) }}" class="menu-link">
+                                <div data-i18n="Without navbar">Issue</div>
+                            </a>
                     </ul>
                 </li>
 
@@ -211,7 +210,8 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                    <img
+                                        src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}"
                                         alt class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
 
@@ -222,7 +222,8 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ $currentUser->avatar ? asset('storage/' . $currentUser->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                                    <img
+                                                        src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}"
                                                         alt class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
@@ -259,11 +260,11 @@
                                     </a>
                                 </li>
                                 <!-- <li>
-                                                                                                                            <a class="dropdown-item" href="">
-                                                                                                                                <i class="bx bx-cog me-2"></i>
-                                                                                                                                <span class="align-middle">Settings</span>
-                                                                                                                            </a>
-                                                                                                                        </li> -->
+                                                                                                                    <a class="dropdown-item" href="">
+                                                                                                                        <i class="bx bx-cog me-2"></i>
+                                                                                                                        <span class="align-middle">Settings</span>
+                                                                                                                    </a>
+                                                                                                                </li> -->
                                 <li>
                                     <a class="dropdown-item" href="">
                                         <i class="menu-icon tf-icons bx bx-file"></i>
@@ -299,8 +300,8 @@
 
                     <!-- Page Header -->
                     <h4 class="fw-bold py-3 mb-4">
-                        <span class="text-muted fw-light">Drafts User Account/</span>
-                        Show All Drafts
+                        <span class="text-muted fw-light">Pending User Accounts /</span>
+                        Show All Pendings
                     </h4>
 
                     <div class="row">
@@ -310,83 +311,73 @@
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="javascript:void(0);">
-                                        <i class="bx bx-file me-1"></i> All Drafts
+                                        <i class="bx bx-flag me-2 text-white bx-tada"></i> Issues
                                     </a>
                                 </li>
                             </ul>
 
                             <!-- Card -->
                             <div class="card mb-4">
-                                <h5 class="card-header">Drafts Permit</h5>
+                                <div class="card-header d-flex align-items-center">
+                                    <i class="bx bx-flag me-2"></i>
+                                    <h5 class="mb-0">Issue Flags</h5>
+                                </div>
+
                                 <hr class="my-0" />
 
                                 <div class="card-body">
                                     <div class="row g-4">
-                                        <!-- Success Alert -->
-                                        @if(session('success'))
-                                        <div class="alert alert-success alert-dismissible fade show shadow-sm">
-                                            <i class="bx bx-check-circle"></i> {{ session('success') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                        </div>
-                                        @endif
-                                        <div id="map" style="height: 400px; width: 100%; margin-bottom:20px;" class="rounded shadow"></div>
-                                        <!-- Hidden inputs to store the first location's coordinates (optional) -->
-                                        <input type="hidden" id="latitude" name="latitude">
-                                        <input type="hidden" id="longitude" name="longitude">
-                                        @forelse($draftPermits as $draft)
+
+                                        @forelse($issueFlags as $draft)
                                         <!-- Permit Card -->
                                         <div class="col-12 col-md-6 col-lg-4">
                                             <div class="card shadow-sm border-0 rounded-3 h-100">
                                                 <div class="card-body d-flex flex-column">
 
                                                     <!-- Project & User -->
-                                                    <h5 class="card-title fw-bold mb-1">{{ $draft->project_name ?? 'N/A' }}</h5>
+                                                    <h5 class="card-title fw-bold mb-1">
+                                                        {{ $draft->permitApplication->project_name ?? 'N/A' }}
+                                                    </h5>
+
                                                     <p class="text-muted mb-2">
-                                                        <i class="bx bx-user"></i> {{ $draft->user->name ?? 'N/A' }}
-                                                    </p>
-                                                    <p class="mb-2">
-                                                        <i class="bx bx-map"></i> {{ $draft->location ?? 'N/A' }}
-                                                    </p>
-                                                    <p class="mb-2">
-                                                        <i class="bx bx-time"></i>
-                                                        {{ $draft->created_at ? $draft->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                                        <i class="bx bx-user-check"></i> {{ $draft->reportedBy->name ?? 'N/A' }}
                                                     </p>
 
-                                                    <!-- Description -->
                                                     <p class="mb-2">
-                                                        <i class="bx bx-info-circle"></i>
-                                                        {{ $draft->description ?? 'N/A' }}
-                                                    </p>
-
-                                                    <!-- Address -->
-                                                    <p class="mb-2">
-                                                        <i class='bx bx-user-pin'></i>
-                                                        {{ $draft->address ?? 'N/A' }}
+                                                        <i class="bx bx-map"></i> {{ $draft->permitApplication->location ?? 'N/A' }}
                                                     </p>
 
                                                     <!-- Status -->
-                                                    <strong class='mb-2'><i class="bx bx-badge-check me-1"></i> <span class="px-3 py-1 rounded-pill shadow-sm mb-3 align-self-start"
+                                                    <strong class='mb-2'>
+                                                        <i class="bx bx-badge-check me-1"></i>
+                                                        <span class="px-3 py-1 rounded-pill shadow-sm mb-3 align-self-start"
                                                             style="background: linear-gradient(90deg, #dbff59, #ffa751);
-                                                   color:#4a3f00; font-weight:600; font-size:0.85rem;">
-
-                                                            {{ ucfirst($draft->status ?? 'Draft') }}
-                                                        </span></strong>
+                 color:#4a3f00; font-weight:600; font-size:0.85rem;">
+                                                            {{ ucfirst($draft->permitApplication->status ?? 'Under Review') }}
+                                                        </span>
+                                                    </strong>
 
                                                     <!-- Reviewer -->
                                                     <div class="mb-3">
                                                         <span>
                                                             Reviewed by:
                                                             <strong>{{ $draft->reviewer->name ?? 'N/A' }}</strong>
-                                                            @if($draft->reviewer)
+
+                                                            @if ($draft->reviewer)
                                                             @php
-                                                            $role = strtolower($draft->reviewer->role);
-                                                            if ($role === 'bfp') $roleLabel = '(Bureau of Fire Protection)';
-                                                            elseif ($role === 'admin') $roleLabel = '(Administrator)';
-                                                            elseif ($role === 'mpdo') $roleLabel = '(Municipal Planning & Development Office)';
-                                                            elseif ($role === 'treasurer') $roleLabel = '(Municipal Treasurer)';
-                                                            elseif ($role === 'obo') $roleLabel = '(Office of the Building Official)';
-                                                            else $roleLabel = '(User)';
+                                                            $roleLabels = [
+                                                            'bfp' => '(Bureau of Fire Protection)',
+                                                            'admin' => '(Administrator)',
+                                                            'mpdo' => '(Municipal Planning & Development Office)',
+                                                            'treasurer' => '(Municipal Treasurer)',
+                                                            'obo' => '(Office of the Building Official)',
+                                                            'user' => '(User)',
+                                                            ];
+
+                                                            $role = strtolower($draft->reviewer->role ?? 'user');
+                                                            $roleLabel = $roleLabels[$role] ?? '(User)';
                                                             @endphp
+
                                                             <span class="bg-primary ms-1 text-white px-2 py-1 rounded">
                                                                 {{ $roleLabel }}
                                                             </span>
@@ -395,10 +386,9 @@
                                                     </div>
 
 
-
                                                     <!-- Document Section -->
                                                     <div class="mb-3">
-                                                        @if($draft->document_url)
+                                                        @if ($draft->document_url)
                                                         <!-- Open Modal -->
                                                         <button type="button" class="btn btn-sm btn-primary w-100"
                                                             data-bs-toggle="modal"
@@ -440,48 +430,54 @@
                                                         @endif
                                                     </div>
 
-
-
                                                     <!-- Actions -->
                                                     <div class="mt-auto">
 
+                                                        <!-- Success Alert -->
+                                                        @if(session('success'))
+                                                        <div class="alert alert-success alert-dismissible fade show shadow-sm">
+                                                            <i class="bx bx-check-circle"></i> {{ session('success') }}
+                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                                        </div>
+                                                        @endif
+
                                                         <!-- Delete Button -->
-                                                        <button type="button"
-                                                            class="btn btn-sm btn-danger shadow-sm w-100"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#deleteDraftModal-{{ $draft->id }}">
-                                                            <i class="bx bx-trash"></i> Delete
-                                                        </button>
+                                                        <form action="" method="POST" class="delete-draft-form">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button"
+                                                                class="btn btn-sm btn-danger shadow-sm w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteDraftModal-{{ $draft->id }}">
+                                                                <i class="bx bx-trash"></i> Delete
+                                                            </button>
+                                                        </form>
 
                                                         <!-- Delete Modal -->
-                                                        <div class="modal fade" id="deleteDraftModal-{{ $draft->id }}" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal fade" id="deleteDraftModal-{{ $draft->id }}" tabindex="-1"
+                                                            aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content shadow-lg">
                                                                     <div class="modal-header bg-danger text-white">
                                                                         <h5 class="modal-title">
                                                                             <i class="bx bx-trash"></i> Confirm Deletion
                                                                         </h5>
-                                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                                        <button type="button" class="btn-close btn-close-white"
+                                                                            data-bs-dismiss="modal"></button>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         Are you sure you want to <strong>delete this draft?</strong>
                                                                         This action cannot be undone.
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-
-                                                                        <!-- ✅ Form moved here so submit works -->
-                                                                        <form action="{{ route('applicants.drafts.delete-draft', $draft->id) }}" method="POST">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                                                                        </form>
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cancel</button>
+                                                                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- /Actions -->
+                                                    </div> <!-- /Actions -->
 
                                                 </div>
                                             </div>
@@ -489,7 +485,7 @@
                                         <!-- /Permit Card -->
                                         @empty
                                         <div class="col-12 text-center text-muted">
-                                            No draft permits found.
+                                            No issues found.
                                         </div>
                                         @endforelse
 
@@ -533,13 +529,3 @@
 </div>
 <!-- / Layout wrapper -->
 @endsection
-
-<!-- REMINDER PLEASE READ BELOW THE COMMENTS -->
-<!-- Don't mind the error line its totaly fine and it's working -->
-<!-- If you decided to remove that line of code below the generated map it won't work -->
-<!-- But it will display the map, the main point of this code is to pinpoint already the location -->
-<!-- That already save to the draft permits database table. -->
-<script>
-    window.draftPermits = @json($draftPermits);
-</script>
-<script src="{{ asset('js/pinpoint.js') }}"></script>

@@ -8,6 +8,8 @@ use App\Models\PermitApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use App\Models\PermitIssue;
 
 class ApplicantController extends Controller
 {
@@ -30,12 +32,19 @@ class ApplicantController extends Controller
             ->where('status', 'under_review')
             ->count();
 
+        // Approved for this user
         $totalApprovePermits = PermitApplication::where('user_id', $currentUser->id)
             ->where('status', 'approved')
             ->count();
-        
+
+        // Rejected for this user
         $totalRejectedPermits = PermitApplication::where('user_id', $currentUser->id)
             ->where('status', 'rejected')
+            ->count();
+
+        $totalApprovedPermits = PermitApplication::with('issueFlags')
+            ->where('user_id', Auth::id())
+            ->whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
             ->count();
 
         return view('applicant.dashboard.index', compact(
@@ -43,7 +52,8 @@ class ApplicantController extends Controller
             'pendingCounts',
             'underReviewCount',
             'totalApprovePermits',
-            'totalRejectedPermits'
+            'totalRejectedPermits',
+            'totalApprovedPermits',
         ));
     }
 
@@ -126,6 +136,7 @@ class ApplicantController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'description' => 'required|string',
+            'address' => 'required|string|max:255',
             'documents.*' => 'required|file|mimes:pdf,jpg,png|max:2048'
         ]);
 
@@ -145,6 +156,7 @@ class ApplicantController extends Controller
         $application->location = $validated['location'];
         $application->latitude = $request->latitude;
         $application->longitude = $request->longitude;
+        $application->address = $request->address;
         $application->description = $validated['description'];
         $application->documents = json_encode($documentPaths);
         $application->save();
@@ -160,6 +172,7 @@ class ApplicantController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'description' => 'required|string',
+            'address' => 'required|string|max:255',
             'documents.*' => 'nullable|file|mimes:pdf,jpg,png|max:2048'
         ]);
 
@@ -178,6 +191,7 @@ class ApplicantController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'description' => $validated['description'],
+            'address' => $request->address,
             'documents' => json_encode($documentPaths),
             'status' => 'draft',
         ]);
@@ -295,10 +309,32 @@ class ApplicantController extends Controller
     {
         $currentUser = Auth::user();
         $pendingDrafts = PermitApplication::where('user_id', $currentUser->id)
-            ->where('status', 'pending')
+            ->where('status', 'pending',)
             ->get();
 
 
+        $pendingDrafts->transform(function ($draft) {
+            if ($draft->documents) {
+                // Decode JSON safely
+                $docs = json_decode($draft->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // get first document
+                } else {
+                    $fileName = $draft->documents;
+                }
+
+                // Clean file name
+                $fileName = basename($fileName);
+
+                // Build final URL (public/documents/)
+                $draft->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $draft->document_url = null;
+            }
+
+            return $draft;
+        });
         return view('applicant.drafts.pending-permit', compact('pendingDrafts', 'currentUser'), [
             'ActiveTab' => 'pending',
             'SubActiveTab' => 'permit'
@@ -355,5 +391,43 @@ class ApplicantController extends Controller
             'ActiveTab' => 'under-review',
             'SubActiveTab' => 'view-under-review'
         ], compact('currentUser'));
+    }
+
+    public function issueFlagsIndex($id)
+    {
+        $currentUser = Auth::user();
+
+        $issueFlags = PermitIssue::where('permit_id', $id)
+            ->with(['permitApplication', 'reportedBy'])
+            ->get();
+
+        $issueFlags->transform(function ($permit) {
+            // Check related permitApplication for documents
+            if ($permit->permitApplication && $permit->permitApplication->documents) {
+                $docs = json_decode($permit->permitApplication->documents, true);
+
+                if (is_array($docs)) {
+                    $fileName = $docs[0]; // first file
+                } else {
+                    $fileName = $permit->permitApplication->documents;
+                }
+
+                $fileName = basename($fileName);
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+
+            return $permit;
+        });
+
+        return view(
+            'Applicant.permits.issue-flags',
+            compact('currentUser', 'issueFlags'),
+            [
+                'ActiveTab' => 'permits',
+                'SubActiveTab' => 'issue-flags'
+            ]
+        );
     }
 }

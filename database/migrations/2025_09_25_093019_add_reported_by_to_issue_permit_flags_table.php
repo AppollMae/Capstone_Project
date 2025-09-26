@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('issue_permit_flags', function (Blueprint $table) {
-            $table->unsignedBigInteger('reported_by')->after('issue')->nullable();
-            $table->foreign('reported_by')->references('id')
-                ->on('users')->onDelete('cascade');
+            $table->dropForeign(['reported_by']); // 👈 drops FK constraint
         });
     }
 
@@ -24,8 +22,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('issue_permit_flags', function (Blueprint $table) {
-            $table->dropForeign(['reported_by']);
-            $table->dropColumn('reported_by');
+            $table->foreign('reported_by')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 };

@@ -42,6 +42,7 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
+        
         switch (strtolower($user->role)) {
             case 'admin':
                 return redirect()->route('admin.dashboard');
@@ -60,7 +61,7 @@ class LoginController extends Controller
 
             case 'treasurer':
                 return redirect()->route('treasurer.dashboard');
-            
+
             case 'bfp_inspector':
                 return redirect()->route('bfp.dashboard');
 

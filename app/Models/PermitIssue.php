@@ -25,15 +25,21 @@ class PermitIssue extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function permitApplication()
+     public function permitApplication()
     {
         return $this->belongsTo(PermitApplication::class, 'permit_id');
     }
 
-    // Relation to User
     public function reportedBy()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id'); // adjust foreign key if different
     }
+
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // adjust if your FK is different
+    }
+
+     
     use HasFactory;
 }

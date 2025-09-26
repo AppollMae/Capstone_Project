@@ -84,11 +84,11 @@
                 <div data-i18n="Without navbar">Apply Now</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-                      <a href="" class="menu-link">
-                        <div data-i18n="Without navbar">Download the required documents</div>
-                      </a>
-                    </li> -->
+            <li class="menu-item">
+              <a href="{{ route('applicants.permits.view-issue-flags', Auth::user()->id) }}" class="menu-link">
+                <div data-i18n="Without navbar">Issues</div>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -304,18 +304,21 @@
             <!-- Stats Section -->
             <div class="row g-3">
               <!-- Notifications -->
+              @if ($totalApprovedPermits > 0)
               <div class="col-12 col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-bell text-warning mb-3" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title">Total Notifications</h5>
                     <p class="card-text text-muted">All important updates about your applications</p>
-                    <strong style="font-size: 2.5rem;">0</strong>
+                    <strong style="font-size: 2.5rem;">{{ $totalApprovedPermits }}</strong>
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Draft Applications -->
+              @if ($draftpermitcount > 0)
               <div class="col-12 col-md-4">
                 <div class="card shadow-sm h-100">
                   <div class="card-body text-center">
@@ -326,10 +329,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Pending Applications -->
+              @if ($pendingCounts > 0)
               <div class="col-12 col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-clock text-warning mb-3" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title">Pending Applications</h5>
@@ -338,10 +343,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Under Review -->
+              @if ($underReviewCount > 0)
               <div class="col-12 col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-hourglass-half text-info mb-3" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title">Under Review</h5>
@@ -350,10 +357,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Approved -->
+              @if ($totalApprovePermits > 0)
               <div class="col-12 col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-circle-check text-success mb-3" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title">Approved</h5>
@@ -362,10 +371,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Rejected -->
+              @if ($totalRejectedPermits > 0)
               <div class="col-12 col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-thumbs-down text-danger mb-3" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title">Rejected</h5>
@@ -374,6 +385,9 @@
                   </div>
                 </div>
               </div>
+              @endif
+
+
             </div>
 
             <!-- Quick Actions -->

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('issue_permit_flags', function (Blueprint $table) {
-            $table->unsignedBigInteger('reported_by')->after('issue')->nullable();
-            $table->foreign('reported_by')->references('id')->on('users')->onDelete('set null');
+        Schema::table('draft_permits', function (Blueprint $table) {
+            $table->string('address')->after('location')->nullable();
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('issue_permit_flags', function (Blueprint $table) {
-            $table->dropColumn('reported_by');
+        Schema::table('draft_permits', function (Blueprint $table) {
+            $table->dropColumn('address');
         });
     }
 };

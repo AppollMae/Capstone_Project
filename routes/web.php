@@ -140,6 +140,7 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::get('/apply', [ApplicantController::class, 'applyForPermit'])->name('apply-permit');
     Route::post('/store', [ApplicantController::class, 'storePermitApplication'])->name('store-permit');
     Route::post('/draft', [ApplicantController::class, 'draftPermitApplication'])->name('draft-permit');
+    Route::get('/issue-flags/{id}', [ApplicantController::class, 'issueFlagsIndex'])->name('view-issue-flags');
   });
 
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {

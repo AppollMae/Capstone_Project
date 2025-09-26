@@ -558,8 +558,8 @@
                                                         <ul class="list-unstyled">
                                                             @foreach($permit->issues as $issue)
                                                             <li>
-                                                                <span class="badge bg-danger">{{ $issue->issue }}</span>
-                                                                <small class="text-muted">by {{ $issue->user->name ?? 'Unknown' }}</small>
+                                                                <span>{{ $issue->issue }}</span>
+                                                                <small>by {{ $issue->user->name ?? 'Unknown' }}</small>
                                                             </li>
                                                             @endforeach
                                                         </ul>

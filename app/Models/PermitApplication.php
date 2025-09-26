@@ -25,6 +25,8 @@ class PermitApplication extends Model
         'seen' => 'boolean',
     ];
 
+    protected $table = "permit_applications";
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -40,5 +42,9 @@ class PermitApplication extends Model
         return $this->hasMany(PermitIssue::class, 'permit_id');
     }
 
+    public function issueFlags()
+    {
+        return $this->hasMany(PermitIssue::class, 'user_id', 'id');
+    }
     use HasFactory;
 }
