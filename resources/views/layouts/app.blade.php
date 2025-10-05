@@ -124,13 +124,13 @@
     <script src="{{ asset('js/longtitude.js') }}"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <!-- Chart.js for Analytics -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/analytics-chart.js') }}"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="{{ asset('js/delete-modal.js') }}"></script>
     <script src="{{ asset('js/notif-count.js') }}"></script>
     <script src="{{ asset('js/pinpoint.js') }}"></script>
+    <script src="{{ asset('js/permits-analytics.js') }}"></script>
 </body>
 
 </html>

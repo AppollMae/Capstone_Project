@@ -503,7 +503,7 @@
                                                             <div class="modal-dialog modal-md modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header bg-dark text-white">
-                                                                        <h5 class="modal-title" id="permitActionLabel-{{ $permit->id }}">
+                                                                        <h5 class="modal-title text-white" id="permitActionLabel-{{ $permit->id }}">
                                                                             <i class="bx bx-cog"></i> Application Actions
                                                                         </h5>
                                                                         <button type="button" class="btn-close"

@@ -321,8 +321,9 @@
             <!-- Stat Cards -->
             <div class="row g-4">
               <!-- Total Participants -->
+              @if (($totalApplicants ?? 0) > 0)
               <div class="col-md-4 col-sm-6 col-12">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <div class="text-success mb-2">
                       <i class="fa-solid fa-users fa-3x"></i>
@@ -333,10 +334,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Total Approved -->
+              @if (($underReviewCountsPermits ?? 0) > 0)
               <div class="col-md-4 col-sm-6 col-12">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <div class="text-primary mb-2">
                       <i class="fa-solid fa-magnifying-glass fa-3x"></i>
@@ -347,10 +350,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Total Approved -->
+              @if (($approvePermits ?? 0) > 0)
               <div class="col-md-4 col-sm-6 col-12">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <div class="text-primary mb-2">
                       <i class="fa-solid fa-file-circle-check fa-3x"></i>
@@ -361,12 +366,13 @@
                   </div>
                 </div>
               </div>
-
+              @endif
 
 
               <!-- Ongoing Projects -->
+              @if(($ongoingProjects ?? 0) > 0)
               <div class="col-md-4 col-sm-6 col-12">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <div class="text-warning mb-2">
                       <i class="fa-solid fa-city fa-3x"></i>
@@ -379,6 +385,8 @@
                   </div>
                 </div>
               </div>
+              @endif
+
             </div>
 
             <!-- Analytics Row -->
@@ -387,10 +395,10 @@
               <div class="col-lg-8 col-12">
                 <div class="card shadow-sm border-0">
                   <div class="card-header bg-success text-white fw-bold">
-                    Monthly Permit Applications Overview
+                    Permit Status Overview
                   </div>
                   <div class="card-body">
-                    <canvas id="applicationsChart" height="150"></canvas>
+                    <canvas id="statusChart" height="150" data-chart-data='@json($chartData)'></canvas>
                   </div>
                 </div>
               </div>
@@ -416,6 +424,18 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-lg-8 col-12">
+                <div class="card shadow-sm border-0">
+                  <div class="card-header bg-primary text-white fw-bold">
+                    Monthly Permit Applications Overview
+                  </div>
+                  <div class="card-body">
+                    <canvas id="monthChart" height="150" data-chart-data='@json($monthChartData)'></canvas>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <!-- Notice Section -->

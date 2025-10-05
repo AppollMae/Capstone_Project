@@ -16,7 +16,7 @@ class AdminController extends Controller
         $currentUser = Auth::user();
 
         // Fetch all users except admin
-        $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO', 'bfp_inspector'])->get();
+        $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO', 'bfp_inspector', 'bfp_inspector_I'])->get();
         $TotalUsers = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])->count();
         $pendingApplications = PermitApplication::where('status', 'pending')->count();
         $underReviewApplications = PermitApplication::where('status', 'under_review')->count();
@@ -39,7 +39,7 @@ class AdminController extends Controller
     public function userManagementIndex()
     {
         $currentUser = Auth::user();
-        $users = User::all();
+        $users = User::whereIn('role', ['MPDO', 'BFP', 'Treasurer', 'OBO', 'bfp_inspector','bfp_inspector_I'])->get();
         return view('admin.user_management.user-list', compact('users'), [
             'ActiveMenu' => 'user_management',
             'SubActive' => 'Staff/Inspector',

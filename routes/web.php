@@ -89,6 +89,11 @@ Route::group(['middleware' => ['auth', 'ifMPDO'], 'prefix' => 'mpdo'], function 
     Route::get('/ongoing-projects', [MpdoController::class, 'ongoingProjectsIndex'])->name('view-ongoing-projects');
     Route::post('/{id}/approved', [MpdoController::class, 'markApprovedIndex'])->name('mark-approved');
   });
+
+
+  Route::prefix('chart')->name('permit.charts.')->group(function(){
+    Route::get('/chart-data', [MpdoController::class, 'ChartIndex'])->name('chart-data');
+  });
 });
 
 
