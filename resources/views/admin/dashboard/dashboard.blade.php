@@ -41,12 +41,12 @@
 
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('permits_applicants.permits.total-permits') }}" class="menu-link">
                 <div data-i18n="Without menu">Total permits issued</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('permits_applicants.permits.pending-permits') }}" class="menu-link">
                 <div data-i18n="Without menu">Pending applications</div>
               </a>
             </li>
@@ -335,8 +335,9 @@
             <!-- Summary Cards -->
             <div class="row g-4">
               <!-- Total Applications -->
+              @if ($TotalUsers > 0)
               <div class="col-12 col-sm-6 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
+                <div class="card shadow-sm border-0 h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-file-circle-plus fa-2x text-primary mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Total Applications</h6>
@@ -345,10 +346,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Pending Approvals -->
+              @if ($pendingApplications > 0)
               <div class="col-12 col-sm-6 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
+                <div class="card shadow-sm border-0 h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-hourglass-half fa-2x text-warning mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Pending Approvals</h6>
@@ -357,10 +360,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Under Review -->
+              @if ($underReviewCounts > 0)
               <div class="col-12 col-sm-6 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
+                <div class="card shadow-sm border-0 h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-magnifying-glass fa-2x text-warning mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Under Review</h6>
@@ -369,10 +374,12 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Approved Permits -->
+              @if ($approvedApplications > 0)
               <div class="col-12 col-sm-6 col-lg-3">
-                <div class="card shadow-sm border-0 h-100">
+                <div class="card shadow-sm border-0 h-100 animate__animated animate__bounceIn">
                   <div class="card-body text-center">
                     <i class="fa-solid fa-circle-check fa-2x text-success mb-2"></i>
                     <h6 class="fw-bold text-uppercase small">Approved Permits</h6>
@@ -381,6 +388,7 @@
                   </div>
                 </div>
               </div>
+              @endif
 
               <!-- Revenue Collected -->
               <div class="col-12 col-sm-6 col-lg-3">

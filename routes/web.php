@@ -67,6 +67,13 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
     Route::get('/', [AdminController::class, 'addInspectorIndex'])->name('add-inspector');
     Route::post('/store-inspector', [AdminController::class, 'storeInspector'])->name('store-inspector');
   });
+
+  // View The Permits
+  Route::prefix('permits')->name('permits_applicants.permits.')->group(function(){
+    Route::get('/', [AdminController::class, 'totalPermitsIndex'])->name('total-permits');
+    Route::post('/issued-flags', [AdminController::class,'issuedFlagsStored'])->name('issued-flags');
+    Route::get('/pending-permits', [AdminController::class, 'pendingPermitsIndex'])->name('pending-permits');
+  });
 });
 
 
