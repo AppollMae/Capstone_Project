@@ -95,48 +95,40 @@ class AdminController extends Controller
     public function totalPermitsIndex()
     {
         $currentUser = Auth::user();
-        $totalPermitsAll = PermitApplication::where('status', ['pending', 'under_review', 'approved', 'rejected'])->count();
+
+        // ✅ Count all permits with valid statuses
+        $totalPermitsAll = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])->count();
+
+        // ✅ Specific counts
+        $pendingPermitsCounts = PermitApplication::where('status', 'pending')->count();
+        $underReview = PermitApplication::where('status', 'under_review')->count();
+        $approveCounts = PermitApplication::where('status', 'approved')->count();
+        $rejectedCounts = PermitApplication::where('status', 'rejected')->count();
+
+        // ✅ Group by status for chart or summary
         $statuses = PermitApplication::select('status', DB::raw('COUNT(*) as total'))
             ->groupBy('status')
             ->pluck('total', 'status');
+
         $TotalPermitsAll = $statuses->sum();
-        $totalPermits = PermitApplication::whereIn(
-            'status',
-            [
-                'pending',
-                'under_review',
-                'approved',
-                'rejected'
-            ]
-        )
-            ->select(
-                'id',
-                'user_id',
-                'project_name',
-                'location',
-                'status',
-                'reviewed_by',
-                'documents',
-                'created_at',
-                'description'
-            )
+
+        // ✅ Fetch paginated results
+        $totalPermits = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at', 'description')
             ->paginate(10);
 
+        // ✅ Transform document URLs safely
         $totalPermits->transform(function ($permit) {
             if ($permit->documents) {
-                // Decode JSON safely
                 $docs = json_decode($permit->documents, true);
 
                 if (is_array($docs)) {
-                    $fileName = $docs[0]; // get first element
+                    $fileName = $docs[0];
                 } else {
                     $fileName = $permit->documents;
                 }
 
-                // Remove unwanted paths like "documents//" or "documents/"
                 $fileName = basename($fileName);
-
-                // Build final URL (public/documents/)
                 $permit->document_url = asset('storage/documents/' . $fileName);
             } else {
                 $permit->document_url = null;
@@ -144,9 +136,19 @@ class AdminController extends Controller
 
             return $permit;
         });
+
         return view(
             'admin.permits_applicants.total_permits_issued',
-            compact('currentUser', 'totalPermitsAll', 'totalPermits', 'TotalPermitsAll'),
+            compact(
+                'currentUser',
+                'totalPermitsAll',
+                'totalPermits',
+                'TotalPermitsAll',
+                'pendingPermitsCounts',
+                'underReview',
+                'approveCounts',
+                'rejectedCounts'
+            ),
             [
                 'ActiveMenu' => 'total_permits',
                 'SubActiveMenu' => 'total_view',
@@ -154,6 +156,7 @@ class AdminController extends Controller
             ]
         );
     }
+
 
     public function isseudFlagsStored(Request $request)
     {

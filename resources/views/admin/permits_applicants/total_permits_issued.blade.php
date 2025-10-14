@@ -336,8 +336,8 @@
                             Total Permits
                         </a> /
 
-                        <a href=""
-                            class="">
+                        <a href="{{ route('permits_applicants.permits.pending-permits') }}"
+                            class="{{ request()->route('permits_applicants.permits.pending-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Pending
                         </a> /
 
@@ -368,7 +368,7 @@
                                         @if( $TotalPermitsAll > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #6c757d;">
-                                            {{ $TotalPermitsAll}}
+                                            {{ $TotalPermitsAll ?? 0}}
                                         </span>
                                         @endif
 
@@ -376,42 +376,50 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="{{ route('permits_applicants.permits.pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
-                                        <!-- @if(($Permits ?? 0) > 0)
-                                       
-                                        @endif -->
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #f0c60dff;">
-                                            <!-- {{ $Permits ?? 0 }} -->
+                                        @if($pendingPermitsCounts > 0)
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
+                                            {{ $pendingPermitsCounts ?? 0}}
                                         </span>
+                                        @endif
                                     </a>
                                 </li>
+
                                 <li class="nav-item ">
                                     <a class="nav-link" href="">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
-                                        <!-- @if(($underReview ?? 0) > 0)
-
-                                        @endif -->
+                                        @if($underReview > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
-                                            style="background-color: #0dd5f0ff;">
-                                            <!-- {{ $underReview ?? 0 }} -->
+                                            style="background-color: #6c757d;">
+                                            {{ $underReview ?? 0 }}
                                         </span>
+                                        @endif
+
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">
                                         <i class="bx bx-check-circle me-1 text-success"></i>
                                         Approved
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #15f00dff;"></span>
+                                        @if ($approveCounts > 0)
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
+                                            {{ $approveCounts ?? 0 }}
+                                        </span>
+                                        @endif
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">
                                         <i class="bx bx-x-circle me-1 text-danger"></i>
                                         Rejected
-                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #ff5151ff;"></span>
+                                        @if ($rejectedCounts > 0)
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
+                                            {{ $rejectedCounts ?? 0 }}
+                                        </span>
+                                        @endif
                                     </a>
                                 </li>
                             </ul>
@@ -441,6 +449,7 @@
                                                     <th>Reviewed By</th>
                                                     <th>Created At</th>
                                                     <th>Issue Flags</th>
+                                                    <th>Issued By</th>
                                                     <!-- <th>Action</th> -->
 
                                                 </tr>
@@ -587,7 +596,7 @@
                                                             @foreach($permit->issues as $issue)
                                                             <li>
                                                                 <span>{{ $issue->issue }}</span>
-                                                                <small>by {{ $issue->user->name ?? 'Unknown' }}</small>
+
                                                             </li>
                                                             @endforeach
                                                         </ul>
@@ -672,12 +681,9 @@
                                                                                                     name="issues[]" value="{{ $option }}"
                                                                                                     id="issue-{{ $permit->id }}-{{ $index }}">
                                                                                             </td>
-                                                                                            <td>
-                                                                                                <label class="form-check-label" for="issue-{{ $permit->id }}-{{ $index }}">
-                                                                                                    {{ $option }}
-                                                                                                </label>
-                                                                                            </td>
+
                                                                                         </tr>
+
                                                                                         @endforeach
                                                                                     </tbody>
                                                                                 </table>
@@ -695,6 +701,26 @@
                                                             </div>
                                                         </div>
                                                     </td>
+
+                                                    <td>
+                                                        @php
+                                                        $hasIssuedUser = false;
+                                                        @endphp
+
+                                                        @foreach($permit->issues as $issue)
+                                                        @if($issue->user)
+                                                        by {{ $issue->user->name }}
+                                                        @php $hasIssuedUser = true; @endphp
+                                                        @endif
+                                                        @endforeach
+
+                                                        @if(!$hasIssuedUser)
+                                                        N/A
+                                                        @endif
+                                                    </td>
+
+
+
                                                     <!-- Actions -->
 
                                                 </tr>
