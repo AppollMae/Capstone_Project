@@ -60,13 +60,34 @@
                             </div>
                         </div>
                         <div class="mb-3">
+                            <!-- Regular Login Button -->
                             <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Login') }}</button>
+                            <!-- Divider -->
+                            <div class="text-center my-3">
+                                <span class="text-muted">or</span>
+                            </div>
+
+                            <!-- Google Login Button -->
+                            <a href="" class="btn btn-danger d-grid w-100">
+                                <i class="fab fa-google me-2"></i> {{ __('Login with Google') }}
+                            </a>
+
+                            <!-- Add gap -->
+                            <div class="my-2"></div>
+
+                            <!-- Facebook Login Button -->
+                            <a href="" class="btn btn-primary d-grid w-100 py-2">
+                                <i class="fab fa-facebook me-2"></i> {{ __('Login with Facebook') }}
+                            </a>
+
+                            <!-- Forgot Password Link -->
                             @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                            <a class="btn btn-link d-block text-center mt-2" href="{{ route('password.request') }}">
                                 {{ __('Forgot Your Password?') }}
                             </a>
                             @endif
                         </div>
+
                     </form>
 
                     <p class="text-center">

@@ -51,6 +51,11 @@
               </a>
             </li>
             <li class="menu-item">
+              <a href="{{ route('permits_applicants.permits.under-review') }}" class="menu-link">
+                <div data-i18n="Without menu">Under Review applications</div>
+              </a>
+            </li>
+            <li class="menu-item">
               <a href="" class="menu-link">
                 <div data-i18n="Without menu">Approved applications</div>
               </a>

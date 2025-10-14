@@ -227,4 +227,51 @@ class AdminController extends Controller
             ]
         );
     }
+
+    public function underReviewIndex()
+    {
+        $currentUser = Auth::user();
+        $pendingPermitsCounts = PermitApplication::where('status', 'pending')->count();
+        $TotalPermitsAll = PermitApplication::whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])->count();
+        $underReviews = PermitApplication::where('status', 'under_review')->count();
+        $approvedCount = PermitApplication::where('status', 'approved')->count();
+        $rejectedCount = PermitApplication::where('status', 'rejected')->count();
+
+        // Get all pending permits
+        $underReview = PermitApplication::where('status', 'under_review')
+            ->select('id', 'user_id', 'project_name', 'location', 'status', 'reviewed_by', 'documents', 'created_at', 'description')
+            ->get();
+
+        // Process document URLs
+        $underReview->transform(function ($permit) {
+            if ($permit->documents) {
+                $docs = json_decode($permit->documents, true);
+                $fileName = is_array($docs) ? $docs[0] : $permit->documents;
+                $fileName = basename($fileName);
+                $permit->document_url = asset('storage/documents/' . $fileName);
+            } else {
+                $permit->document_url = null;
+            }
+            return $permit;
+        });
+
+        // Return to view
+        return view(
+            'admin.permits_applicants.under_review_applicants',
+            compact(
+                'currentUser',
+                'pendingPermitsCounts',
+                'underReviews',
+                'TotalPermitsAll',
+                'underReview',
+                'approvedCount',
+                'rejectedCount'
+            ),
+            [
+                'ActiveTabMenu' => 'pending_tab',
+                'SubActiveTabMenu' => 'pending_tab_view',
+                'linkTabMenu' => 'link_tab'
+            ]
+        );
+    }
 }

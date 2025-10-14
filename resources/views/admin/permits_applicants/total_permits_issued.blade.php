@@ -46,8 +46,13 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('permits_applicants.permits.pending-permits') }}" class="menu-link">
                                 <div data-i18n="Without menu">Pending applications</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ route('permits_applicants.permits.under-review') }}" class="menu-link">
+                                <div data-i18n="Without menu">Under Review applications</div>
                             </a>
                         </li>
                         <li class="menu-item">
@@ -332,7 +337,7 @@
                         <span class="text-muted fw-light">Total View /</span>
 
                         <a href="{{ route('permits_applicants.permits.total-permits') }}"
-                            class="{{ request()->route('permits_applicants.permits.total-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
+                            class=" {{ request()->route('permits_applicants.permits.total-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Total Permits
                         </a> /
 
@@ -341,8 +346,8 @@
                             Pending
                         </a> /
 
-                        <a href=""
-                            class="">
+                        <a href="{{ route('permits_applicants.permits.under-review') }}"
+                            class="{{ request()->route('permits_applicants.permits.pending-permits') ? 'text-primary fw-bold' : 'text-dark' }}">
                             Under Review
                         </a> /
 
@@ -360,18 +365,17 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                                <li class="nav-item ">
-                                    <a class="nav-link {{ $linkTabMenu === 'link_tab_view' ? 'active' : '' }}" href="{{ route('permits_applicants.permits.total-permits') }}">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $linkTabMenu === 'link_tab_view' ? 'active' : '' }}"
+                                        href="{{ route('permits_applicants.permits.total-permits') }}">
                                         <i class="bx bx-file me-1 text-success"></i>
                                         Total Permits
-                                        {{-- Total Permits --}}
-                                        @if( $TotalPermitsAll > 0)
+                                        @if($TotalPermitsAll > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #6c757d;">
-                                            {{ $TotalPermitsAll ?? 0}}
+                                            {{ $TotalPermitsAll ?? 0 }}
                                         </span>
                                         @endif
-
                                     </a>
                                 </li>
 
@@ -381,14 +385,14 @@
                                         Pending
                                         @if($pendingPermitsCounts > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
-                                            {{ $pendingPermitsCounts ?? 0}}
+                                            {{ $pendingPermitsCounts ?? 0 }}
                                         </span>
                                         @endif
                                     </a>
                                 </li>
 
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('permits_applicants.permits.under-review') }}">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
                                         @if($underReview > 0)
@@ -397,25 +401,26 @@
                                             {{ $underReview ?? 0 }}
                                         </span>
                                         @endif
-
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="#">
                                         <i class="bx bx-check-circle me-1 text-success"></i>
                                         Approved
-                                        @if ($approveCounts > 0)
+                                        @if($approveCounts > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
                                             {{ $approveCounts ?? 0 }}
                                         </span>
                                         @endif
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="#">
                                         <i class="bx bx-x-circle me-1 text-danger"></i>
                                         Rejected
-                                        @if ($rejectedCounts > 0)
+                                        @if($rejectedCounts > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
                                             {{ $rejectedCounts ?? 0 }}
                                         </span>

@@ -45,13 +45,13 @@
                                 <div data-i18n="Without menu">Total permits issued</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ $SubActiveTabMenu === 'pending_tab_view' ? 'active' : '' }}">
+                        <li class="menu-item ">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without menu">Pending applications</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTabMenu === 'pending_tab_view' ? 'active' : '' }}">
+                            <a href="{{ route('permits_applicants.permits.under-review') }}" class="menu-link">
                                 <div data-i18n="Without menu">Under Review applications</div>
                             </a>
                         </li>
@@ -366,16 +366,16 @@
                                         <i class="bx bx-file me-1 text-success"></i>
                                         Total Permits
                                         {{-- Total Permits --}}
-                                        @if(($totalPermitsAll ?? 0) > 0)
+                                        @if(($TotalPermitsAll ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #6c757d;">
-                                            {{ $totalPermitsAll }}
+                                            {{ $TotalPermitsAll }}
                                         </span>
                                         @endif
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ $linkTabMenu === 'link_tab' ? 'active' : '' }}" href="{{ route('permits_applicants.permits.pending-permits') }}">
+                                    <a class="nav-link" href="{{ route('permits_applicants.permits.pending-permits') }}">
                                         <i class="bx bx-time-five me-1 text-warning"></i>
                                         Pending
                                         @if(($pendingPermitsCounts ?? 0) > 0)
@@ -386,13 +386,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('permits_applicants.permits.under-review') }}">
+                                    <a class="nav-link {{ $linkTabMenu === 'link_tab' ? 'active' : '' }}" href="">
                                         <i class="bx bx-file-find me-1 text-info"></i>
                                         Under Review
-                                        @if(($underReview ?? 0) > 0)
+                                        @if(($underReviews ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn"
                                             style="background-color: #6c757d;">
-                                            {{ $underReview }}
+                                            {{ $underReviews ?? 0 }}
                                         </span>
                                         @endif
 
@@ -402,11 +402,11 @@
                                     <a class="nav-link" href="javascript:void(0);">
                                         <i class="bx bx-check-circle me-1 text-success"></i>
                                         Approved
-                                        @if(($approvedCounts ?? 0) > 0)
+                                        @if (($approvedCounts ?? 0) > 0)
                                         <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn" style="background-color: #6c757d;">
                                             {{ $approvedCounts ?? 0 }}
                                         </span>
-                                        @endif
+                                        @endIf
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -414,7 +414,7 @@
                                         <i class="bx bx-x-circle me-1 text-danger"></i>
                                         Rejected
                                         @if(($rejectedCounts ?? 0) > 0)
-                                        <span class="ms-1 px-2 py-1 rounded text-white animate__animated animate__fadeIn" style="background-color: #6c757d;">
+                                        <span class="ms-1 px-2 py-1 rounded text-white" style="background-color: #6c757d;">
                                             {{ $rejectedCounts ?? 0 }}
                                         </span>
                                         @endif
@@ -450,7 +450,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($pendingPermits as $permit)
+                                                @forelse($underReview as $permit)
                                                 <tr>
                                                     <!-- Created By (User Name) -->
                                                     <td>{{ $permit->user->name ?? 'N/A' }}</td>

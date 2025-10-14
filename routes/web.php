@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
     Route::get('/', [AdminController::class, 'totalPermitsIndex'])->name('total-permits');
     Route::post('/issued-flags', [AdminController::class,'issuedFlagsStored'])->name('issued-flags');
     Route::get('/pending-permits', [AdminController::class, 'pendingPermitsIndex'])->name('pending-permits');
+    Route::get('/under-review' , [AdminController::class, 'underReviewIndex'])->name('under-review');
   });
 });
 
