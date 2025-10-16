@@ -14,6 +14,7 @@ class PermitApplication extends Model
         'address',       // NEW
         'latitude',      // NEW
         'longitude',     // NEW
+        'radiusRange',   // NEW
         'description',
         'documents',
         'status',
@@ -46,5 +47,11 @@ class PermitApplication extends Model
     {
         return $this->hasMany(PermitIssue::class, 'user_id', 'id');
     }
+
+    public function location()
+    {
+        return $this->hasOne(PermitApplication::class, 'permit_application_id');
+    }
+
     use HasFactory;
 }

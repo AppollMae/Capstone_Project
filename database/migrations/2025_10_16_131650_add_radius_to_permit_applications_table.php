@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('issue_permit_flags', function (Blueprint $table) {
-            $table->dropForeign(['reported_by']); // 👈 drops FK constraint
+        Schema::table('permit_applications', function (Blueprint $table) {
+            $table->integer('radiusRange')->nullable()->after('longitude');
         });
     }
 
@@ -21,10 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('issue_permit_flags', function (Blueprint $table) {
-            $table->foreign('reported_by')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
+        Schema::table('permit_applications', function (Blueprint $table) {
+            $table->dropColumn('radiusRange');
         });
     }
 };

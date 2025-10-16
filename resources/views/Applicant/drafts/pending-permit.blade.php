@@ -352,9 +352,9 @@
                                                             {{ ucfirst($draft->status ?? 'Draft') }}
                                                         </span></strong>
 
-                                                    
+
                                                     <!-- Address -->
-                                                     <p class="mb-2">
+                                                    <p class="mb-2">
                                                         <i class="bx bx-map"></i> {{ $draft->address ?? 'N/A' }}
                                                     </p>
 
@@ -423,6 +423,38 @@
                                                         <span class="text-muted">No document uploaded</span>
                                                         @endif
                                                     </div>
+
+                                                    <!-- View Location Button -->
+                                                    <div class="mb-3">
+                                                        @foreach($mapData as $map)
+                                                        @if($map['latitude'] && $map['longitude'])
+                                                        <button class="btn btn-outline-success btn-sm w-100"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#viewMapModal-{{ $map['id'] }}">
+                                                            <i class="bx bx-map-pin"></i> View Location
+                                                        </button>
+
+                                                        <!-- Map Modal -->
+                                                        <div class="modal fade" id="viewMapModal-{{ $map['id'] }}" tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Location Map</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div id="map-{{ $map['id'] }}"
+                                                                            data-lat="{{ $map['latitude'] }}"
+                                                                            data-lng="{{ $map['longitude'] }}"
+                                                                            style="height: 400px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+
 
                                                     <!-- Actions -->
                                                     <div class="mt-auto">
@@ -523,3 +555,7 @@
 </div>
 <!-- / Layout wrapper -->
 @endsection
+<script>
+    window.draftPermits = @json($mapData);
+</script>
+<script src="{{ asset('js/view-map.js') }}"></script>

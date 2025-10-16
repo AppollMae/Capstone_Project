@@ -441,11 +441,11 @@
                                                     <th>Name</th>
                                                     <th>Project Name</th>
                                                     <th>Location</th>
-                                                    <th>Created At</th>
                                                     <th>Documents</th>
                                                     <th>Description</th>
                                                     <th>Status</th>
                                                     <th>Reviewed By</th>
+                                                    <th>Created At</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -461,9 +461,7 @@
                                                     <!-- Location -->
                                                     <td>{{ $permit->location ?? 'N/A' }}</td>
 
-                                                    <!-- Created At -->
-                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
-                                                    </td>
+                                                    
 
                                                     <td>
                                                         @if($permit->document_url)
@@ -579,6 +577,11 @@
                                                             @endif
                                                         </span>
                                                     </td>
+
+                                                    <!-- Created At -->
+                                                    <td>{{ $permit->created_at ? $permit->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                                    </td>
+                                                    
                                                     <!-- Actions -->
                                                     <td>
                                                         <!-- Button trigger modal -->

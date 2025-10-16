@@ -353,20 +353,23 @@
                                                 type="text"
                                                 id="project_name"
                                                 name="project_name"
-                                                placeholder="Enter project name"
-                                                required />
+                                                placeholder="Name Of Project" />
                                         </div>
 
                                         <!-- Address -->
                                         <div class="mb-3 col-md-12">
                                             <label for="address" class="form-label">Address</label>
-                                            <input
-                                                class="form-control"
-                                                type="text"
-                                                id="address"
-                                                name="address"
-                                                placeholder="Enter address"
-                                                required />
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control"
+                                                    type="text"
+                                                    id="address"
+                                                    name="address"
+                                                    placeholder="Enter address" />
+                                                <button type="button" class="btn btn-primary" id="search-location">
+                                                    Search
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <!-- Project Location -->
@@ -377,38 +380,55 @@
                                                 type="text"
                                                 id="location"
                                                 name="location"
-                                                placeholder="Enter project location"
-                                                required />
+                                                placeholder="Enter project location" />
                                         </div>
 
-                                        <!-- Location Search Input -->
+                                        <!-- Project Cost -->
                                         <div class="mb-3 col-md-12">
-                                            <label for="address" class="form-label">Search Building Location</label>
-                                            <div class="input-group">
-                                                <input
-                                                    type="text"
-                                                    id="address"
-                                                    class="form-control"
-                                                    placeholder="Enter building location" />
-                                                <button type="button" class="btn btn-primary" id="search-location">
-                                                    Search
-                                                </button>
+                                            <label for="project_name" class="form-label">Project Cost</label>
+                                            <input
+                                                class="form-control"
+                                                type="text"
+                                                id="project_name"
+                                                name=""
+                                                placeholder="Project Cost" />
+                                        </div>
+
+                                        <!-- Add this input above or below your map -->
+                                        <div class="mb-3 col-md-12">
+                                            <label for="radiusRange" class="form-label fw-bold">Select Area Radius (meters)</label>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span id="radiusValue" class="fw-bold text-danger me-2">230 meters</span>
                                             </div>
-                                            <small class="text-muted">
-                                                Enter an address to pinpoint the location on the map.
-                                            </small>
+
+                                            <input
+                                                type="range"
+                                                class="form-range styled-range"
+                                                id="radiusRange"
+                                                min="20"
+                                                max="1000"
+                                                step="10"
+                                                value="100" />
+
+                                            <small class="text-muted">Drag to adjust how large your project area is.</small>
                                         </div>
 
                                         <!-- Map for pinpointing location -->
+
                                         <div class="mb-3 col-md-12">
                                             <label class="form-label">Pinpoint Building Location</label>
                                             <div id="map" style="height: 300px; border: 1px solid #ccc;"></div>
+
                                             <input type="hidden" id="latitude" name="latitude">
                                             <input type="hidden" id="longitude" name="longitude">
+
                                             <small class="text-muted">
                                                 Drag the marker to fine-tune the location.
                                             </small>
                                         </div>
+
+
+
 
                                         <!-- Project Description -->
                                         <div class="mb-3 col-md-12">
@@ -418,8 +438,7 @@
                                                 id="description"
                                                 name="description"
                                                 rows="3"
-                                                placeholder="Brief description of the project"
-                                                required></textarea>
+                                                placeholder="Brief description of the project"></textarea>
                                         </div>
 
                                         <!-- Upload Documents -->
@@ -431,8 +450,7 @@
                                                 id="documents"
                                                 name="documents[]"
                                                 multiple
-                                                accept=".pdf,.jpg,.png"
-                                                required />
+                                                accept=".pdf,.jpg,.png" />
                                             <small class="text-muted">
                                                 Accepted formats: PDF, JPG, PNG (multiple files allowed)
                                             </small>

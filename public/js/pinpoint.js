@@ -1,72 +1,133 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var draftPermits = window.draftPermits || [];
+    // Initialize map centered roughly in the Philippines (hidden marker initially)
+    const map = L.map("map", { zoomControl: true }).setView(
+        [12.8797, 121.774],
+        6
+    );
 
-    // Default coordinates (Philippines)
-    var defaultLat = 12.8797;
-    var defaultLng = 121.7740;
-
-    // Remove previous map if exists
-    if (window.map) {
-        window.map.remove();
-    }
-
-    // Initialize map
-    window.map = L.map("map").setView([defaultLat, defaultLng], 6);
-
-    // Add tiles
+    // Add OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
-        attribution: "© OpenStreetMap"
-    }).addTo(window.map);
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
 
-    var apiKey = "78122c1b953943be9e59fdff73cc1513"; // Replace with your API key
-    var bounds = L.latLngBounds(); // To auto-fit all markers
+    // Elements
+    const searchButton = document.getElementById("search-location");
+    const searchField = document.querySelector("#address");
+    const locationField = document.querySelector("#location");
+    const radiusInput = document.getElementById("radiusRange");
+    const radiusDisplay = document.getElementById("radiusValue");
 
-    function addMarker(lat, lng, name, location) {
-        let marker = L.marker([lat, lng]).addTo(window.map);
-        marker.bindPopup(`<strong>${name}</strong><br>${location || ""}`);
-        bounds.extend([lat, lng]);
-    }
+    let marker = null;
+    let circle = null;
 
-    draftPermits.forEach(function (draft) {
-        if (draft.latitude && draft.longitude) {
-            // Use DB coordinates if available
-            addMarker(draft.latitude, draft.longitude, draft.project_name, draft.location);
-        } else if (draft.location) {
-            // Fallback: Geocode the textual location
-            fetch(
-                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-                    draft.location
-                )}&key=${apiKey}`
-            )
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.results && data.results.length > 0) {
-                        let lat = data.results[0].geometry.lat;
-                        let lng = data.results[0].geometry.lng;
-                        addMarker(lat, lng, draft.project_name, draft.location);
-                        window.map.fitBounds(bounds); // Adjust to fit
-                    } else {
-                        console.warn(`Location not found: ${draft.project_name} (${draft.location})`);
-                    }
-                })
-                .catch((err) => console.error(err));
-        }
+    // 🟢 Update radius display live
+    radiusInput.addEventListener("input", function () {
+        const newRadius = parseInt(this.value);
+        if (circle) circle.setRadius(newRadius);
+        if (radiusDisplay) radiusDisplay.textContent = `${newRadius} meters`;
     });
 
-    // Auto adjust map after all markers loaded
-    setTimeout(() => {
-        if (bounds.isValid()) {
-            window.map.fitBounds(bounds);
-        }
-    }, 1000);
-
-    // Resize fix
-    function refreshMapSize() {
-        setTimeout(() => {
-            window.map.invalidateSize();
-        }, 300);
+    // 🟢 Reverse geocode coordinates → address text
+    function updateAddressFromCoords(lat, lng) {
+        fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+        )
+            .then((res) => res.json())
+            .then((data) => {
+                const text =
+                    data && data.display_name
+                        ? data.display_name
+                        : `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
+                if (searchField) searchField.value = text;
+                if (locationField) locationField.value = text;
+            })
+            .catch(() => {
+                const fallback = `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(
+                    6
+                )}`;
+                if (searchField) searchField.value = fallback;
+                if (locationField) locationField.value = fallback;
+            });
     }
-    window.addEventListener("resize", refreshMapSize);
-    refreshMapSize();
+
+    // 🟢 Unified search handler (for both button & Enter key)
+    function handleSearch() {
+        const query = searchField.value.trim();
+        if (!query) {
+            alert("Please enter a location first.");
+            return;
+        }
+
+        fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+                query
+            )}`
+        )
+            .then((res) => res.json())
+            .then((data) => {
+                if (data && data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lng = parseFloat(data[0].lon);
+                    map.setView([lat, lng], 17);
+
+                    // Marker logic
+                    if (!marker) {
+                        marker = L.marker([lat, lng], {
+                            draggable: true,
+                        }).addTo(map);
+
+                        // Update address on drag end
+                        marker.on("dragend", function (e) {
+                            const pos = e.target.getLatLng();
+                            updateAddressFromCoords(pos.lat, pos.lng);
+                            if (circle) circle.setLatLng(pos);
+                        });
+                    } else {
+                        marker.setLatLng([lat, lng]);
+                    }
+
+                    // Circle logic
+                    const radius = parseInt(radiusInput.value);
+                    if (!circle) {
+                        circle = L.circle([lat, lng], {
+                            color: "red",
+                            fillColor: "#f90c24ff",
+                            fillOpacity: 0.25,
+                            radius: radius,
+                        }).addTo(map);
+                    } else {
+                        circle.setLatLng([lat, lng]);
+                        circle.setRadius(radius);
+                    }
+
+                    // Update inputs
+                    if (searchField) searchField.value = data[0].display_name;
+                    if (locationField)
+                        locationField.value = data[0].display_name;
+
+                    setTimeout(() => {
+                        map.invalidateSize();
+                        circle.bringToFront();
+                    }, 500);
+                } else {
+                    alert("Location not found. Try another address.");
+                }
+            })
+            .catch(() => {
+                alert("Error searching for location.");
+            });
+    }
+
+    // 🟢 Trigger search only when button clicked
+    searchButton?.addEventListener("click", handleSearch);
+
+    // 🟢 Or when pressing Enter in search box
+    searchField?.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault(); // Prevent form submit refresh
+            handleSearch();
+        }
+    });
 });

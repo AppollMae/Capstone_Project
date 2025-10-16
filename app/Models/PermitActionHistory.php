@@ -25,5 +25,9 @@ class PermitActionHistory extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // In PermitApplication.php model
+   
+
     use HasFactory;
 }

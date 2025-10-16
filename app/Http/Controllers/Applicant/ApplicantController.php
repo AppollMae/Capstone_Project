@@ -308,38 +308,46 @@ class ApplicantController extends Controller
     public function pendingDraft()
     {
         $currentUser = Auth::user();
+
+        // Get all pending drafts for this user
         $pendingDrafts = PermitApplication::where('user_id', $currentUser->id)
-            ->where('status', 'pending',)
-            ->get();
-
-
-        $pendingDrafts->transform(function ($draft) {
-            if ($draft->documents) {
-                // Decode JSON safely
-                $docs = json_decode($draft->documents, true);
-
-                if (is_array($docs)) {
-                    $fileName = $docs[0]; // get first document
+            ->where('status', 'pending')
+            ->get()
+            ->map(function ($draft) {
+                // Handle document URLs
+                if ($draft->documents) {
+                    $docs = json_decode($draft->documents, true);
+                    $fileName = is_array($docs) ? $docs[0] : $draft->documents;
+                    $fileName = basename($fileName);
+                    $draft->document_url = asset('storage/documents/' . $fileName);
                 } else {
-                    $fileName = $draft->documents;
+                    $draft->document_url = null;
                 }
 
-                // Clean file name
-                $fileName = basename($fileName);
+                // Make sure lat/lng are accessible
+                $draft->latitude = $draft->latitude ?? null;
+                $draft->longitude = $draft->longitude ?? null;
 
-                // Build final URL (public/documents/)
-                $draft->document_url = asset('storage/documents/' . $fileName);
-            } else {
-                $draft->document_url = null;
-            }
+                return $draft;
+            });
 
-            return $draft;
+        // Extract map data (latitude, longitude, and draft id)
+        $mapData = $pendingDrafts->map(function ($draft) {
+            return [
+                'id' => $draft->id,
+                'latitude' => $draft->latitude,
+                'longitude' => $draft->longitude,
+            ];
         });
-        return view('applicant.drafts.pending-permit', compact('pendingDrafts', 'currentUser'), [
+
+        return view('applicant.drafts.pending-permit', compact('pendingDrafts', 'currentUser', 'mapData'), [
             'ActiveTab' => 'pending',
             'SubActiveTab' => 'permit'
         ]);
     }
+
+
+
 
 
     public function underReviewIndex()
