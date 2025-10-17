@@ -135,6 +135,8 @@ class ApplicantController extends Controller
             'location' => 'required|string|max:255',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'radiusRange' => 'required|integer|min:20|max:1000',
+            'project_cost' => 'required|numeric|min:0',
             'description' => 'required|string',
             'address' => 'required|string|max:255',
             'documents.*' => 'required|file|mimes:pdf,jpg,png|max:2048'
@@ -156,13 +158,16 @@ class ApplicantController extends Controller
         $application->location = $validated['location'];
         $application->latitude = $request->latitude;
         $application->longitude = $request->longitude;
-        $application->address = $request->address;
+        $application->radiusRange = $validated['radiusRange'];
+        $application->project_cost = $validated['project_cost'];
+        $application->address = $validated['address'];
         $application->description = $validated['description'];
         $application->documents = json_encode($documentPaths);
         $application->save();
 
         return redirect()->back()->with('success', 'Application submitted successfully!');
     }
+
 
     public function draftPermitApplication(Request $request)
     {
@@ -337,6 +342,8 @@ class ApplicantController extends Controller
                 'id' => $draft->id,
                 'latitude' => $draft->latitude,
                 'longitude' => $draft->longitude,
+                'radiusRange' => $draft->radiusRange,
+                'location' => $draft->location
             ];
         });
 

@@ -219,7 +219,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                                    <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
 
@@ -342,135 +342,132 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                     @endif
-                                    <form action="{{ route('applicants.permits.store-permit') }}" method="POST" enctype="multipart/form-data">
+                                    <form id="permitForm" action="{{ route('applicants.permits.store-permit') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
                                         <!-- Project Name -->
                                         <div class="mb-3 col-md-12">
                                             <label for="project_name" class="form-label">Project Name</label>
-                                            <input
-                                                class="form-control"
-                                                type="text"
-                                                id="project_name"
-                                                name="project_name"
-                                                placeholder="Name Of Project" />
+                                            <input class="form-control" type="text" id="project_name" name="project_name" placeholder="Name of Project" required />
                                         </div>
 
                                         <!-- Address -->
                                         <div class="mb-3 col-md-12">
                                             <label for="address" class="form-label">Address</label>
                                             <div class="input-group">
-                                                <input
-                                                    class="form-control"
-                                                    type="text"
-                                                    id="address"
-                                                    name="address"
-                                                    placeholder="Enter address" />
-                                                <button type="button" class="btn btn-primary" id="search-location">
-                                                    Search
-                                                </button>
+                                                <input class="form-control" type="text" id="address" name="address" placeholder="Name of address" required />
+                                                <button type="button" class="btn btn-primary" id="search-location">Search</button>
                                             </div>
                                         </div>
 
                                         <!-- Project Location -->
                                         <div class="mb-3 col-md-12">
                                             <label for="location" class="form-label">Project Location</label>
-                                            <input
-                                                class="form-control"
-                                                type="text"
-                                                id="location"
-                                                name="location"
-                                                placeholder="Enter project location" />
+                                            <input class="form-control" type="text" id="location" name="location" placeholder="Name of project location" required />
                                         </div>
 
                                         <!-- Project Cost -->
                                         <div class="mb-3 col-md-12">
-                                            <label for="project_name" class="form-label">Project Cost</label>
-                                            <input
-                                                class="form-control"
-                                                type="text"
-                                                id="project_name"
-                                                name=""
-                                                placeholder="Project Cost" />
+                                            <label for="project_cost" class="form-label fw-bold">Project Cost</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">₱</span>
+                                                <input class="form-control" type="number" id="project_cost" name="project_cost" step="0.01" min="0" placeholder="Enter Project Cost" required />
+                                            </div>
+                                            <small class="text-muted">Enter the total estimated cost of the project.</small>
                                         </div>
 
-                                        <!-- Add this input above or below your map -->
+                                        <!-- Area Radius -->
                                         <div class="mb-3 col-md-12">
                                             <label for="radiusRange" class="form-label fw-bold">Select Area Radius (meters)</label>
                                             <div class="d-flex align-items-center mb-2">
-                                                <span id="radiusValue" class="fw-bold text-danger me-2">230 meters</span>
+                                                <span id="radiusValue" class="fw-bold text-danger me-2">100 meters</span>
                                             </div>
-
-                                            <input
-                                                type="range"
-                                                class="form-range styled-range"
-                                                id="radiusRange"
-                                                min="20"
-                                                max="1000"
-                                                step="10"
-                                                value="100" />
-
+                                            <input type="range" class="form-range styled-range" id="radiusRange" min="20" max="1000" step="10" value="100" name="radiusRange" />
                                             <small class="text-muted">Drag to adjust how large your project area is.</small>
                                         </div>
 
-                                        <!-- Map for pinpointing location -->
-
+                                        <!-- Map -->
                                         <div class="mb-3 col-md-12">
                                             <label class="form-label">Pinpoint Building Location</label>
                                             <div id="map" style="height: 300px; border: 1px solid #ccc;"></div>
-
                                             <input type="hidden" id="latitude" name="latitude">
                                             <input type="hidden" id="longitude" name="longitude">
-
-                                            <small class="text-muted">
-                                                Drag the marker to fine-tune the location.
-                                            </small>
+                                            <small class="text-muted">Drag the marker to fine-tune the location.</small>
                                         </div>
 
-
-
-
-                                        <!-- Project Description -->
+                                        <!-- Description -->
                                         <div class="mb-3 col-md-12">
                                             <label for="description" class="form-label">Project Description</label>
-                                            <textarea
-                                                class="form-control"
-                                                id="description"
-                                                name="description"
-                                                rows="3"
-                                                placeholder="Brief description of the project"></textarea>
+                                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Brief description of the project"></textarea>
                                         </div>
 
-                                        <!-- Upload Documents -->
+                                        <!-- Documents -->
                                         <div class="mb-3 col-md-12">
                                             <label for="documents" class="form-label">Upload Required Documents</label>
-                                            <input
-                                                class="form-control"
-                                                type="file"
-                                                id="documents"
-                                                name="documents[]"
-                                                multiple
-                                                accept=".pdf,.jpg,.png" />
-                                            <small class="text-muted">
-                                                Accepted formats: PDF, JPG, PNG (multiple files allowed)
-                                            </small>
+                                            <input class="form-control" type="file" id="documents" name="documents[]" multiple accept=".pdf,.jpg,.png" />
+                                            <small class="text-muted">Accepted formats: PDF, JPG, PNG (multiple files allowed)</small>
                                         </div>
 
                                         <!-- Buttons -->
                                         <div class="mt-3">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary" id="confirmSubmitBtn">
                                                 <i class="bx bx-save me-1"></i> Submit Application
                                             </button>
 
-                                            <!-- Save as Draft Button -->
                                             <button type="submit" formaction="{{ route('applicants.permits.draft-permit') }}" class="btn btn-warning">
                                                 <i class="bx bx-edit-alt me-1"></i> Save as Draft
                                             </button>
-                                            <button type="reset" class="btn btn-secondary">
-                                                Reset
-                                            </button>
+
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
                                         </div>
                                     </form>
+
+                                    <!-- ✅ Confirmation Modal -->
+                                    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-primary text-white">
+                                                    <h5 class="modal-title text-white">Confirm Application Details</h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <p class="fw-bold">Please review the information before submitting:</p>
+
+                                                    <ul class="list-group mb-3">
+                                                        <li class="list-group-item"><strong>Project Name:</strong> <span id="confirmProjectName"></span></li>
+                                                        <li class="list-group-item"><strong>Address:</strong> <span id="confirmAddress"></span></li>
+                                                        <li class="list-group-item"><strong>Location:</strong> <span id="confirmLocation"></span></li>
+                                                        <li class="list-group-item"><strong>Project Cost:</strong> ₱<span id="confirmProjectCost"></span></li>
+                                                        <li class="list-group-item"><strong>Radius Range:</strong> <span id="confirmRadius"></span> meters</li>
+                                                        <li class="list-group-item"><strong>Description:</strong> <span id="confirmDescription"></span></li>
+                                                    </ul>
+
+                                                    <!-- 🗂️ Document preview -->
+                                                    <div class="mt-3">
+                                                        <label class="form-label fw-bold">Uploaded Documents</label>
+                                                        <div id="confirmDocuments" class="d-flex flex-wrap gap-2 border p-2 rounded" style="max-height: 200px; overflow-y: auto;">
+                                                            <p class="text-muted mb-0">No documents uploaded.</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- 🗺️ Map preview -->
+                                                    <div class="mt-3">
+                                                        <label class="form-label fw-bold">Project Location Preview</label>
+                                                        <div id="confirmMap" style="height: 300px; border: 1px solid #ccc; border-radius: 8px;"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" id="finalSubmit" class="btn btn-success">Confirm & Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                                 <!-- /Permit Application Form -->
                             </div>

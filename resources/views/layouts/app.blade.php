@@ -133,6 +133,7 @@
     <script src="{{ asset('js/point.js') }}"></script>
     <script src="{{ 'js/pinpoint.js' }}"></script>
     <script src="{{ 'js/view-map.js' }}"></script>
+    <script src="{{ asset('js/comfimation-modal.js') }}"></script>
 </body>
 
 </html>

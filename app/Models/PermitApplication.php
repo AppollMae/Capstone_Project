@@ -15,6 +15,7 @@ class PermitApplication extends Model
         'latitude',      // NEW
         'longitude',     // NEW
         'radiusRange',   // NEW
+        'project_cost',  // NEW
         'description',
         'documents',
         'status',

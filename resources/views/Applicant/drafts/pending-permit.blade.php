@@ -439,14 +439,24 @@
                                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Location Map</h5>
+                                                                        <h5 class="modal-title">
+                                                                            Location Map — Radius: {{ $map['radiusRange'] ?? 0 }} meters
+                                                                        </h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                                     </div>
                                                                     <div class="modal-body">
+                                                                        <div class="mb-2">
+                                                                            <strong>
+                                                                                📍 Location:
+                                                                                {{ $map['location'] ?? 'No location name available' }}
+                                                                            </strong>
+                                                                        </div>
+
                                                                         <div id="map-{{ $map['id'] }}"
                                                                             data-lat="{{ $map['latitude'] }}"
                                                                             data-lng="{{ $map['longitude'] }}"
-                                                                            style="height: 400px;"></div>
+                                                                            data-radius="{{ $map['radiusRange'] ?? 0 }}"
+                                                                            style="height: 400px; border: 1px solid #ccc;"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
