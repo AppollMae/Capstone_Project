@@ -130,6 +130,7 @@ class ApplicantController extends Controller
 
     public function storePermitApplication(Request $request)
     {
+        // ✅ Validate input
         $validated = $request->validate([
             'project_name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
@@ -139,19 +140,22 @@ class ApplicantController extends Controller
             'project_cost' => 'required|numeric|min:0',
             'description' => 'required|string',
             'address' => 'required|string|max:255',
-            'documents.*' => 'required|file|mimes:pdf,jpg,png|max:2048'
+            'documents' => 'required', // must exist
+            'documents.*' => 'file|mimes:pdf,jpg,jpeg,png|max:2048'
         ]);
 
-        // Store uploaded documents
+        // ✅ Handle multiple file uploads
         $documentPaths = [];
+
         if ($request->hasFile('documents')) {
             foreach ($request->file('documents') as $file) {
+                // Store each file in /storage/app/public/documents
                 $path = $file->store('documents', 'public');
                 $documentPaths[] = $path;
             }
         }
 
-        // Save to database
+        // ✅ Create new permit application record
         $application = new PermitApplication();
         $application->user_id = Auth::id();
         $application->project_name = $validated['project_name'];
@@ -162,11 +166,15 @@ class ApplicantController extends Controller
         $application->project_cost = $validated['project_cost'];
         $application->address = $validated['address'];
         $application->description = $validated['description'];
-        $application->documents = json_encode($documentPaths);
+        $application->documents = json_encode($documentPaths); // store as JSON array
         $application->save();
 
-        return redirect()->back()->with('success', 'Application submitted successfully!');
+
+
+       return redirect()->back()->with('success', 'Application submitted successfully!');
     }
+
+
 
 
     public function draftPermitApplication(Request $request)

@@ -131,9 +131,10 @@
     <script src="{{ asset('js/notif-count.js') }}"></script>
     <script src="{{ asset('js/permits-analytics.js') }}"></script>
     <script src="{{ asset('js/point.js') }}"></script>
-    <script src="{{ 'js/pinpoint.js' }}"></script>
-    <script src="{{ 'js/view-map.js' }}"></script>
+    <script src="{{ asset('js/pinpoint.js') }}"></script>
+    <script src="{{ asset('js/view-map.js') }}"></script>
     <script src="{{ asset('js/comfimation-modal.js') }}"></script>
+    <script src="{{ asset('js/multiple-files.js')}}"></script>
 </body>
 
 </html>
