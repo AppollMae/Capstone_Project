@@ -56,7 +56,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{ route('applicants.permits.view-approved-permits') }}" class="menu-link">
                 <div data-i18n="Without navbar">Approve</div>
               </a>
             </li>

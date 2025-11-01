@@ -83,11 +83,12 @@
                                     <div data-i18n="Without navbar">Apply Now</div>
                                 </a>
                             </li>
-                            <!-- <li class="menu-item">
-                                        <a href="" class="menu-link">
-                                            <div data-i18n="Without navbar">Download the required documents</div>
-                                        </a>
-                                    </li> -->
+                            <li class="menu-item">
+                                <a href="{{ route('applicants.permits.view-issue-flags', Auth::user()->id) }}"
+                                    class="menu-link">
+                                    <div data-i18n="Without navbar">Issues</div>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -256,11 +257,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                                <a class="dropdown-item" href="">
-                                                    <i class="bx bx-cog me-2"></i>
-                                                    <span class="align-middle">Settings</span>
-                                                </a>
-                                            </li> -->
+                                                    <a class="dropdown-item" href="">
+                                                        <i class="bx bx-cog me-2"></i>
+                                                        <span class="align-middle">Settings</span>
+                                                    </a>
+                                                </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -325,10 +326,10 @@
                                                 </a>
                                             </li>
                                             <!-- <li class="mt-2">
-                                                        <a href="{{ asset('downloads/other_required_document.pdf') }}" class="btn btn-outline-primary btn-sm" download>
-                                                            <i class="bx bx-download me-1"></i> Other Required Document
-                                                        </a>
-                                                    </li> -->
+                                                            <a href="{{ asset('downloads/other_required_document.pdf') }}" class="btn btn-outline-primary btn-sm" download>
+                                                                <i class="bx bx-download me-1"></i> Other Required Document
+                                                            </a>
+                                                        </li> -->
                                         </ul>
                                         <small class="text-muted">
                                             Download and fill out these forms, then upload them along with your application.
@@ -488,7 +489,7 @@
                                                     </div>
 
                                                     <div class="modal-body">
-                                                        
+
                                                         <p class="fw-bold">Please review the information before submitting:
                                                         </p>
 

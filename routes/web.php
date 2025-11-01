@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OBO\dashboard\OboController;
 use App\Http\Controllers\Treasurer\TreasurerController;
-
+use Illuminate\Console\Application;
 
 /*
 |--------------------------------------------------------------------------
@@ -154,6 +154,7 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::post('/store', [ApplicantController::class, 'storePermitApplication'])->name('store-permit');
     Route::post('/draft', [ApplicantController::class, 'draftPermitApplication'])->name('draft-permit');
     Route::get('/issue-flags/{id}', [ApplicantController::class, 'issueFlagsIndex'])->name('view-issue-flags');
+    Route::get('/approved', [ApplicantController::class, 'approvedPermitsIndex'])->name('view-approved-permits');
   });
 
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {

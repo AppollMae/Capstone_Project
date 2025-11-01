@@ -32,7 +32,7 @@
                     </li>
 
                     <!-- Layouts -->
-                    <li class="menu-item {{ $ActiveTab === 'under-review' ? 'active' : '' }}">
+                    <li class="menu-item {{ $ActiveTab === 'approve' ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon fa-solid fa-envelope"></i>
                             <div data-i18n="Layouts">My Applications</div>
@@ -311,14 +311,14 @@
                                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="javascript:void(0);">
-                                            <i class="bx bx-check-shield"></i> All Under Reviewed
+                                            <i class="bx bx-check-shield"></i> All Approved Permits
                                         </a>
                                     </li>
                                 </ul>
 
                                 <!-- Card -->
                                 <div class="card mb-4">
-                                    <h5 class="card-header">Under Review Permits</h5>
+                                    <h5 class="card-header">Approved Permits</h5>
                                     <hr class="my-0" />
 
                                     <div class="card-body">
@@ -328,7 +328,7 @@
                                             <!-- Hidden inputs to store the first location's coordinates (optional) -->
                                             <input type="hidden" id="latitude" name="latitude">
                                             <input type="hidden" id="longitude" name="longitude">
-                                            @forelse($underReviewPermits as $draft)
+                                            @forelse($approvedPermits as $draft)
                                                 <!-- Permit Card -->
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="card shadow-sm border-0 rounded-3 h-100">
@@ -562,6 +562,6 @@
 <!-- But it will display the map, the main point of this code is to pinpoint already the location -->
 <!-- That already save to the draft permits database table. -->
 <script>
-    window.draftPermits = @json($underReviewPermits);
+    window.draftPermits = @json($approvedPermits);
 </script>
 <script src="{{ asset('js/pinpoint.js') }}"></script>

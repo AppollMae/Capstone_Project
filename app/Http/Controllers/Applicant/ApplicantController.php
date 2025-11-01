@@ -171,7 +171,7 @@ class ApplicantController extends Controller
 
 
 
-       return redirect()->back()->with('success', 'Application submitted successfully!');
+        return redirect()->back()->with('success', 'Application submitted successfully!');
     }
 
 
@@ -327,31 +327,59 @@ class ApplicantController extends Controller
             ->where('status', 'pending')
             ->get()
             ->map(function ($draft) {
-                // Handle document URLs
+
+                // Temporary arrays to hold URLs
+                $documentUrls = [];
+                $imageUrls = [];
+
                 if ($draft->documents) {
                     $docs = json_decode($draft->documents, true);
-                    $fileName = is_array($docs) ? $docs[0] : $draft->documents;
-                    $fileName = basename($fileName);
-                    $draft->document_url = asset('storage/documents/' . $fileName);
-                } else {
-                    $draft->document_url = null;
+
+                    if (is_array($docs)) {
+                        foreach ($docs as $file) {
+                            $fileName = basename($file);
+                            $fileUrl = asset('storage/documents/' . $fileName);
+                            $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+                            if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                                $imageUrls[] = $fileUrl;
+                            } else {
+                                $documentUrls[] = $fileUrl;
+                            }
+                        }
+                    } else {
+                        // Handle single file (non-JSON string)
+                        $fileName = basename($draft->documents);
+                        $fileUrl = asset('storage/documents/' . $fileName);
+                        $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+                        if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                            $imageUrls[] = $fileUrl;
+                        } else {
+                            $documentUrls[] = $fileUrl;
+                        }
+                    }
                 }
 
-                // Make sure lat/lng are accessible
+                // ✅ Assign arrays as new attributes (avoid "indirect modification" error)
+                $draft->document_urls = $documentUrls;
+                $draft->image_urls = $imageUrls;
+
+                // Keep lat/lng accessible
                 $draft->latitude = $draft->latitude ?? null;
                 $draft->longitude = $draft->longitude ?? null;
 
                 return $draft;
             });
 
-        // Extract map data (latitude, longitude, and draft id)
+        // Extract map data
         $mapData = $pendingDrafts->map(function ($draft) {
             return [
                 'id' => $draft->id,
                 'latitude' => $draft->latitude,
                 'longitude' => $draft->longitude,
                 'radiusRange' => $draft->radiusRange,
-                'location' => $draft->location
+                'location' => $draft->location,
             ];
         });
 
@@ -360,8 +388,6 @@ class ApplicantController extends Controller
             'SubActiveTab' => 'permit'
         ]);
     }
-
-
 
 
 
@@ -453,4 +479,75 @@ class ApplicantController extends Controller
             ]
         );
     }
+
+    public function approvedPermitsIndex()
+    {
+        $currentUser = Auth::user();
+
+        // Get permits that are approved
+        $approvedPermits = PermitApplication::with('approved')
+            ->where('user_id', $currentUser->id) // restrict to current user
+            ->where('status', 'approved')
+            ->select('id', 'user_id', 'project_name', 'location', 'latitude', 'longitude', 'status', 'description', 'documents', 'created_at')
+            ->get()
+            ->map(function ($permit) {
+                $documentUrls = [];
+                $imageUrls = [];
+
+                if ($permit->documents) {
+                    $docs = json_decode($permit->documents, true);
+
+                    if (is_array($docs)) {
+                        foreach ($docs as $file) {
+                            $fileName = basename($file);
+                            $fileUrl = asset('storage/documents/' . $fileName);
+                            $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+                            if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                                $imageUrls[] = $fileUrl;
+                            } else {
+                                $documentUrls[] = $fileUrl;
+                            }
+                        }
+                    } else {
+                        // Handle single file (non-JSON string)
+                        $fileName = basename($permit->documents);
+                        $fileUrl = asset('storage/documents/' . $fileName);
+                        $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+                        if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                            $imageUrls[] = $fileUrl;
+                        } else {
+                            $documentUrls[] = $fileUrl;
+                        }
+                    }
+                }
+
+                // Attach as custom attributes
+                $permit->document_urls = $documentUrls;
+                $permit->image_urls = $imageUrls;
+
+                return $permit;
+            });
+
+        $locations = $approvedPermits->map(function ($permit) {
+            return [
+                'id' => $permit->id,
+                'name' => $permit->project_name,
+                'location' => $permit->location ?? null,
+                'latitude' => $permit->latitude ?? null,
+                'longitude' => $permit->longitude ?? null,
+            ];
+        });
+
+        $approvedCount = $approvedPermits->count();
+
+        return view('Applicant.permits.approve', [
+            'approvedPermits' => $approvedPermits,
+            'approvedCount' => $approvedCount,
+            'ActiveTab' => 'approve',
+            'SubActiveTab' => 'view-approve'
+        ], compact('currentUser'));
+    }
+
 }
