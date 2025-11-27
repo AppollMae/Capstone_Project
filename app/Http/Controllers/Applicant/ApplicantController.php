@@ -550,4 +550,31 @@ class ApplicantController extends Controller
         ], compact('currentUser'));
     }
 
+
+    public function unifiedFormIndex()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.unified-application-form',
+            compact('user'),
+            [
+                'ActiveTabMenu' => 'unified_app',
+                'SubActiveMenu' => 'form'
+            ]
+        );
+    }
+
+    public function unifiedFormIndexPage2()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.unified-form-page-2',
+            compact('user'),
+            [
+                'ActiveTabMenu' => 'unified_form',
+                'SubActiveMenu' => 'app'
+            ]
+        );
+    }
+
 }

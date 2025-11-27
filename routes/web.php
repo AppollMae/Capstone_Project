@@ -155,6 +155,8 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::post('/draft', [ApplicantController::class, 'draftPermitApplication'])->name('draft-permit');
     Route::get('/issue-flags/{id}', [ApplicantController::class, 'issueFlagsIndex'])->name('view-issue-flags');
     Route::get('/approved', [ApplicantController::class, 'approvedPermitsIndex'])->name('view-approved-permits');
+    Route::get('/unified-form', [ApplicantController::class, 'unifiedFormIndex'])->name('unified-application-form');
+    Route::get('unified-form-page-2', [ApplicantController::class, 'unifiedFormIndexPage2'])->name('unified-application-form-page-2');
   });
 
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {

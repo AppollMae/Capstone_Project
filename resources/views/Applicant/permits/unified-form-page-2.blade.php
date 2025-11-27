@@ -71,14 +71,14 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-item {{ $ActiveTab === 'permits' ? 'active' : '' }}">
+                    <li class="menu-item {{ $ActiveTabMenu === 'unified_form' ? 'active' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon fa-solid fa-ticket"></i>
                             <div data-i18n="Layouts">Apply for Permit</div>
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item {{ $SubActiveTab === 'application-form' ? 'active' : '' }}">
+                            <li class="menu-item {{ $SubActiveMenu === 'app' ? 'active' : ''}}">
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without navbar">Apply Now</div>
                                 </a>
@@ -257,11 +257,11 @@
                                         </a>
                                     </li>
                                     <!-- <li>
-                                                            <a class="dropdown-item" href="">
-                                                                <i class="bx bx-cog me-2"></i>
-                                                                <span class="align-middle">Settings</span>
-                                                            </a>
-                                                        </li> -->
+                                                                                                <a class="dropdown-item" href="">
+                                                                                                    <i class="bx bx-cog me-2"></i>
+                                                                                                    <span class="align-middle">Settings</span>
+                                                                                                </a>
+                                                                                            </li> -->
                                     <li>
                                         <a class="dropdown-item" href="">
                                             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -316,166 +316,255 @@
                                     <hr class="my-0" />
 
                                     <!-- Download Required Forms -->
-                                    <div class="mb-2 p-3">
-                                        <h6 class="fw-bold">Download Required Forms</h6>
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <a href="{{ asset('downloads/Building-Application-Form-Permit.pdf') }}"
-                                                    class="btn btn-outline-primary btn-sm" download>
-                                                    <i class="bx bx-download me-1"></i> Building Application Form
-                                                </a>
-                                            </li>
-                                            <!-- <li class="mt-2">
-                                                                    <a href="{{ asset('downloads/other_required_document.pdf') }}" class="btn btn-outline-primary btn-sm" download>
-                                                                        <i class="bx bx-download me-1"></i> Other Required Document
-                                                                    </a>
-                                                                </li> -->
-                                        </ul>
-                                        <small class="text-muted">
-                                            Download and fill out these forms, then upload them along with your application.
-                                        </small>
-                                    </div>
+
 
                                     <hr class="my-0" />
 
                                     <!-- Permit Application Form -->
-                                    <div class="card-body">
-                                        @if(session('success'))
-                                            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                                                {{ session('success') }}
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    <div class="container mt-4">
+                                        <!-- logout-form -->
+                                        <div class="position-relative text-center mb-3 py-2">
+
+                                            <!-- Responsive Logo -->
+                                            <img src="{{ asset('images/Municipality_logo.jpg') }}" alt="Municipality Logo"
+                                                class="position-absolute logo-responsive">
+
+                                            <!-- Centered Text -->
+                                            <h4 class="fw-bold mb-0 px-4">
+                                                <span class="d-block">Republic of the Philippines</span>
+                                                <span class="d-block">Municipality of Bontoc</span>
+                                                <span class="d-block">Province of Southern Leyte</span>
+                                                <span class="d-block mt-2 fs-4">
+                                                    UNIFIED APPLICATION FORM FOR BUILDING PERMIT
+                                                </span>
+                                            </h4>
+                                        </div>
+
+                                        <hr class="my-0" />
+
+                                        <!-- BOX 6 — TO BE ACCOMPLISHED BY THE PROCESSING AND EVALUATION DIVISION -->
+                                        <div class="card">
+                                            <div class="card-header text-center fw-bold">
+                                                BOX 6 – TO BE ACCOMPLISHED BY THE PROCESSING AND EVALUATION DIVISION
                                             </div>
-                                        @endif
+
+                                            <div class="card-body">
+
+                                                <!-- ASSESSED FEES TABLE -->
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead class="table-light text-center">
+                                                            <tr>
+                                                                <th width="30%">ASSESSED FEES</th>
+                                                                <th width="25%">ACCOUNT</th>
+                                                                <th width="25%">BASIS OF ASSESSMENT</th>
+                                                                <th width="20%">AMOUNT DUE</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+
+                                                            <!-- ZONING -->
+                                                            <tr>
+                                                                <td><strong>FOR ZONING (ZONING ADMINISTRATOR):</strong></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">LOCATIONAL / ZONING OF LAND</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <!-- BUILDING / OBO -->
+                                                            <tr>
+                                                                <td><strong>FOR BUILDING / STRUCTURE (OBO):</strong></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="ps-4">FILING FEE</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">LINE AND GRADE (Geodetic)</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">FENCING</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">ARCHITECTURAL</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">CIVIL / STRUCTURAL</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">ELECTRICAL</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">MECHANICAL</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">SANITARY</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">PLUMBING</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">ELECTRONICS</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">INTERIOR</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">SURCHARGES</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">PENALTIES</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <!-- FIRE SAFETY -->
+                                                            <tr>
+                                                                <td><strong>FOR FIRE SAFETY (BFP):</strong></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="ps-4">FIRE CODE CONSTRUCTION TAX</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ps-4">HOTWORKS</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            <!-- TOTAL -->
+                                                            <tr class="table-secondary">
+                                                                <td class="fw-bold text-end">TOTAL</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
 
-                                        <form id="permitForm" action="{{ route('applicants.permits.store-permit') }}"
-                                            method="POST" enctype="multipart/form-data">
-                                            @csrf
+                                                <!-- TERMS AND CONDITIONS -->
+                                                <div class="mt-4">
+                                                    <h5 class="fw-bold">TERMS AND CONDITIONS:</h5>
+                                                    <ol>
+                                                        <li>
+                                                            The Owner/Applicant shall accomplish the prescribed Application
+                                                            Form, with the assistance
+                                                            of the concerned design professionals and/or the Architect/Civil
+                                                            Engineer, hired/commissioned
+                                                            by him/her as full-time inspector/supervisor of the construction
+                                                            works, by filling up the
+                                                            necessary data / information required therein.
+                                                        </li>
 
-                                            <!-- Project Name -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="project_name" class="form-label">Project Name</label>
-                                                <input class="form-control" type="text" id="project_name"
-                                                    name="project_name" placeholder="Name of Project" required />
-                                            </div>
+                                                        <li class="mt-2">
+                                                            The fully accomplished prescribed Application Form, duly
+                                                            notarized, shall be submitted to the
+                                                            concerned Office of the Building Official, accompanied by the
+                                                            various applicable ancillary and
+                                                            accessory permits, plans and specifications signed and sealed by
+                                                            the corresponding design
+                                                            professionals who shall be responsible for the comprehensive and
+                                                            correctness of the plans in
+                                                            compliance to the National Building Code of the Philippines (PD
+                                                            1096), its Revised IRR and all
+                                                            applicable referral codes and professional regulatory laws,
+                                                            together with other documentary
+                                                            requirements pursuant to Section 302 of PD 1096 and its Revised
+                                                            IRR.
+                                                        </li>
+                                                    </ol>
 
-                                            <!-- Address -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="address" class="form-label">Address</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" type="text" id="address" name="address"
-                                                        placeholder="Name of address" required />
-                                                    <button type="button" class="btn btn-primary"
-                                                        id="search-location">Search</button>
+                                                    <p class="mt-3">
+                                                        I have read this form, understood its contents and consent to the
+                                                        processing of my personal data.
+                                                        I understand that my consent does not preclude the existence of
+                                                        other criteria for lawful processing
+                                                        of personal data, and does not waive any of my rights under the Data
+                                                        Privacy Act of 2012 and other
+                                                        applicable laws.
+                                                    </p>
+                                                </div>
+
+                                                <!-- SIGNATURE -->
+                                                <div class="mt-4 text-center">
+                                                    <label class="fw-bold">SIGNATURE OVER PRINTED NAME OF OWNER /
+                                                        APPLICANT</label>
+                                                    <div class="border-top mt-2"
+                                                        style="width:60%; margin:auto; height:40px;"></div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <a href="{{ route('applicants.permits.unified-application-form') }}"
+                                                        class="btn btn-secondary py-2">
+                                                        ← Previous
+                                                    </a>
+
+                                                    <a href="" class="btn btn-primary">
+                                                        Next →
+                                                    </a>
                                                 </div>
                                             </div>
-
-                                            <!-- Project Location -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="location" class="form-label">Project Location</label>
-                                                <input class="form-control" type="text" id="location" name="location"
-                                                    placeholder="Name of project location" required />
-                                            </div>
-
-                                            <!-- Project Cost -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="project_cost" class="form-label fw-bold">Project Cost</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-text">₱</span>
-                                                    <input class="form-control" type="number" id="project_cost"
-                                                        name="project_cost" step="0.01" min="0"
-                                                        placeholder="Enter Project Cost" required />
-                                                </div>
-                                                <small class="text-muted">Enter the total estimated cost of the
-                                                    project.</small>
-                                            </div>
-
-                                            <!-- Area Radius -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="radiusRange" class="form-label fw-bold">Select Area Radius
-                                                    (meters)</label>
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <span id="radiusValue" class="fw-bold text-danger me-2">100
-                                                        meters</span>
-                                                </div>
-                                                <input type="range" class="form-range styled-range" id="radiusRange"
-                                                    min="20" max="1000" step="10" value="100" name="radiusRange" />
-                                                <small class="text-muted">Drag to adjust how large your project area
-                                                    is.</small>
-                                            </div>
-
-                                            <!-- Map -->
-                                            <div class="mb-3 col-md-12">
-                                                <label class="form-label">Pinpoint Building Location</label>
-                                                <div id="map" style="height: 300px; border: 1px solid #ccc;"></div>
-                                                <input type="hidden" id="latitude" name="latitude">
-                                                <input type="hidden" id="longitude" name="longitude">
-                                                <small class="text-muted">Drag the marker to fine-tune the location.</small>
-                                            </div>
-
-                                            <!-- Description -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="description" class="form-label">Project Description</label>
-                                                <textarea class="form-control" id="description" name="description" rows="3"
-                                                    placeholder="Brief description of the project"></textarea>
-                                            </div>
-
-                                            <!-- 📂 Upload Required Documents -->
-                                            <div class="mb-3 col-md-12">
-                                                <label for="documents" class="form-label">Upload Required Documents</label>
-                                                <input class="form-control" type="file" id="documents" name="documents[]"
-                                                    multiple accept=".pdf,.jpg,.jpeg,.png" />
-                                                <small class="text-muted">Accepted formats: PDF, JPG, JPEG, PNG (you can
-                                                    upload multiple files)</small>
-                                            </div>
-
-                                            <!-- 🗂️ Uploaded Documents (Before Modal) -->
-                                            <div class="mt-3">
-                                                <label class="form-label fw-bold">Uploaded Documents</label>
-                                                <div id="uploadedDocsPreview"
-                                                    class="d-flex flex-wrap gap-2 border p-2 rounded"
-                                                    style="max-height:200px; overflow-y:auto;">
-                                                    <p class="text-muted mb-0">No documents uploaded.</p>
-                                                </div>
-                                            </div>
-
-                                            <!-- 🖼️ Document/Image Preview Modal -->
-                                            <div class="modal fade" id="docPreviewModal" tabindex="-1"
-                                                aria-labelledby="docPreviewLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="docPreviewLabel">Document Preview
-                                                            </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body text-center">
-                                                            <div id="docPreviewContainer"
-                                                                style="max-height:80vh; overflow:auto;">
-                                                                <!-- Content dynamically inserted by JS -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <!-- Buttons -->
-                                            <div class="mt-3">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cancel</button>
-
-                                                <a href="{{ route('applicants.permits.unified-application-form') }}"
-                                                    class="btn btn-primary">
-                                                    Next →
-                                                </a>
-                                            </div>
-                                        </form>
-
+                                        </div>
 
                                     </div>
+
                                     <!-- /Permit Application Form -->
                                 </div>
                                 <!-- /Permit Application Card -->
