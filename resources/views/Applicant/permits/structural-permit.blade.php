@@ -311,7 +311,7 @@
                                 </ul>
 
                                 <!-- Permit Application Card -->
-                                <div class="container">
+                                <div class="container-xxl mt-4">
 
 
 <h2 style="text-align:center; margin:0;">Republic of the Philippines</h2>
