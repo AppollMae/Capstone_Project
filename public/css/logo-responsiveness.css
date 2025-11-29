@@ -1,0 +1,51 @@
+/* Make the logo responsive */
+.logo-responsive {
+    height: 75px;
+    top: 0;
+    left: 15px;
+}
+
+/* On mobile screens */
+@media (max-width: 576px) {
+    .logo-responsive {
+        height: 55px;
+        /* smaller logo */
+        left: 10px;
+        top: 5px;
+    }
+
+    h4 span {
+        font-size: 14px;
+        /* reduce text size slightly */
+    }
+
+    h4 span.fs-4 {
+        font-size: 16px !important;
+        font-weight: 700;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 400px) {
+    .logo-responsive {
+        height: 45px;
+        left: 5px;
+    }
+
+    h4 span {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    table td,
+    table th {
+        font-size: 13px;
+        padding: 6px !important;
+    }
+
+    .ps-4 {
+        padding-left: 1rem !important;
+    }
+}

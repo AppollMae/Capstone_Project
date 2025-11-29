@@ -1,0 +1,27 @@
+#notificationDropdown::after {
+    display: none !important;
+}
+
+.dropdown-menu {
+    width: 300px !important;
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .dropdown-menu {
+        width: 90vw !important;
+        font-size: 14px;
+    }
+    .notification-text {
+        max-height: 100px;
+        overflow-y: auto;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+}

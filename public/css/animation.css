@@ -1,0 +1,85 @@
+.menu-icon.fa-envelope {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.menu-icon.fa-envelope:hover {
+    animation: flap 1s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+@keyframes flap {
+    0%,
+    100% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(35deg);
+    }
+}
+
+.menu-icon.fa-envelope.pulse:hover {
+    animation: pulse 0.6s infinite;
+}
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.menu-icon.fa-envelope.shake:hover {
+    animation: shake 0.4s infinite;
+}
+@keyframes shake {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+}
+
+.dropdown-hover:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* keeps it aligned */
+}
+
+/* Highlight parent button when hovering */
+.dropdown-hover:hover > .btn {
+    background-color: #0d6efd; /* Bootstrap primary */
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+/* Highlight dropdown items when hovering */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f0f8ff; /* light blue */
+    color: #0d6efd;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pop-effect {
+    animation: pop 0.6s ease-in-out;
+    animation-iteration-count: 3; /* Pops 3 times */
+}
