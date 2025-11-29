@@ -22,7 +22,7 @@
 
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
+    <link rel="icon" type="image/x-icon" href="{{asset('images/Logo.png')}}" />
 
     <!-- Custom CSS -->
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
