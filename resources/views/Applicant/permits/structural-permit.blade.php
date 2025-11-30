@@ -323,11 +323,22 @@
                                     <!-- Permit Application Form -->
                                     <div class="container-xxl mt-4">
 
-                                <h2 style="text-align:center; margin:0;">Republic of the Philippines</h2>
-                                <h3 style="text-align:center; margin:0;">Municipality of Bontoc</h3>
-                                <h4 style="text-align:center; margin:0;">Province of Southern Leyte</h4>
-                                <h2 style="text-align:center; margin-top:10px;">OFFICE OF THE BUILDING OFFICIAL</h2>
-                                <h2 style="text-align:center;">CIVIL/STRUCTURAL PERMIT</h2>
+                                <div class="position-relative text-center mb-3 py-2">
+
+                                            <!-- Responsive Logo -->
+                                            <img src="{{ asset('images/Municipality_logo.jpg') }}" alt="Municipality Logo"
+                                                class="position-absolute logo-responsive">
+
+                                            <!-- Centered Text -->
+                                            <h4 class="fw-bold mb-0 px-4">
+                                                <span class="d-block">Republic of the Philippines</span>
+                                                <span class="d-block">Municipality of Bontoc</span>
+                                                <span class="d-block">Province of Southern Leyte</span>
+                                                <span class="d-block mt-2 fs-4">
+                                                    Structural Permit
+                                                </span>
+                                            </h4>
+                                        </div>
 
                                 <table border="1" style="width:100%; margin-bottom:20px;">
                                     <tr>
