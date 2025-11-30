@@ -335,7 +335,7 @@
                                                 <span class="d-block">Municipality of Bontoc</span>
                                                 <span class="d-block">Province of Southern Leyte</span>
                                                 <span class="d-block mt-2 fs-4">
-                                                    Structural Permit
+                                                    CIVIL/STRUCTURAL PERMIT
                                                 </span>
                                             </h4>
                                         </div>
