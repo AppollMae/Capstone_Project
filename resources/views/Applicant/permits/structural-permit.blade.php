@@ -311,7 +311,17 @@
                             </ul>
 
                             <!-- Permit Application Card -->
-                            <div class="container-xxl mt-4">
+                            <div class="card mb-4">
+                                    <h5 class="card-header">Permit Application Form</h5>
+                                    <hr class="my-0" />
+
+                                    <!-- Download Required Forms -->
+
+
+                                    <hr class="my-0" />
+
+                                    <!-- Permit Application Form -->
+                                    <div class="container-xxl mt-4">
 
                                 <h2 style="text-align:center; margin:0;">Republic of the Philippines</h2>
                                 <h3 style="text-align:center; margin:0;">Municipality of Bontoc</h3>
@@ -446,6 +456,9 @@
                                 </table>
 
                             </div>
+
+                                    <!-- /Permit Application Form -->
+                                </div> 
 
                             <!-- /Permit Application Card -->
 
