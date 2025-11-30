@@ -47,7 +47,7 @@ class ApplicantController extends Controller
             ->whereIn('status', ['pending', 'under_review', 'approved', 'rejected'])
             ->count();
 
-        return view('applicant.dashboard.index', compact(
+        return view('Applicant.dashboard.index', compact(
             'draftpermitcount',
             'pendingCounts',
             'underReviewCount',
