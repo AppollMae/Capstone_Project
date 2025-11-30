@@ -313,106 +313,140 @@
                                 <!-- Permit Application Card -->
                                 <div class="container-xxl mt-4">
 
+    <h2 style="text-align:center; margin:0;">Republic of the Philippines</h2>
+    <h3 style="text-align:center; margin:0;">Municipality of Bontoc</h3>
+    <h4 style="text-align:center; margin:0;">Province of Southern Leyte</h4>
+    <h2 style="text-align:center; margin-top:10px;">OFFICE OF THE BUILDING OFFICIAL</h2>
+    <h2 style="text-align:center;">CIVIL/STRUCTURAL PERMIT</h2>
 
-<h2 style="text-align:center; margin:0;">Republic of the Philippines</h2>
-<h3 style="text-align:center; margin:0;">Municipality of Bontoc</h3>
-<h4 style="text-align:center; margin:0;">Province of Southern Leyte</h4>
-<h2 style="text-align:center; margin-top:10px;">OFFICE OF THE BUILDING OFFICIAL</h2>
-<h2 style="text-align:center;">CIVIL/STRUCTURAL PERMIT</h2>
+    <table border="1" style="width:100%; margin-bottom:20px;">
+        <tr>
+            <td>Application No.<br><input type="text" name="application_no"></td>
+            <td>C/SP No.<br><input type="text" name="csp_no"></td>
+            <td>Building Permit No.<br><input type="text" name="permit_no"></td>
+        </tr>
+    </table>
 
+    <div class="section-title">BOX 1 (TO BE ACCOMPLISHED IN PRINT BY THE OWNER/APPLICANT)</div>
 
-<table>
-<tr>
-<td>Application No.</td>
-<td>C/SP No.</td>
-<td>Building Permit No.</td>
-</tr>
-</table>
+    <table border="1" style="width:100%; margin-bottom:20px;">
+        <tr>
+            <td>
+                Owner/Applicant<br>
+                Last Name:<br><input type="text" name="owner_lastname"><br>
+                First Name:<br><input type="text" name="owner_firstname"><br>
+                M.I.:<br><input type="text" name="owner_mi"><br>
+                TIN:<br><input type="text" name="owner_tin">
+            </td>
+            <td>
+                For Construction Owned<br>
+                Form of Ownership:<br><input type="text" name="form_ownership"><br>
+                Use or Character of Occupancy:<br><input type="text" name="occupancy">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address:<br>
+                No., Street, Barangay, City/Municipality, Zip Code:<br><input type="text" name="owner_address"><br>
+                Telephone No.:<br><input type="text" name="owner_phone">
+            </td>
+            <td>
+                Location of Construction:<br>
+                Lot No., Blk No., TCT No., Tax Dec No., Street, Barangay, City/Municipality:<br>
+                <input type="text" name="construction_location">
+            </td>
+        </tr>
+    </table>
 
+    <div class="section-title">SCOPE OF WORK</div>
 
-<div class="section-title">BOX 1 (TO BE ACCOMPLISHED IN PRINT BY THE OWNER/APPLICANT)</div>
+    <table border="1" style="width:100%; margin-bottom:20px;">
+        <tr>
+            <td><input type="checkbox" name="scope[]" value="New Construction"> New Construction</td>
+            <td><input type="checkbox" name="scope[]" value="Renovation"> Renovation</td>
+            <td><input type="checkbox" name="scope[]" value="Raising"> Raising</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="scope[]" value="Erection"> Erection</td>
+            <td><input type="checkbox" name="scope[]" value="Conversion"> Conversion</td>
+            <td><input type="checkbox" name="scope[]" value="Demolition"> Demolition</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="scope[]" value="Addition"> Addition</td>
+            <td><input type="checkbox" name="scope[]" value="Repair"> Repair</td>
+            <td>
+                Accessory Building/Structure:<br>
+                <input type="text" name="scope_accessory">
+            </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="scope[]" value="Alteration"> Alteration</td>
+            <td><input type="checkbox" name="scope[]" value="Moving"> Moving</td>
+            <td>
+                Others:<br>
+                <input type="text" name="scope_others">
+            </td>
+        </tr>
+    </table>
 
+    <div class="section-title">BOX 2 (TO BE ACCOMPLISHED BY THE DESIGN PROFESSIONAL)</div>
 
-<table>
-<tr>
-<td>Owner/Applicant<br>Last Name:<br>First Name:<br>M.I.:<br>TIN:</td>
-<td>For Construction Owned<br>Form of Ownership<br>Use or Character of Occupancy</td>
-</tr>
-<tr>
-<td>Address<br>No., Street, Barangay, City/Municipality, Zip Code<br>Telephone No.</td>
-<td>Location of Construction<br>Lot No., Blk No., TCT No., Tax Dec No., Street, Barangay, City/Municipality</td>
-</tr>
-</table>
+    <table border="1" style="width:100%; margin-bottom:20px;">
+        <tr>
+            <td><input type="checkbox" name="design[]" value="Staking"> Staking</td>
+            <td><input type="checkbox" name="design[]" value="Reinforcing"> Reinforcing</td>
+            <td><input type="checkbox" name="design[]" value="Prestress Works"> Prestress Works</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="design[]" value="Excavation"> Excavation</td>
+            <td><input type="checkbox" name="design[]" value="Concrete Framing"> Concrete Framing</td>
+            <td><input type="checkbox" name="design[]" value="Material Testing"> Material Testing</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="design[]" value="Soil Stabilization"> Soil Stabilization</td>
+            <td><input type="checkbox" name="design[]" value="Structural Steel Framing"> Structural Steel Framing</td>
+            <td><input type="checkbox" name="design[]" value="Steel Trusses"> Steel Trusses</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="design[]" value="Piling Works"> Piling Works</td>
+        </tr>
+    </table>
 
+    <div class="section-title">BOX 3 - DESIGN PROFESSIONAL, PLANS AND SPECIFICATIONS</div>
 
-<div class="section-title">SCOPE OF WORK</div>
+    <table border="1" style="width:100%; margin-bottom:20px;">
+        <tr>
+            <td>
+                Civil/Structural Engineer (Signed and Sealed Over Printed Name)<br>
+                <input type="text" name="engineer_name"><br>
+                Date:<br><input type="date" name="engineer_date"><br>
+                Address:<br><input type="text" name="engineer_address"><br>
+                PRC No.:<br><input type="text" name="prc_no"><br>
+                Validity:<br><input type="text" name="prc_validity"><br>
+                PTR No.:<br><input type="text" name="ptr_no"><br>
+                Date Issued:<br><input type="date" name="ptr_date"><br>
+                Issued at:<br><input type="text" name="ptr_issued_at"><br>
+                TIN:<br><input type="text" name="engineer_tin">
+            </td>
+        </tr>
+    </table>
 
+    <div class="section-title">BOX 4 - SUPERVISOR/IN-CHARGE OF CIVIL/STRUCTURAL WORKS</div>
 
-<table>
-<tr>
-<td><input type="checkbox"> New Construction</td>
-<td><input type="checkbox"> Renovation</td>
-<td><input type="checkbox"> Raising</td>
-</tr>
-<tr>
-<td><input type="checkbox"> Erection</td>
-<td><input type="checkbox"> Conversion</td>
-<td><input type="checkbox"> Demolition</td>
-</tr>
-<tr>
-<td><input type="checkbox"> Addition</td>
-<td><input type="checkbox"> Repair</td>
-<td><input type="checkbox"> Accessory Building/Structure (Specify)</td>
-</tr>
-<tr>
-<td><input type="checkbox"> Alteration</td>
-<td><input type="checkbox"> Moving</td>
-<td><input type="checkbox"> Others (Specify)</td>
-</tr>
-</table>
+    <table border="1" style="width:100%; margin-bottom:20px;">
+        <tr>
+            <td>
+                Name:<br><input type="text" name="supervisor_name"><br>
+                Position:<br><input type="text" name="supervisor_position"><br>
+                PRC No.:<br><input type="text" name="supervisor_prc"><br>
+                TIN:<br><input type="text" name="supervisor_tin"><br>
+                Date Assigned:<br><input type="date" name="supervisor_date">
+            </td>
+        </tr>
+    </table>
 
-
-<div class="section-title">BOX 2 (TO BE ACCOMPLISHED BY THE DESIGN PROFESSIONAL)</div>
-
-
-<table>
-<tr>
-<td><input type="checkbox"> Staking</td>
-<td><input type="checkbox"> Reinforcing</td>
-<td><input type="checkbox"> Prestress Works</td>
-</tr>
-<tr>
-<td><input type="checkbox"> Excavation</td>
-<td><input type="checkbox"> Concrete Framing</td>
-<td><input type="checkbox"> Material Testing</td>
-</tr>
-<tr>
-<td><input type="checkbox"> Soil Stabilization</td>
-<td><input type="checkbox"> Structural Steel Framing</td>
-<td><input type="checkbox"> Steel Trusses</td>
-</tr>
-<tr>
-<td><input type="checkbox"> Piling Works</td>
-</tr>
-</table>
-
-
-<div class="section-title">BOX 3 - DESIGN PROFESSIONAL, PLANS AND SPECIFICATIONS</div>
-
-
-<table>
-<tr>
-<td>Civil/Structural Engineer (Signed and Sealed Over Printed Name)<br>Date:<br>Address:<br>PRC No.:<br>Validity:<br>PTR No.:<br>Date Issued:<br>Issued at:<br>TIN:</td>
-</tr>
-</table>
-
-
-<div class="section-title">BOX 4 - SUPERVISOR/IN-CHARGE OF CIVIL/STRUCTURAL WORKS</div>
-
-
-<table>
-<tr>
 </div>
+
                                 <!-- /Permit Application Card -->
 
                             </div>

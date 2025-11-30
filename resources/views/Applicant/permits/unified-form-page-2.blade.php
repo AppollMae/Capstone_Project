@@ -556,7 +556,7 @@
                                                         ← Previous
                                                     </a>
 
-                                                    <a href="" class="btn btn-primary">
+                                                    <a href="{{ route('structural-permit') }}" class="btn btn-primary">
                                                         Next →
                                                     </a>
                                                 </div>
