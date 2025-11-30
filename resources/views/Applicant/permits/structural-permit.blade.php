@@ -340,131 +340,175 @@
                                             </h4>
                                         </div>
 
-                                <table border="1" style="width:100%; margin-bottom:20px;">
-                                    <tr>
-                                        <td>Application No.<br><input type="text" name="application_no"></td>
-                                        <td>C/SP No.<br><input type="text" name="csp_no"></td>
-                                        <td>Building Permit No.<br><input type="text" name="permit_no"></td>
-                                    </tr>
-                                </table>
+                                <form method="POST" action="">
+    @csrf
 
-                                <div class="section-title">BOX 1 (TO BE ACCOMPLISHED IN PRINT BY THE OWNER/APPLICANT)</div>
+    <!-- APPLICATION DETAILS -->
+    <!-- HEADER: APPLICATION NUMBERS -->
+<div class="border p-3 rounded mb-3">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="form-label">Application No.</label>
+            <input type="text" class="form-control" name="application_no">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">C/SP No.</label>
+            <input type="text" class="form-control" name="csp_no">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Building Permit No.</label>
+            <input type="text" class="form-control" name="building_permit_no">
+        </div>
+    </div>
+</div>
 
-                                <table border="1" style="width:100%; margin-bottom:20px;">
-                                    <tr>
-                                        <td>
-                                            Owner/Applicant<br>
-                                            Last Name:<br><input type="text" name="owner_lastname"><br>
-                                            First Name:<br><input type="text" name="owner_firstname"><br>
-                                            M.I.:<br><input type="text" name="owner_mi"><br>
-                                            TIN:<br><input type="text" name="owner_tin">
-                                        </td>
-                                        <td>
-                                            For Construction Owned<br>
-                                            Form of Ownership:<br><input type="text" name="form_ownership"><br>
-                                            Use or Character of Occupancy:<br><input type="text" name="occupancy">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Address:<br>
-                                            No., Street, Barangay, City/Municipality, Zip Code:<br><input type="text" name="owner_address"><br>
-                                            Telephone No.:<br><input type="text" name="owner_phone">
-                                        </td>
-                                        <td>
-                                            Location of Construction:<br>
-                                            Lot No., Blk No., TCT No., Tax Dec No., Street, Barangay, City/Municipality:<br>
-                                            <input type="text" name="construction_location">
-                                        </td>
-                                    </tr>
-                                </table>
+<!-- BOX 1 -->
+<div class="border p-3 rounded mb-3">
+    <h5 class="fw-bold">BOX 1 — TO BE ACCOMPLISHED BY THE OWNER/APPLICANT</h5>
 
-                                <div class="section-title">SCOPE OF WORK</div>
+    <!-- OWNER NAME + TIN -->
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="owner_lastname">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" name="owner_firstname">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">M.I.</label>
+            <input type="text" class="form-control" name="owner_mi">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">TIN</label>
+            <input type="text" class="form-control" name="owner_tin">
+        </div>
+    </div>
 
-                                <table border="1" style="width:100%; margin-bottom:20px;">
-                                    <tr>
-                                        <td><input type="checkbox" name="scope[]" value="New Construction"> New Construction</td>
-                                        <td><input type="checkbox" name="scope[]" value="Renovation"> Renovation</td>
-                                        <td><input type="checkbox" name="scope[]" value="Raising"> Raising</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="scope[]" value="Erection"> Erection</td>
-                                        <td><input type="checkbox" name="scope[]" value="Conversion"> Conversion</td>
-                                        <td><input type="checkbox" name="scope[]" value="Demolition"> Demolition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="scope[]" value="Addition"> Addition</td>
-                                        <td><input type="checkbox" name="scope[]" value="Repair"> Repair</td>
-                                        <td>
-                                            Accessory Building/Structure:<br>
-                                            <input type="text" name="scope_accessory">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="scope[]" value="Alteration"> Alteration</td>
-                                        <td><input type="checkbox" name="scope[]" value="Moving"> Moving</td>
-                                        <td>
-                                            Others:<br>
-                                            <input type="text" name="scope_others">
-                                        </td>
-                                    </tr>
-                                </table>
+    <!-- OWNERSHIP + OCCUPANCY -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="form-label">Form of Ownership</label>
+            <input type="text" class="form-control" name="form_ownership">
+        </div>
+        <div class="col-md-8">
+            <label class="form-label">Use or Character of Occupancy</label>
+            <input type="text" class="form-control" name="occupancy">
+        </div>
+    </div>
 
-                                <div class="section-title">BOX 2 (TO BE ACCOMPLISHED BY THE DESIGN PROFESSIONAL)</div>
+    <!-- OWNER ADDRESS (NO, STREET, BARANGAY, CITY, ZIP, TEL) -->
+    <h6 class="fw-bold mt-3">Owner Address</h6>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label class="form-label">No.</label>
+            <input type="text" class="form-control" name="owner_no">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Street</label>
+            <input type="text" class="form-control" name="owner_street">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Barangay</label>
+            <input type="text" class="form-control" name="owner_barangay">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">City/Municipality</label>
+            <input type="text" class="form-control" name="owner_city">
+        </div>
+    </div>
 
-                                <table border="1" style="width:100%; margin-bottom:20px;">
-                                    <tr>
-                                        <td><input type="checkbox" name="design[]" value="Staking"> Staking</td>
-                                        <td><input type="checkbox" name="design[]" value="Reinforcing"> Reinforcing</td>
-                                        <td><input type="checkbox" name="design[]" value="Prestress Works"> Prestress Works</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="design[]" value="Excavation"> Excavation</td>
-                                        <td><input type="checkbox" name="design[]" value="Concrete Framing"> Concrete Framing</td>
-                                        <td><input type="checkbox" name="design[]" value="Material Testing"> Material Testing</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="design[]" value="Soil Stabilization"> Soil Stabilization</td>
-                                        <td><input type="checkbox" name="design[]" value="Structural Steel Framing"> Structural Steel Framing</td>
-                                        <td><input type="checkbox" name="design[]" value="Steel Trusses"> Steel Trusses</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" name="design[]" value="Piling Works"> Piling Works</td>
-                                    </tr>
-                                </table>
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label class="form-label">ZIP Code</label>
+            <input type="text" class="form-control" name="owner_zip">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Telephone No.</label>
+            <input type="text" class="form-control" name="owner_tel">
+        </div>
+    </div>
 
-                                <div class="section-title">BOX 3 - DESIGN PROFESSIONAL, PLANS AND SPECIFICATIONS</div>
+    <!-- LOCATION OF CONSTRUCTION -->
+    <h6 class="fw-bold mt-4">Location of Construction</h6>
 
-                                <table border="1" style="width:100%; margin-bottom:20px;">
-                                    <tr>
-                                        <td>
-                                            Civil/Structural Engineer (Signed and Sealed Over Printed Name)<br>
-                                            <input type="text" name="engineer_name"><br>
-                                            Date:<br><input type="date" name="engineer_date"><br>
-                                            Address:<br><input type="text" name="engineer_address"><br>
-                                            PRC No.:<br><input type="text" name="prc_no"><br>
-                                            Validity:<br><input type="text" name="prc_validity"><br>
-                                            PTR No.:<br><input type="text" name="ptr_no"><br>
-                                            Date Issued:<br><input type="date" name="ptr_date"><br>
-                                            Issued at:<br><input type="text" name="ptr_issued_at"><br>
-                                            TIN:<br><input type="text" name="engineer_tin">
-                                        </td>
-                                    </tr>
-                                </table>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label class="form-label">Lot No.</label>
+            <input type="text" class="form-control" name="lot_no">
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Blk No.</label>
+            <input type="text" class="form-control" name="blk_no">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">TCT No.</label>
+            <input type="text" class="form-control" name="tct_no">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Tax Dec. No.</label>
+            <input type="text" class="form-control" name="tax_dec_no">
+        </div>
+    </div>
 
-                                <div class="section-title">BOX 4 - SUPERVISOR/IN-CHARGE OF CIVIL/STRUCTURAL WORKS</div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="form-label">Street</label>
+            <input type="text" class="form-control" name="construction_street">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Barangay</label>
+            <input type="text" class="form-control" name="construction_barangay">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">City/Municipality</label>
+            <input type="text" class="form-control" name="construction_city">
+        </div>
+    </div>
 
-                                <table border="1" style="width:100%; margin-bottom:20px;">
-                                    <tr>
-                                        <td>
-                                            Name:<br><input type="text" name="supervisor_name"><br>
-                                            Position:<br><input type="text" name="supervisor_position"><br>
-                                            PRC No.:<br><input type="text" name="supervisor_prc"><br>
-                                            TIN:<br><input type="text" name="supervisor_tin"><br>
-                                            Date Assigned:<br><input type="date" name="supervisor_date">
-                                        </td>
-                                    </tr>
-                                </table>
+    <!-- SCOPE OF WORK -->
+    <label class="fw-bold mt-2">Scope of Work</label>
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label><input type="checkbox" name="scope[]" value="New Construction"> New Construction</label><br>
+            <label><input type="checkbox" name="scope[]" value="Erection"> Erection</label><br>
+            <label><input type="checkbox" name="scope[]" value="Addition"> Addition</label><br>
+            <label><input type="checkbox" name="scope[]" value="Alteration"> Alteration</label>
+        </div>
+
+        <div class="col-md-3">
+            <label><input type="checkbox" name="scope[]" value="Renovation"> Renovation</label><br>
+            <label><input type="checkbox" name="scope[]" value="Conversion"> Conversion</label><br>
+            <label><input type="checkbox" name="scope[]" value="Repair"> Repair</label><br>
+            <label><input type="checkbox" name="scope[]" value="Moving"> Moving</label>
+        </div>
+
+        <div class="col-md-3">
+            <label><input type="checkbox" name="scope[]" value="Raising"> Raising</label><br>
+            <label><input type="checkbox" name="scope[]" value="Demolition"> Demolition</label><br>
+            <label>Others: <input type="text" class="form-control form-control-sm" name="scope_others"></label>
+        </div>
+
+        <div class="col-md-3">
+            <label>Accessory Building/Structure:</label>
+            <input type="text" name="scope_accessory" class="form-control form-control-sm">
+        </div>
+    </div>
+</div>
+
+    <!-- SUBMIT BUTTONS -->
+    <div class="mb-3">
+        <a href="{{ route('applicants.permits.unified-application-form-page-2') }}" class="btn btn-secondary py-2">
+            ← Previous
+        </a>
+
+        <a href="}" class="btn btn-primary">
+            Next →
+        </a>
+    </div>
+</form>
+
 
                             </div>
 
