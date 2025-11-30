@@ -211,7 +211,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ $user->avatar ? asset('storage/app/piblic/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
+                                        <img src="{{ $user->avatar ? asset('storage/app/public/' . $user->avatar) : asset('sneat/img/avatars/1.png') }}"
                                             alt class="w-px-120 h-px-120 rounded-circle" />
                                     </div>
 
