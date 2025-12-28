@@ -577,4 +577,30 @@ class ApplicantController extends Controller
         );
     }
 
+
+    public function StructurePermitIndex()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.structural-permit',
+            compact('user'),
+            [
+                'ActiveTabMenu' => 'structural',
+                'SubActiveMenu' => 'form',
+            ]
+        );
+    }
+
+    public function StructurePermitPage2Index()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.structural-permit-page-2',
+            compact('user'),
+            [
+                'ActiveTabMenu' => 'structural',
+                'SubActiveMenu' => 'form'
+            ]
+        );
+    }
 }

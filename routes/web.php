@@ -157,6 +157,8 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::get('/approved', [ApplicantController::class, 'approvedPermitsIndex'])->name('view-approved-permits');
     Route::get('/unified-form', [ApplicantController::class, 'unifiedFormIndex'])->name('unified-application-form');
     Route::get('unified-form-page-2', [ApplicantController::class, 'unifiedFormIndexPage2'])->name('unified-application-form-page-2');
+    Route::get('/structural-permit', [ApplicantController::class, 'StructurePermitIndex'])->name('structural-permit');
+    Route::get('/structural-permit-page-2', [ApplicantController::class, 'StructurePermitPage2Index'])->name('structural-permit-page-2');
   });
 
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {
