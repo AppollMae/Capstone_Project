@@ -39,23 +39,23 @@
           </a>
 
           <ul class="menu-sub">
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                 <div data-i18n="Without menu">Draft</div>
               </a>
-            </li>
+            </li> -->
             <li class="menu-item">
               <a href="{{ route('applicants.drafts.pending-draft') }}" class="menu-link">
-                <div data-i18n="Without navbar">Pending</div>
+                <div data-i18n="Without navbar">Process</div>
               </a>
             </li>
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="{{ route('applicants.under-reviews.view-under-review') }}" class="menu-link">
                 <div data-i18n="Without navbar">Under Review</div>
               </a>
-            </li>
+            </li> -->
 
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="{{ route('applicants.permits.view-approved-permits') }}" class="menu-link">
                 <div data-i18n="Without navbar">Approve</div>
               </a>
@@ -69,7 +69,7 @@
               <a href="" class="menu-link">
                 <div data-i18n="Without navbar">Receipts or permits</div>
               </a>
-            </li>
+            </li> -->
           </ul>
         </li>
         <li class="menu-item">
@@ -413,21 +413,21 @@
                           <i class="fa-solid fa-folder-open me-1"></i> My Applications
                         </button>
                         <ul class="dropdown-menu w-100">
-                          <li>
+                          <!-- <li>
                             <a class="dropdown-item" href="{{ route('applicants.drafts.view-drafts') }}">
                               <i class="fa-regular fa-file-lines me-1"></i> Draft
                             </a>
-                          </li>
+                          </li> -->
                           <li>
                             <a class="dropdown-item" href="{{ route('applicants.drafts.pending-draft') }}">
-                              <i class="fa-solid fa-hourglass-half me-1"></i> Pending
+                              <i class="fa-solid fa-hourglass-half me-1"></i> Process
                             </a>
                           </li>
-                          <li>
+                          <!-- <li>
                             <a class="dropdown-item" href="{{ route('applicants.under-reviews.view-under-review') }}">
                               <i class="fa-solid fa-bars-progress me-1"></i> Under Review
                             </a>
-                          </li>
+                          </li> -->
                         </ul>
                       </div>
 

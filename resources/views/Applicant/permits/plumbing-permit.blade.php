@@ -71,14 +71,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item {{ $ActiveTabMenu === 'structural' ? 'active' : '' }}">
+                <li class="menu-item {{ $ActiveTabMenu  === 'plumbing' ? 'active' : ''}}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-ticket"></i>
                         <div data-i18n="Layouts">Apply for Permit</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveMenu === 'form' ? 'active' : '' }}">
+                        <li class="menu-item {{ $SubActiveTab === 'permit' ? 'active' : ''}}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Apply Now</div>
                             </a>
@@ -323,6 +323,7 @@
                                 <!-- Permit Application Form -->
                                 <div class="container-xxl mt-4">
 
+                                    {{-- HEADER --}}
                                     <div class="position-relative text-center mb-3 py-2">
 
                                         <!-- Responsive Logo -->
@@ -335,160 +336,178 @@
                                             <span class="d-block">Municipality of Bontoc</span>
                                             <span class="d-block">Province of Southern Leyte</span>
                                             <span class="d-block mt-2 fs-4">
-                                                CIVIL/STRUCTURAL PERMIT
+                                                PLUMBING PERMIT
                                             </span>
                                         </h4>
                                     </div>
 
-                                    <form method="POST" action="">
+                                    <hr class="my-0 mb-3">
+
+                                    <form action="" method="POST">
                                         @csrf
 
-                                        <!-- BOX 7 -->
-                                        <div class="border p-3 rounded mb-4">
-                                            <h5 class="fw-bold mb-3 text-center text-md-start">
-                                                BOX 7 — TO BE ACCOMPLISHED BY THE PROCESSING AND EVALUATION DIVISION
-                                            </h5>
+                                        <div class="container-fluid">
 
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Received By:</label>
-                                                    <input type="text" class="form-control" name="received_by">
+                                            {{-- PERMIT NUMBERS --}}
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Application No.</label>
+                                                    <input type="text" class="form-control" name="application_no">
                                                 </div>
-
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Date:</label>
-                                                    <input type="date" class="form-control" name="received_date">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">PP No.</label>
+                                                    <input type="text" class="form-control" name="pp_no">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Building Permit No.</label>
+                                                    <input type="text" class="form-control" name="building_permit_no">
                                                 </div>
                                             </div>
 
-                                            <label class="fw-bold mt-3 d-block">FIVE (5) SETS OF CIVIL/STRUCTURAL DOCUMENTS</label>
+                                            {{-- BOX 1 --}}
+                                            <div class="border p-3 mb-4">
+                                                <h6 class="fw-bold">BOX 1 (To be accomplished by the Owner / Applicant)</h6>
 
-                                            <div class="row g-3">
-
-                                                <div class="col-12 col-md-6 col-lg-3">
-                                                    <label class="d-block">
-                                                        <input type="checkbox" name="documents[]" value="Civil/Structural Design Computations, Plans and Specifications">
-                                                        Civil/Structural Design Computations, Plans & Specifications
-                                                    </label>
+                                                <div class="row g-3">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Last Name</label>
+                                                        <input type="text" class="form-control" name="last_name">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">First Name</label>
+                                                        <input type="text" class="form-control" name="first_name">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">M.I.</label>
+                                                        <input type="text" class="form-control" name="middle_initial">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="form-label">TIN</label>
+                                                        <input type="text" class="form-control" name="tin">
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-12 col-md-6 col-lg-3">
-                                                    <label class="d-block">
-                                                        <input type="checkbox" name="documents[]" value="Bill of Materials">
-                                                        Bill of Materials
-                                                    </label>
+                                                <div class="row g-3 mt-2">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Form of Ownership</label>
+                                                        <input type="text" class="form-control" name="ownership">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Use or Character of Occupancy</label>
+                                                        <input type="text" class="form-control" name="occupancy">
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-12 col-md-6 col-lg-3">
-                                                    <label class="d-block">
-                                                        <input type="checkbox" name="documents[]" value="Cost Estimates">
-                                                        Cost Estimates
-                                                    </label>
+                                                <div class="row g-3 mt-2">
+                                                    <div class="col-md-8">
+                                                        <label class="form-label">Address</label>
+                                                        <input type="text" class="form-control" name="address">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Telephone No.</label>
+                                                        <input type="text" class="form-control" name="telephone">
+                                                    </div>
                                                 </div>
-
-                                                <div class="col-12 col-md-6 col-lg-3">
-                                                    <label>Others (Specify):</label>
-                                                    <input type="text" class="form-control form-control-sm" name="documents_others">
-                                                </div>
-
                                             </div>
+
+                                            {{-- SCOPE OF WORK --}}
+                                            <div class="border p-3 mb-4">
+                                                <h6 class="fw-bold">Scope of Work</h6>
+
+                                                <div class="row">
+                                                    @foreach([
+                                                    'New Construction','Erection','Addition','Alteration',
+                                                    'Renovation','Conversion','Repair','Moving',
+                                                    'Raising','Demolition','Accessory Building/Structure'
+                                                    ] as $scope)
+                                                    <div class="col-sm-6 col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="scope[]" value="{{ $scope }}">
+                                                            <label class="form-check-label">{{ $scope }}</label>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+
+                                                <div class="mt-2">
+                                                    <label class="form-label">Others (Specify)</label>
+                                                    <input type="text" class="form-control" name="scope_others">
+                                                </div>
+                                            </div>
+
+                                            {{-- BOX 2 --}}
+                                            <div class="border p-3 mb-4">
+                                                <h6 class="fw-bold">BOX 2 – Fixtures to be Installed</h6>
+
+                                                <div class="row">
+                                                    @foreach([
+                                                    'Water Closet','Floor Drain','Lavatory','Kitchen Sink',
+                                                    'Faucet','Shower Head','Water Meter','Grease Trap',
+                                                    'Bath Tub','Slop Sink','Urinal','Water Tank/Reservoir'
+                                                    ] as $fixture)
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" name="fixtures[]" value="{{ $fixture }}">
+                                                            <label class="form-check-label">{{ $fixture }}</label>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+
+                                            {{-- BOX 3 & 4 --}}
+                                            <div class="row g-4 mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="border p-3 h-100">
+                                                        <h6 class="fw-bold">BOX 3 – Design Professional</h6>
+                                                        <input type="text" class="form-control mb-2" placeholder="Master Plumber Name" name="designer_name">
+                                                        <input type="text" class="form-control mb-2" placeholder="PRC No." name="designer_prc">
+                                                        <input type="text" class="form-control mb-2" placeholder="PTR No." name="designer_ptr">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="border p-3 h-100">
+                                                        <h6 class="fw-bold">BOX 4 – Supervisor / In-Charge</h6>
+                                                        <input type="text" class="form-control mb-2" placeholder="Master Plumber Name" name="supervisor_name">
+                                                        <input type="text" class="form-control mb-2" placeholder="PRC No." name="supervisor_prc">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{-- BOX 5 & 6 --}}
+                                            <div class="row g-4 mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="border p-3 h-100">
+                                                        <h6 class="fw-bold">BOX 5 – Building Owner</h6>
+                                                        <input type="text" class="form-control" placeholder="Signature Over Printed Name" name="owner_signature">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="border p-3 h-100">
+                                                        <h6 class="fw-bold">BOX 6 – With My Consent (Lot Owner)</h6>
+                                                        <input type="text" class="form-control" placeholder="Signature Over Printed Name" name="lot_owner_signature">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{-- SUBMIT --}}
+                                            <!-- <div class="text-end mb-5">
+                                                <button type="submit" class="btn btn-primary px-5">
+                                                    Submit Plumbing Permit
+                                                </button>
+                                            </div> -->
+
                                         </div>
-
-
-                                        <!-- BOX 8 -->
-                                        <div class="border p-3 rounded mb-4">
-
-                                            <h5 class="fw-bold text-center text-md-start">BOX 8 — PROGRESS FLOW</h5>
-
-                                            <!-- Responsive table wrapper -->
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered text-center align-middle">
-                                                    <thead>
-                                                        <tr>
-                                                            <th rowspan="2" style="min-width: 150px;">Division</th>
-                                                            <th colspan="2">IN</th>
-                                                            <th colspan="2">OUT</th>
-                                                            <th rowspan="2" style="min-width: 150px;">Processed By</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Date</th>
-                                                            <th>Time</th>
-                                                            <th>Date</th>
-                                                            <th>Time</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Civil/Structural</td>
-                                                            <td><input type="date" class="form-control" name="civil_in_date"></td>
-                                                            <td><input type="time" class="form-control" name="civil_in_time"></td>
-                                                            <td><input type="date" class="form-control" name="civil_out_date"></td>
-                                                            <td><input type="time" class="form-control" name="civil_out_time"></td>
-                                                            <td><input type="text" class="form-control" name="civil_processed_by"></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>Others</td>
-                                                            <td><input type="date" class="form-control" name="other_in_date"></td>
-                                                            <td><input type="time" class="form-control" name="other_in_time"></td>
-                                                            <td><input type="date" class="form-control" name="other_out_date"></td>
-                                                            <td><input type="time" class="form-control" name="other_out_time"></td>
-                                                            <td><input type="text" class="form-control" name="other_processed_by"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- BOX 9 -->
-                                        <div class="border p-3 rounded mb-4">
-                                            <h5 class="fw-bold text-center text-md-start">BOX 9 — ACTION TAKEN</h5>
-
-                                            <p class="fw-bold">PERMIT IS HEREBY ISSUED SUBJECT TO THE FOLLOWING:</p>
-
-                                            <ol class="small" style="text-align: justify;">
-                                                <li>
-                                                    That under Article 1723 of the Civil Code of the Philippines, the engineer (or architect)
-                                                    who drew up the plans is responsible for damages if within fifteen (15) years from completion,
-                                                    the building collapses due to defects in plans or ground.
-                                                </li>
-                                                <li>
-                                                    That the proposed civil/structural works shall conform to the latest structural code and the National Building Code.
-                                                </li>
-                                                <li>
-                                                    That a prescribed "Notice of Construction" shall be submitted before any activity.
-                                                </li>
-                                                <li>
-                                                    That upon completion, a certificate of completion and as-built plans shall be submitted.
-                                                </li>
-                                                <li>
-                                                    That this permit is null and void unless accompanied by the building permit.
-                                                </li>
-                                            </ol>
-
-                                            <div class="row g-3 mt-3">
-                                                <div class="col-md-6">
-                                                    <label class="fw-bold">Permit Issued By:</label>
-                                                    <input type="text" class="form-control" name="permit_issued_by">
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Date:</label>
-                                                    <input type="date" class="form-control" name="permit_issued_date">
-                                                </div>
-                                            </div>
-                                        </div>
-
 
                                         <!-- BUTTONS -->
                                         <div class="mb-3">
-                                            <a href="{{ route('applicants.permits.structural-permit') }}" class="btn btn-secondary py-2">
+                                            <a href="{{ route('applicants.permits.architectural-permit-page-2') }}" class="btn btn-secondary py-2">
                                                 ← Previous
                                             </a>
 
-                                            <a href="{{ route('applicants.permits.architectural-permit') }}" class="btn btn-primary">
+                                            <a href="" class="btn btn-primary">
                                                 Next →
                                             </a>
                                         </div>

@@ -603,4 +603,43 @@ class ApplicantController extends Controller
             ]
         );
     }
+
+    public function ArchitecturalPermitIndex()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.architectural-permit',
+            compact('user'),
+            [
+                'ActiveMenuTab' => 'architectural',
+                'SubMenuTab' => 'permit'
+            ]
+        );
+    }
+
+    public function ArchitecturalPermitIndex2()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.architectural-permit-page-2',
+            compact('user'),
+            [
+                'ActiveMenuTab' => 'page-2',
+                'SubActiveTab' => 'architectural'
+            ]
+        );
+    }
+
+    public function PlumbingPermitIndex()
+    {
+        $user = Auth::user();
+        return view(
+            'Applicant.permits.plumbing-permit',
+            compact('user'),
+            [
+                'ActiveTabMenu' => 'plumbing',
+                'SubActiveTab' => 'permit'
+            ]
+        );
+    }
 }
