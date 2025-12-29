@@ -642,4 +642,14 @@ class ApplicantController extends Controller
             ]
         );
     }
+
+    public function PlumbingPermitIndexPage2(){
+        $user = Auth::user();
+        return view('Applicant.permits.plumbing-permit-page-2', compact('user'),
+        [
+            'ActiveTabMenu' => 'page 2',
+            'SubActiveTab' => 'plumbing'
+        ]
+    );
+    }
 }

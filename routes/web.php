@@ -162,6 +162,7 @@ Route::group(['middleware' => ['auth', 'ifUsers'], 'prefix' => 'users'], functio
     Route::get('/architectural-permit', [ApplicantController::class,'ArchitecturalPermitIndex'])->name('architectural-permit');
     Route::get('/architectural-permit-page-2', [ApplicantController::class,'ArchitecturalPermitIndex2'])->name('architectural-permit-page-2');
     Route::get('/plumbing-permit', [ApplicantController::class,'PlumbingPermitIndex'])->name('plumbing-permit');
+    Route::get('/plumbing-permit-page-2', [ApplicantController::class, 'PlumbingPermitIndexPage2'])->name('plumbing-permit-page-2');
   });
 
   Route::prefix('draft')->name('applicants.drafts.')->group(function () {

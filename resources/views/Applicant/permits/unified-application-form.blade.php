@@ -39,7 +39,7 @@
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item">
+                            <!-- <li class="menu-item">
                                 <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                                     <div data-i18n="Without menu">Draft</div>
                                 </a>
@@ -48,13 +48,13 @@
                                 <a href="{{ route('applicants.under-reviews.view-under-review') }}" class="menu-link">
                                     <div data-i18n="Without navbar">Under Review</div>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="menu-item">
                                 <a href="{{ route('applicants.drafts.pending-draft') }}" class="menu-link">
-                                    <div data-i18n="Without navbar">Pending</div>
+                                    <div data-i18n="Without navbar">Process</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <!-- <li class="menu-item">
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without navbar">Approve</div>
                                 </a>
@@ -68,7 +68,7 @@
                                 <a href="" class="menu-link">
                                     <div data-i18n="Without navbar">Receipts or permits</div>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <li class="menu-item {{ $ActiveTabMenu === 'unified_app' ? 'active' : '' }}">

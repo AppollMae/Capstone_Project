@@ -43,8 +43,8 @@
                             <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                                 <div data-i18n="Without menu">Draft</div>
                             </a>
-                        </li>
-                        <li class="menu-item">
+                        </li> -->
+                        <!-- <li class="menu-item">
                             <a href="{{ route('applicants.under-reviews.view-under-review') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Under Review</div>
                             </a>
@@ -71,14 +71,14 @@
                         </li> -->
                     </ul>
                 </li>
-                <li class="menu-item {{ $ActiveMenuTab  === 'page-2' ? 'active' : ''}}">
+                <li class="menu-item {{ $ActiveTabMenu === 'page 2' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-ticket"></i>
                         <div data-i18n="Layouts">Apply for Permit</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'architectural' ? 'active' : ''}}">
+                        <li class="menu-item {{ $SubActiveTab === 'plumbing' ? 'active' : '' }}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Apply Now</div>
                             </a>
@@ -336,7 +336,7 @@
                                             <span class="d-block">Municipality of Bontoc</span>
                                             <span class="d-block">Province of Southern Leyte</span>
                                             <span class="d-block mt-2 fs-4">
-                                                ARCHITECTURAL - PERMIT
+                                                PLUMBING PERMIT
                                             </span>
                                         </h4>
                                     </div>
@@ -346,177 +346,180 @@
                                     <form action="" method="POST">
                                         @csrf
 
-                                        {{-- ===================== --}}
-                                        {{-- BOX 7 --}}
-                                        {{-- ===================== --}}
-                                        <div class="border p-3 mb-4">
-                                            <h6 class="fw-bold text-uppercase">
-                                                To be accomplished by the Processing and Evaluation Division
-                                            </h6>
+                                        <div class="container my-4">
 
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Received By</label>
-                                                    <input type="text" class="form-control" name="received_by">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Date</label>
-                                                    <input type="date" class="form-control" name="received_date">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+
+                                                    <h6 class="text-center fw-bold mb-3">
+                                                        TO BE ACCOMPLISHED BY THE PROCESSING AND EVALUATION DIVISION
+                                                    </h6>
+
+                                                    {{-- BOX 7 --}}
+
+                                                    <div class="border p-3 mb-3">
+
+                                                        <!-- BOX 7 TITLE -->
+                                                        <div class="mb-2">
+                                                            <label class="fw-bold">BOX 7</label>
+                                                        </div>
+
+                                                        <!-- RECEIVED BY & DATE -->
+                                                        <div class="row gy-3 align-items-center mb-3">
+
+                                                            <!-- RECEIVED BY -->
+                                                            <div class="col-12 col-md-6">
+                                                                <label class="fw-bold d-block">RECEIVED BY:</label>
+                                                                <input type="text" class="form-control form-control-sm w-100">
+                                                            </div>
+
+                                                            <!-- DATE -->
+                                                            <div class="col-12 col-md-6 d-flex flex-column flex-md-row align-items-md-center justify-content-md-end gap-2">
+                                                                <label class="fw-bold mb-0">DATE:</label>
+                                                                <input type="date" class="form-control form-control-sm w-100 w-md-auto">
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!-- DOCUMENTS TITLE -->
+                                                        <div class="mb-2">
+                                                            <strong>FIVE (5) SETS OF PLUMBING DOCUMENTS</strong>
+                                                        </div>
+
+                                                        <!-- CHECKLIST -->
+                                                        <div class="row gy-2">
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="plan">
+                                                                    <label class="form-check-label" for="plan">
+                                                                        Plumbing Plans and Specifications
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="bom">
+                                                                    <label class="form-check-label" for="bom">
+                                                                        Bill of Materials
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="cost">
+                                                                    <label class="form-check-label" for="cost">
+                                                                        Cost Estimates
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="form-check d-flex flex-wrap align-items-center gap-2">
+                                                                    <input class="form-check-input" type="checkbox" id="others">
+                                                                    <label class="form-check-label mb-0" for="others">
+                                                                        Others (Specify):
+                                                                    </label>
+                                                                    <input type="text" class="form-control form-control-sm flex-grow-1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    {{-- BOX 8 --}}
+                                                    <div class="border p-3 mb-3">
+                                                        <label class="fw-bold">BOX 8</label>
+                                                        <div class="table-responsive mt-2">
+                                                            <table class="table table-bordered text-center align-middle">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th rowspan="2">PROGRESS FLOW</th>
+                                                                        <th colspan="2">IN</th>
+                                                                        <th colspan="2">OUT</th>
+                                                                        <th rowspan="2">PROCESSED BY</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>DATE</th>
+                                                                        <th>TIME</th>
+                                                                        <th>DATE</th>
+                                                                        <th>TIME</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>RECEIVING AND RECORDING</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>PLUMBING</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>OTHERS (Specify)</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- BOX 9 --}}
+                                                    <div class="border p-3">
+                                                        <label class="fw-bold">BOX 9</label>
+
+                                                        <p class="mt-3 fw-bold">ACTION TAKEN:</p>
+
+                                                        <p class="fw-bold">PERMIT IS HEREBY ISSUED SUBJECT TO THE FOLLOWING:</p>
+
+                                                        <ol>
+                                                            <li>
+                                                                That the proposed plumbing works shall be in accordance with the plumbing plans filed with this Office and in conformity with the Revised Plumbing Code of the Philippines, the National Building Code and its IRR.
+                                                            </li>
+                                                            <li>
+                                                                That prior to any commencement of plumbing works, a duly accomplished prescribed “Notice of Construction” shall be submitted to the Office of the Building Official.
+                                                            </li>
+                                                            <li>
+                                                                That upon completion of the plumbing works, the licensed supervisor-in-charge shall submit the entry to the logbook duly signed and sealed to the building official including as-built plans and other documents and shall also accomplish the Certificate of Completion stating that the plumbing works of the building conform to the provisions of the Revised Plumbing Code, the National Building Code and its IRR.
+                                                            </li>
+                                                            <li>
+                                                                That this permit is null and void unless accompanied by the building permit.
+                                                            </li>
+                                                        </ol>
+
+                                                        <div class="mt-4 text-center">
+                                                            <strong>PERMIT ISSUED BY:</strong>
+                                                            <br><br>
+                                                            <strong>ANTONINO B. MANCIO</strong><br>
+                                                            <small>BUILDING OFFICIAL</small><br>
+                                                            <small>(Signature Over Printed Name)</small><br>
+                                                            <small>Date: _____________</small>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
 
-                                            <h6 class="fw-bold mt-3">BOX 7 – Five (5) Sets of Architectural Documents</h6>
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    @php
-                                                    $docsLeft = [
-                                                    'Vicinity Map / Location Plan (within 1–2 km radius)',
-                                                    'Site Development Plan',
-                                                    'Perspective',
-                                                    'Floor Plans',
-                                                    'Elevations (at least four)',
-                                                    'Sections (at least two)',
-                                                    'Ceiling Plans showing lighting fixtures and diffusers',
-                                                    ];
-                                                    @endphp
-
-                                                    @foreach ($docsLeft as $doc)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="documents[]" value="{{ $doc }}">
-                                                        <label class="form-check-label">{{ $doc }}</label>
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    @php
-                                                    $docsRight = [
-                                                    'Details of Ramps, Parking for the Disabled, Stairs',
-                                                    'Fire Escapes, Cabinets and Partitions',
-                                                    'Schedule of Doors and Windows',
-                                                    'Schedule of Finishes for Floors, Ceilings and Walls',
-                                                    'Architectural Interior',
-                                                    'Specifications',
-                                                    'Cost Estimate',
-                                                    ];
-                                                    @endphp
-
-                                                    @foreach ($docsRight as $doc)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="documents[]" value="{{ $doc }}">
-                                                        <label class="form-check-label">{{ $doc }}</label>
-                                                    </div>
-                                                    @endforeach
-
-                                                    <div class="mt-2">
-                                                        <label class="form-label">Others (Specify)</label>
-                                                        <input type="text" class="form-control" name="documents_others">
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-
-                                        {{-- ===================== --}}
-                                        {{-- BOX 8 --}}
-                                        {{-- ===================== --}}
-                                        <div class="border p-3 mb-4">
-                                            <h6 class="fw-bold">BOX 8 – Progress Flow</h6>
-
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered text-center align-middle">
-                                                    <thead>
-                                                        <tr>
-                                                            <th rowspan="2">Office / Section</th>
-                                                            <th colspan="2">IN</th>
-                                                            <th colspan="2">OUT</th>
-                                                            <th rowspan="2">Processed By</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Date</th>
-                                                            <th>Time</th>
-                                                            <th>Date</th>
-                                                            <th>Time</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (['Architectural Drawings', 'Specifications', 'Others (Specify)'] as $row)
-                                                        <tr>
-                                                            <td>{{ $row }}</td>
-                                                            <td><input type="date" class="form-control"></td>
-                                                            <td><input type="time" class="form-control"></td>
-                                                            <td><input type="date" class="form-control"></td>
-                                                            <td><input type="time" class="form-control"></td>
-                                                            <td><input type="text" class="form-control"></td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                        {{-- ===================== --}}
-                                        {{-- BOX 9 --}}
-                                        {{-- ===================== --}}
-                                        <div class="border p-3 mb-4">
-                                            <h6 class="fw-bold">BOX 9 – Action Taken</h6>
-
-                                            <p class="fw-semibold mt-3">
-                                                Permit is hereby issued subject to the following:
-                                            </p>
-
-                                            <ol class="small">
-                                                <li>
-                                                    That under Article 1723 of the Civil Code of the Philippines, the architect
-                                                    (and engineer) who drew up the plans and specifications for the building
-                                                    shall be responsible for damages if within fifteen (15) years from
-                                                    completion, the building collapses due to defects.
-                                                </li>
-                                                <li>
-                                                    That the proposed architectural works shall be in accordance with the
-                                                    approved architectural plans and in conformity with the latest
-                                                    Architectural Code of the Philippines and the National Building Code.
-                                                </li>
-                                                <li>
-                                                    That prior to any construction activity, a duly accomplished
-                                                    <strong>Notice of Construction</strong> shall be submitted to the Office
-                                                    of the Building Official.
-                                                </li>
-                                                <li>
-                                                    That upon completion, the licensed full-time inspector or supervisor shall
-                                                    submit the Certificate of Completion and as-built plans.
-                                                </li>
-                                                <li>
-                                                    That this permit is null and void unless accompanied by the building permit.
-                                                </li>
-                                            </ol>
-
-                                            <div class="mt-4 text-center">
-                                                <p class="fw-bold mb-1">PERMIT ISSUED BY:</p>
-                                                <h6 class="fw-bold mt-3">ANTONINO B. MANCIO</h6>
-                                                <p class="mb-1">Building Official</p>
-
-                                                <div class="row justify-content-center mt-3">
-                                                    <div class="col-md-4">
-                                                        <label class="form-label">Signature over Printed Name</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label class="form-label">Date</label>
-                                                        <input type="date" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
 
                                         <!-- BUTTONS -->
                                         <div class="mb-3">
-                                            <a href="{{ route('applicants.permits.architectural-permit') }}" class="btn btn-secondary py-2">
+                                            <a href="{{ route('applicants.permits.plumbing-permit') }}" class="btn btn-secondary py-2">
                                                 ← Previous
                                             </a>
 
-                                            <a href="{{ route('applicants.permits.plumbing-permit') }}" class="btn btn-primary">
+                                            <a href="" class="btn btn-primary">
                                                 Next →
                                             </a>
                                         </div>
