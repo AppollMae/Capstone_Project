@@ -39,23 +39,23 @@
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item ">
+                        <!-- <li class="menu-item ">
                             <a href="{{ route('applicants.drafts.view-drafts') }}" class="menu-link">
                                 <div data-i18n="Without menu">Draft</div>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="menu-item {{ $SubActiveTab === 'permit' ? 'active' : '' }}">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Pending</div>
+                                <div data-i18n="Without navbar">Process</div>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <!-- <li class="menu-item">
                             <a href="{{ route('applicants.under-reviews.view-under-review') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Under Review</div>
                             </a>
-                        </li>
+                        </li> -->
 
-                        <li class="menu-item">
+                        <!-- <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Approve</div>
                             </a>
@@ -69,7 +69,7 @@
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">Receipts or permits</div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
                 <li class="menu-item">
@@ -385,10 +385,23 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#filesModal{{ $draft->id }}">
                                                                     <i class="fa-solid fa-file"></i> <!-- file icon from Bootstrap Icons -->
-                                                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                                    <span
+                                                                        class="position-absolute top-0 start-100 translate-middle d-flex align-items-center justify-content-center"
+                                                                        style="
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        background-color: #dc3545;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 999px;
+        line-height: 1;
+    ">
                                                                         {{ $filesCount }}
                                                                         <span class="visually-hidden">files</span>
                                                                     </span>
+
                                                                 </button>
 
                                                                 @else
